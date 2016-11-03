@@ -33,6 +33,9 @@ public class UcMembersOperationSVImpl implements IUcMembersOperationSV {
 	private IUcMembersOperationBusinessService iUcMembersOperationBusinessService;
 
 
+	/**
+	 * 操作码生成
+	 */
 	@Override
 	public UcMembersGetOperationcodeResponse ucGetOperationcode(UcMembersGetOperationcodeRequest request)
 			throws BusinessException, SystemException {

@@ -17,10 +17,6 @@ public final class CommonSeqUtil {
     private CommonSeqUtil(){
     }
 
-     
-     public static String getAreaCode() {    	 
-         return SeqUtil.getNewId(Constants.SEQ.AREA_CODE_SEQ).toString();
-     }
 
     
 }

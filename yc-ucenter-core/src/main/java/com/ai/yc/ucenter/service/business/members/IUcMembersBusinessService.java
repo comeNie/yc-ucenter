@@ -11,13 +11,14 @@ import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterRequest;
+import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterResponse;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
 
 public interface IUcMembersBusinessService {
 
 	UcMembersLoginResponse loginMember(UcMembersLoginRequest request);
 
-	UcMembersLoginResponse insertMember(UcMembersRegisterRequest request);
+	UcMembersRegisterResponse insertMember(UcMembersRegisterRequest request);
 
 	UcMembersGetResponse getMember(UcMembersGetRequest request);
 

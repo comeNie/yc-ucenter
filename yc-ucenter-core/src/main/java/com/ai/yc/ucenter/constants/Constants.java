@@ -9,96 +9,44 @@ public final class Constants {
         // non
     }
 
-    public final static class TenantId {
-        private TenantId() {
+    /**
+     * 注册方式
+     * to  UcMembersServiceAtomImpl.getUsername
+     * @author Administrator
+     *
+     */
+    public final static class LoginWayConstant {
+        private LoginWayConstant() {
         }
 
-        public final static String ALL_TENANT = "ALL";
+        //邮箱密码
+        public final static String EMAIL_PASS = "1";
+        //手机密码
+        public final static String MOBILE_PASS = "2";     
+        //手机动态密码 
+        public final static String MOBILE_DYNA = "3";     
+        //用户名密码
+        public final static String USER_PASS = "4";     
+        
+        
     }
 
-    public final static class StaffState {
-        private StaffState() {
+    /**
+     * 操作码生成 移动电话/邮件
+     * to  UcMembersBusinessService.insertMember
+     * @author Administrator
+     *
+     */
+    public final static class UserInfoConstant {
+        private UserInfoConstant() {
         }
 
-        public final static String ONLINE = "1";
-
-        public final static String OFFLINE = "0";
-    }
-
-    public final static class DepartState {
-        private DepartState() {
-        }
-
-        public final static String ACTIVITY = "1";
-
-        public final static String INACTIVITY = "0";
-    }
-
-    public final static class AreaState {
-        private AreaState() {
-        }
-
-        public final static String ACTIVITY = "1";
-
-        public final static String INACTIVITY = "0";
-    }
-
-    public final static class DepartLevel {
-        private DepartLevel() {
-        }
-
-        // 全国对应的部门级别
-        public final static String NATION = "0";
-
-        // 省级对应的部门级别
-        public final static String PROVINCE = "1";
-
-        // 市级对应的部门级别
-        public final static String CITY = "2";
-
-        // 区域对应的部门级别
-        public final static String AREA = "3";
-
-        // 全国默认地区代码
-        public final static String NATION_CODE = "00";
-
-        // 默认省级地区代码
-        public final static String PROVINCE_CODE = "000";
-    }
-
-    public final static class GnSubject {
-        private GnSubject() {
-        }
-
-        public final static class SubjectType {
-            private SubjectType() {
-            }
-
-            // 科目类型，资金科目
-            public final static String FUND = "9";
-        }
-
-        // 所有行业0
-        public final static String ALL_INDUSTRY = "0";
-    }
-
-    public final static class ErrorCode {
-        private ErrorCode() {
-        }
-
-        public static final String RESULT_NULL_ERROR = "10001";
-
-        public static final String RESULT_ERROR = "10002";
-    }
-
-    public final static class SEQ {
-        private SEQ() {
-        }
-
-        public static final String DEPART_ID_SEQ = "GN_DEPART$DEPART_ID$SEQ";
-
-        public static final String STAFF_ID_SEQ = "GN_STAFF$STAFF_ID$SEQ";
-
-        public static final String AREA_CODE_SEQ = "GN_AREA$AREA_CODE$SEQ";
+        //邮箱
+        public final static String EMAIL_INFO= "1";
+        //手机
+        public final static String MOBILE_INFO = "2";     
+ 
+        
+        
     }
 }

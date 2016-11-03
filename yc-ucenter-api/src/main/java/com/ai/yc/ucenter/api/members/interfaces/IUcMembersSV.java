@@ -19,6 +19,7 @@ import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterRequest;
+import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterResponse;
 
 /**
  * Ucenter用户查询服务<br>
@@ -53,8 +54,8 @@ public interface IUcMembersSV {
      * <p/>
      *
      *
-     * @param condition
-     * @return
+     * @param UcMembersRegisterRequest
+     * @return UcMembersLoginResponse
      * @throws BusinessException,SystemException
      * @ApiDocMethod
      * @ApiCode UC_0002
@@ -62,7 +63,7 @@ public interface IUcMembersSV {
 	 */
 	@POST
 	@Path("/ucRegisterMember")
-	UcMembersLoginResponse ucRegisterMember(UcMembersRegisterRequest request) throws BusinessException,SystemException;
+	UcMembersRegisterResponse ucRegisterMember(UcMembersRegisterRequest request) throws BusinessException,SystemException;
 	   /**
      * 获取用户信息
      * <p/>

@@ -19,6 +19,7 @@ import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterRequest;
+import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterResponse;
 import com.ai.yc.ucenter.service.business.members.IUcMembersBusinessService;
 import com.alibaba.dubbo.config.annotation.Service;
 
@@ -36,7 +37,7 @@ public class UcMembersSVImpl implements IUcMembersSV {
 	}
 
 	@Override
-	public UcMembersLoginResponse ucRegisterMember(UcMembersRegisterRequest request)
+	public UcMembersRegisterResponse ucRegisterMember(UcMembersRegisterRequest request)
 			throws BusinessException, SystemException {
 	
 		return iUcMembersBusinessService.insertMember(request);

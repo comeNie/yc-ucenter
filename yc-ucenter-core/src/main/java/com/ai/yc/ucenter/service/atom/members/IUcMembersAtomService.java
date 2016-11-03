@@ -15,7 +15,7 @@ import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
 
 public interface IUcMembersAtomService {
 
-
+ 
 
 	List<UcMembers> loginMember(String username, String passMd5, String loginmode);
 
@@ -27,7 +27,7 @@ public interface IUcMembersAtomService {
 
 	int updateEmail(UcMembersEditEmailRequest request);
 
-	int updatePassword(UcMembersEditPassRequest request);
+	int updatePassword(UcMembers ucMembers);
 
 	int checkEmail(UcMembersCheckEmailRequest request);
 
@@ -36,6 +36,8 @@ public interface IUcMembersAtomService {
 
 
 	UcMembers getSalt(UcMembersLoginRequest request) ;
+
+	com.ai.yc.ucenter.dao.mapper.bo.UcMembers getUcMembersbyUid(Integer uid);
  
     
 }

@@ -1,6 +1,10 @@
 package com.ai.yc.ucenter.api.members.param.register;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.ai.opt.base.vo.BaseInfo;
+import com.ai.opt.validator.constraints.MobilePhone;
 
 public class UcMembersRegisterRequest extends BaseInfo implements Cloneable{
 	
@@ -13,10 +17,12 @@ public class UcMembersRegisterRequest extends BaseInfo implements Cloneable{
     /**
      * 移动电话（可用于登录）
      */
+    @MobilePhone
     private String mobilephone;
     /**
      * 邮箱
      */
+    @Email
     private String email;
     /**
      * 密码
@@ -26,6 +32,7 @@ public class UcMembersRegisterRequest extends BaseInfo implements Cloneable{
     /**
      * 注册IP
      */
+    @NotBlank
     private String regip;
     
     /**
@@ -37,6 +44,7 @@ public class UcMembersRegisterRequest extends BaseInfo implements Cloneable{
 		4：腾讯用户qq
 		5：新浪用户sina
      */
+    @NotBlank
     private String usersource;
     
     /**
@@ -53,6 +61,7 @@ public class UcMembersRegisterRequest extends BaseInfo implements Cloneable{
 		4：用户名密码
 
      */
+    @NotBlank
     private String loginmode;
     
     /**
@@ -62,12 +71,14 @@ public class UcMembersRegisterRequest extends BaseInfo implements Cloneable{
 		3：手机动态密码
 		4：用户名密码
      */
+    @NotBlank
     private String loginway;
     
     
     /**
      * 创建时间（根据创建时间判断，24小时未激活，删除未激活记录。）年月日时分秒
      */
+    @NotBlank
     private String createtime;
     /**
      * 手机激活码（ 手机+密码方式有值）

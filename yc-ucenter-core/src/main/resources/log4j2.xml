@@ -23,11 +23,11 @@
   <Loggers>
     <logger name="com.ai.runner.utils" level="info" additivity="false">
          <AppenderRef ref="RollingFile" />
-         <AppenderRef ref="STDOUT" />
+         <AppenderRef ref="DEBUG" />
     </logger>
     <logger name="com.ai.runner.sdk" level="info" additivity="false">
          <AppenderRef ref="RollingFile" />
-         <AppenderRef ref="STDOUT" />
+         <AppenderRef ref="DEBUG" />
     </logger>
     <logger name="com.mybatis" additivity="true">
 		<level value="DEBUG" />
@@ -47,7 +47,7 @@
 	<logger name="java.sql.PreparedStatement" additivity="true">
 		<level value="debug" />
 	</logger>    
-    <Root level="error">
+    <Root level="debug">
       <AppenderRef ref="RollingFile" />
       <AppenderRef ref="STDOUT" />
     </Root>

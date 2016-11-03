@@ -3,11 +3,13 @@ package com.ai.yc.ucenter.service.atom.members.impl;
 
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import com.ai.opt.sdk.components.mail.EmailFactory;
 import com.ai.opt.sdk.components.sequence.util.SeqUtil;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
@@ -20,11 +22,13 @@ import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginModeEnum;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterRequest;
+import com.ai.yc.ucenter.constants.Constants;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembersCriteria;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembersCriteria.Criteria;
 import com.ai.yc.ucenter.dao.mapper.factory.MapperFactory;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
+import com.ai.yc.ucenter.util.PasswordMD5Util;
 
 
 @Component
@@ -38,6 +42,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		if(UcMembersLoginModeEnum.EMAILPASS_MODE.equals(loginmode)){
 			criteria.andEmailEqualTo(username);
 			criteria.andPasswordEqualTo(passMd5);
+			
 		}
 		//手机动态密码
 		else if(UcMembersLoginModeEnum.PHONEDYNPASS_MODE.equals(loginmode)){
@@ -61,11 +66,18 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 
 	@Override
 	public String insertMember(UcMembersRegisterRequest request) throws Exception {
-		UcMembers ucMembers = (UcMembers) request.clone();
-		Long newId =SeqUtil.getNewId("SYS$SYSWAITJOBS$ID");
+		UcMembers ucMembers =  new UcMembers();
+		BeanUtils.copyProperties(ucMembers, request);
+		Long newId =SeqUtil.getNewId("SYS$UCMEMBERS$ID");
+		
+		String salt = PasswordMD5Util.getSalt();
+		ucMembers.setSalt(salt);
+		ucMembers.setPassword(PasswordMD5Util.getPassSaltMd5(request.getPassword(),salt));
 
 		ucMembers.setUid(newId.intValue());
-		
+		ucMembers.setUsername(getUsername(request));
+		//未激活
+		ucMembers.setEnablestatus("0");
 		int insertCount = MapperFactory.getUcMembersMapper().insert(ucMembers);
 		if(insertCount>0){
 			return newId.toString();
@@ -75,6 +87,24 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 
 	}
 
+	/**
+	 * 用邮箱或是手机注册的账号，账号的用户名则用邮箱或手机
+	 * @param request
+	 * @return
+	 */
+	private String getUsername(UcMembersRegisterRequest request){
+		StringBuffer username = new StringBuffer();
+		String loginway = request.getLoginway();
+		if(Constants.LoginWayConstant.EMAIL_PASS.equals(loginway)){
+			username.append(request.getEmail());
+		}else if(Constants.LoginWayConstant.MOBILE_DYNA.equals(loginway) || Constants.LoginWayConstant.MOBILE_PASS.equals(loginway)){
+			username.append(request.getMobilephone());
+		}else if(Constants.LoginWayConstant.USER_PASS.equals(loginway)){
+			username.append(request.getUsername());
+		}
+		return username.toString();
+	}
+	
 	@Override
 	public UcMembersGetResponse getMember(UcMembersGetRequest request) {
 		UcMembersGetResponse response = new UcMembersGetResponse();
@@ -122,12 +152,10 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 	}
 
 	@Override
-	public int updatePassword(UcMembersEditPassRequest request) {
+	public int updatePassword(UcMembers ucMembers) {
 		UcMembersCriteria example = new UcMembersCriteria();
 		Criteria criteria = example.createCriteria();
-		criteria.andUidEqualTo(request.getUid());
-		UcMembers ucMembers = new UcMembers();
-		ucMembers.setPassword(request.getNewpw());
+		criteria.andUidEqualTo(ucMembers.getUid());
 		return MapperFactory.getUcMembersMapper().updateByExample(ucMembers, example);
 		
 	}
@@ -187,6 +215,12 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		}
 		return null;
 	
+	}
+
+	@Override
+	public UcMembers getUcMembersbyUid(Integer uid) {
+		// TODO Auto-generated method stub
+		return MapperFactory.getUcMembersMapper().selectByPrimaryKey(uid);
 	}
 
 

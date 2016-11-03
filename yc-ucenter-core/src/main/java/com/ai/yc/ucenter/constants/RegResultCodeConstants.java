@@ -8,6 +8,10 @@ public class RegResultCodeConstants {
      */
 	public static final String SUCCESS_CODE = "1";
 	 /**
+     * 表示用户注册失败
+     */
+	public static final String FAIL_CODE = "0";
+	 /**
      * 用户名不合法
      */
 	public static final String USERNAME_ERROR = "-1";

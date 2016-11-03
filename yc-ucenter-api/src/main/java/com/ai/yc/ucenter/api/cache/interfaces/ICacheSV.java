@@ -26,38 +26,5 @@ import com.ai.yc.ucenter.api.cache.param.SysParamSingleCond;
 @Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
 public interface ICacheSV {
 
-    /**
-     * 获取字典参数列表
-     * @param param
-     * @return
-     * @throws BusinessException
-     * @throws SystemException
-     * @author gucl
-     * @ApiDocMethod
-     * @ApiCode GN_0205
-     * @RestRelativeURL cacheservice/getSysParamList
-	 */
-	@POST
-	@Path("/getSysParamList")
-    public List<SysParam> getSysParamList(SysParamMultiCond param)
-    		throws BusinessException,SystemException;
-
-    
-    /**
-     * 获取单条字典参数
-     * @param param
-     * @return
-     * @throws BusinessException
-     * @throws SystemException
-     * @author gucl
-     * @ApiDocMethod
-     * @ApiCode GN_0206
-     * @RestRelativeURL cacheservice/getSysParamSingle
-	 */
-	@POST
-	@Path("/getSysParamSingle")
-    public SysParam getSysParamSingle(SysParamSingleCond param) throws BusinessException,SystemException;
-
-    
     
 }
