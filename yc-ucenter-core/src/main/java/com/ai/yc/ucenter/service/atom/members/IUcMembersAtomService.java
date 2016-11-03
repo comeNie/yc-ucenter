@@ -21,7 +21,7 @@ public interface IUcMembersAtomService {
 
 	String insertMember(UcMembersRegisterRequest request) throws Exception;
 
-	UcMembersGetResponse getMember(UcMembersGetRequest request);
+	List<UcMembers> getMember(UcMembersGetRequest request);
 
 	int updateMobilephone(UcMembersEditMobileRequest request);
 

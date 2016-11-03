@@ -45,8 +45,26 @@ public final class Constants {
         public final static String EMAIL_INFO= "1";
         //手机
         public final static String MOBILE_INFO = "2";     
- 
-        
-        
+
+    }
+    
+    /**
+     * 获取用户信息返回结果
+     * to  UcMembersBusinessService.insertMember
+     * @author Administrator
+     *
+     */
+    public final static class GetUcMembersResultConstants {
+        private GetUcMembersResultConstants() {
+        }
+
+        //成功
+        public final static String SUCCESS_CODE= "1";
+        //失败
+        public final static String FAIL_CODE = "-1";     
+        //未激活
+        public final static String NO_ACTIV = "-12";     
+        //输入信息不能为空
+        public final static String NOT_EMPTY= "-16";  
     }
 }

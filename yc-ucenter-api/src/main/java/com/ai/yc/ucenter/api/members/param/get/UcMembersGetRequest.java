@@ -1,5 +1,7 @@
 package com.ai.yc.ucenter.api.members.param.get;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.ai.opt.base.vo.BaseInfo;
 
 public class UcMembersGetRequest extends BaseInfo implements Cloneable{
@@ -9,6 +11,7 @@ public class UcMembersGetRequest extends BaseInfo implements Cloneable{
     /**
      * 用户名称
      */
+	@NotBlank
     private String username;
     /**
      * 获取方式
@@ -17,6 +20,7 @@ public class UcMembersGetRequest extends BaseInfo implements Cloneable{
 			3：手机
 			4：用户名
      */
+	@NotBlank
     private String getmode;
     
     

@@ -184,7 +184,36 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 	@Override
 	public UcMembersGetResponse getMember(UcMembersGetRequest request) {
 		UcMembersGetResponse response = new UcMembersGetResponse();
-		return iUcMembersAtomService.getMember(request);
+		
+		try{
+			BeanValidators.validateWithException(validator, request);
+		}catch(ConstraintViolationException ex){
+			List<String> list = BeanValidators.extractPropertyAndMessageAsList(ex, ": ");
+			list.add(0, "数据验证失败：");
+			ResponseHeader responseHeader=new ResponseHeader(false,Constants.GetUcMembersResultConstants.NOT_EMPTY,list.toString());
+			response.setResponseHeader(responseHeader);
+			return response;
+		}
+		
+		
+		List<UcMembers> list = iUcMembersAtomService.getMember(request);
+		if(list.size()>0){
+			UcMembers ucMembers = list.get(0);
+			//判断账号是否未激活
+			if(("0").equals(ucMembers.getEnablestatus())){
+				ResponseHeader responseHeader=new ResponseHeader(true,Constants.GetUcMembersResultConstants.NO_ACTIV,"账户未激活");
+				response.setResponseHeader(responseHeader);
+				return response;
+			}
+			ResponseHeader responseHeader=new ResponseHeader(true,Constants.GetUcMembersResultConstants.SUCCESS_CODE,"认证成功");
+			response.setResponseHeader(responseHeader);
+			return response;
+		}else{
+			ResponseHeader responseHeader=new ResponseHeader(true,Constants.GetUcMembersResultConstants.FAIL_CODE,"获取用户信息失败");
+			response.setResponseHeader(responseHeader);
+			return response;
+		}
+
 	}
 
 	@Override

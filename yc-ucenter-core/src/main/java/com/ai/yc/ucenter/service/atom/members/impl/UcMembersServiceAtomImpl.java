@@ -4,18 +4,14 @@ package com.ai.yc.ucenter.service.atom.members.impl;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
-import com.ai.opt.sdk.components.mail.EmailFactory;
 import com.ai.opt.sdk.components.sequence.util.SeqUtil;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
-import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetModeEnum;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
@@ -106,7 +102,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 	}
 	
 	@Override
-	public UcMembersGetResponse getMember(UcMembersGetRequest request) {
+	public List<UcMembers> getMember(UcMembersGetRequest request) {
 		UcMembersGetResponse response = new UcMembersGetResponse();
 		UcMembersCriteria example = new UcMembersCriteria();
 		Criteria criteria = example.createCriteria();
@@ -124,9 +120,9 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		else if(UcMembersGetModeEnum.USERNAME_MODE.equals(request.getGetmode())){
 			criteria.andUsernameEqualTo(reqUsername);
 		}
-		MapperFactory.getUcMembersMapper().selectByExample(example);
+		List<UcMembers> list = MapperFactory.getUcMembersMapper().selectByExample(example);
 	
-		return response;
+		return list;
 	}
 
 	@Override

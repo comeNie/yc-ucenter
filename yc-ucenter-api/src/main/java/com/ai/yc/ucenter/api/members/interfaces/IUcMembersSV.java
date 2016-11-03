@@ -41,6 +41,7 @@ public interface IUcMembersSV {
      * @param UcMembersLoginRequest
      * @return UcMembersLoginResponse
      * @throws BusinessException,SystemException
+     * @author mengbo
      * @ApiDocMethod
      * @ApiCode UC_0001
      * @RestRelativeURL ucmembers/ucLoginMember
@@ -57,6 +58,7 @@ public interface IUcMembersSV {
      * @param UcMembersRegisterRequest
      * @return UcMembersLoginResponse
      * @throws BusinessException,SystemException
+     * @author mengbo
      * @ApiDocMethod
      * @ApiCode UC_0002
      * @RestRelativeURL ucmembers/ucRegisterMember
@@ -118,6 +120,7 @@ public interface IUcMembersSV {
      * @param condition
      * @return
      * @throws BusinessException,SystemException
+     * @author mengbo
      * @ApiDocMethod
      * @ApiCode UC_0006
      * @RestRelativeURL ucmembers/ucEditPassword
