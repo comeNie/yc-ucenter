@@ -21,7 +21,7 @@
         </property>
     </bean>
     <bean id="dataSource" class="com.ai.opt.sdk.datasource.OptHikariDataSource">
-		 <constructor-arg name="dataSourceName" value="aiplatform-db"/>
+		 <constructor-arg name="dataSourceName" value="ucenter-db"/>
 	</bean>
     <!-- 数据源配置, 使用 BoneCP 数据库连接池 -->
 	<!-- <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
@@ -78,7 +78,8 @@
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
-
+	<!-- 配置 JSR303 Bean Validator 定义 -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
     <!-- 事务配置 -->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -100,6 +101,6 @@
         </tx:attributes>
     </tx:advice>
 
-    <context:component-scan base-package="com.ai.platform.common"/>
+    <context:component-scan base-package="com.ai.yc.ucenter"/>
 
 </beans>

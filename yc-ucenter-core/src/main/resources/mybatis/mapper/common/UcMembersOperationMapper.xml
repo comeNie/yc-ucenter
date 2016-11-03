@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.yc.ucenter.dao.mapper.interfaces.UcMembersOperationMapper" >
+  <resultMap id="BaseResultMap" type="com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperation" >
+    <id column="oid" property="oid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="operationtype" property="operationtype" jdbcType="VARCHAR" />
+    <result column="operationcode" property="operationcode" jdbcType="VARCHAR" />
+    <result column="operationtime" property="operationtime" jdbcType="VARCHAR" />
+    <result column="userinfo" property="userinfo" jdbcType="VARCHAR" />
+    <result column="country_code" property="countryCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    oid, uid, operationtype, operationcode, operationtime, userinfo, country_code
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperationCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from uc_members_operation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from uc_members_operation
+    where oid = #{oid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Integer" >
+    delete from uc_members_operation
+    where oid = #{oid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperationCriteria" >
+    delete from uc_members_operation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperation" >
+    insert into uc_members_operation (oid, uid, operationtype, 
+      operationcode, operationtime, userinfo, 
+      country_code)
+    values (#{oid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{operationtype,jdbcType=VARCHAR}, 
+      #{operationcode,jdbcType=VARCHAR}, #{operationtime,jdbcType=VARCHAR}, #{userinfo,jdbcType=VARCHAR}, 
+      #{countryCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperation" >
+    insert into uc_members_operation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        oid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="operationtype != null" >
+        operationtype,
+      </if>
+      <if test="operationcode != null" >
+        operationcode,
+      </if>
+      <if test="operationtime != null" >
+        operationtime,
+      </if>
+      <if test="userinfo != null" >
+        userinfo,
+      </if>
+      <if test="countryCode != null" >
+        country_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="operationtype != null" >
+        #{operationtype,jdbcType=VARCHAR},
+      </if>
+      <if test="operationcode != null" >
+        #{operationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="operationtime != null" >
+        #{operationtime,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfo != null" >
+        #{userinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null" >
+        #{countryCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperationCriteria" resultType="java.lang.Integer" >
+    select count(*) from uc_members_operation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update uc_members_operation
+    <set >
+      <if test="record.oid != null" >
+        oid = #{record.oid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.operationtype != null" >
+        operationtype = #{record.operationtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationcode != null" >
+        operationcode = #{record.operationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationtime != null" >
+        operationtime = #{record.operationtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userinfo != null" >
+        userinfo = #{record.userinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryCode != null" >
+        country_code = #{record.countryCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update uc_members_operation
+    set oid = #{record.oid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      operationtype = #{record.operationtype,jdbcType=VARCHAR},
+      operationcode = #{record.operationcode,jdbcType=VARCHAR},
+      operationtime = #{record.operationtime,jdbcType=VARCHAR},
+      userinfo = #{record.userinfo,jdbcType=VARCHAR},
+      country_code = #{record.countryCode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperation" >
+    update uc_members_operation
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="operationtype != null" >
+        operationtype = #{operationtype,jdbcType=VARCHAR},
+      </if>
+      <if test="operationcode != null" >
+        operationcode = #{operationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="operationtime != null" >
+        operationtime = #{operationtime,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfo != null" >
+        userinfo = #{userinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null" >
+        country_code = #{countryCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperation" >
+    update uc_members_operation
+    set uid = #{uid,jdbcType=INTEGER},
+      operationtype = #{operationtype,jdbcType=VARCHAR},
+      operationcode = #{operationcode,jdbcType=VARCHAR},
+      operationtime = #{operationtime,jdbcType=VARCHAR},
+      userinfo = #{userinfo,jdbcType=VARCHAR},
+      country_code = #{countryCode,jdbcType=VARCHAR}
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>

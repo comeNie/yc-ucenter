@@ -22,7 +22,7 @@ allprojects {
 	    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 	    resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
  	}
-    group="com.ai.platform.common"
+    group="com.ai.yc.ucenter"
 }
 
 subprojects {
@@ -63,7 +63,7 @@ subprojects {
 project("yc-ucenter-api") {
     project.ext {
         appName = "yc-ucenter-api"
-        apiDir =  "src/main/java/com/ai/platform/common/api/"
+        apiDir =  "src/main/java/com/ai/yc/ucenter/api/"
     }
 
     jar {
@@ -85,7 +85,7 @@ project("yc-ucenter-core") {
     jar {
         baseName appName
         version moduleVersion
-		include "com/ai/platform/common/*/*/**"
+		include "com/ai/yc/ucenter/*/*/**"
         manifest {
             attributes 'packageName': appName, 'Built-By': builtBy, 'create-date': new Date().format('yyyy-MM-dd HH:mm:ss')
         }

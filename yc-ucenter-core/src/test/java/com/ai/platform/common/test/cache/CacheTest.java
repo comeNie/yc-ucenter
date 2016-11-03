@@ -10,21 +10,21 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ai.paas.ipaas.mcs.interfaces.ICacheClient;
-import com.ai.platform.common.api.cache.interfaces.ICacheSV;
-import com.ai.platform.common.api.cache.param.SysParam;
-import com.ai.platform.common.api.cache.param.SysParamMultiCond;
-import com.ai.platform.common.api.cache.param.SysParamSingleCond;
-import com.ai.platform.common.cache.GnSysParamCache;
-import com.ai.platform.common.constants.CacheNSMapper;
-import com.ai.platform.common.util.AreaCacheUtil;
-import com.ai.platform.common.util.CacheFactoryUtil;
+import com.ai.yc.ucenter.api.cache.interfaces.ICacheSV;
+import com.ai.yc.ucenter.api.cache.param.SysParam;
+import com.ai.yc.ucenter.api.cache.param.SysParamMultiCond;
+import com.ai.yc.ucenter.api.cache.param.SysParamSingleCond;
+
+import com.ai.yc.ucenter.constants.CacheNSMapper;
+
+import com.ai.yc.ucenter.util.CacheFactoryUtil;
 import com.alibaba.fastjson.JSON;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "/context/core-context.xml" })
 public class CacheTest {
-	@Autowired
-	private GnSysParamCache paramSV;
+
+
 	@Autowired
 	private ICacheSV iCacheSV;
 	
@@ -101,33 +101,9 @@ public class CacheTest {
 		System.out.println("singleParam="+JSON.toJSONString(singleParam));
     }*/
     
-    @Test
-    public void testReadArea() throws Exception {
-    	//测试证件号码转换
-        String singleParam=iCacheSV.getAreaName("100999");
-        		
-		System.out.println("singleParam="+JSON.toJSONString(singleParam));
-    }
+ 
+
     
-    @Test
-    public void testAreaCode() throws Exception {
-    	//测试证件号码转换
-        String singleParam=AreaCacheUtil.getAreaName("21");
-        		
-		System.out.println("singleParam="+singleParam);
-    }
-    
-    
-    @Test
-    public void writeGnSysParam(){
-    	try {
-    		paramSV.write();
-    		System.out.println("wriete ok");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
     
     
 }

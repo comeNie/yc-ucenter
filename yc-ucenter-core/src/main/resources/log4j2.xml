@@ -33,7 +33,7 @@
 		<level value="DEBUG" />
 	</logger>
 	<logger name="java.sql.ResultSet" additivity="true">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	<logger name="org.apache" additivity="true">
 		<level value="info" />
