@@ -48,10 +48,10 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 			int resultCount = iUcMembersOperationAtomService.getActiveMembe(request);
 			if(resultCount>0){
 				ResponseHeader responseHeader=new ResponseHeader(true,ActiveOperResultCodeConstants.SUCCESS_CODE,"失败，该 Email 已经被注册");
-				response.setResponseHeader(responseHeader);
+//				response.setResponseHeader(responseHeader);
 			}else{
 				ResponseHeader responseHeader=new ResponseHeader(false,ActiveOperResultCodeConstants.VAL_ERROR,"成功");
-				response.setResponseHeader(responseHeader);
+//				response.setResponseHeader(responseHeader);
 			}
 			
 		}//判断验证码

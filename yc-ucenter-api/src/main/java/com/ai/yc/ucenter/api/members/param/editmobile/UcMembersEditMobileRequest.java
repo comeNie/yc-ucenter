@@ -1,5 +1,7 @@
 package com.ai.yc.ucenter.api.members.param.editmobile;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.ai.opt.base.vo.BaseInfo;
 
 public class UcMembersEditMobileRequest extends BaseInfo{
@@ -9,16 +11,19 @@ public class UcMembersEditMobileRequest extends BaseInfo{
 	/**
      * 主键
      */
+	@NotBlank
     private Integer uid;
     
     /**
      * 移动电话（可用于登录）
      */
+	@NotBlank
     private String mobilephone;
     
     /**
      * 验证码
      */
+	@NotBlank
     private String operationcode;
 
 	public Integer getUid() {

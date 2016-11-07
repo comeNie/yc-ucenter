@@ -15,6 +15,10 @@ public class EditMobileResultCodeConstants {
      * 验证码过期，修改/绑定失败
      */
     public static final String OVERDUE_ERROR = "0";
+    /**
+     * 失败
+     */
+	public static final String FAIL_CODE = "-1";
     
    
 	

@@ -32,6 +32,7 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 		record.setOperationcode(operationCode);
 		record.setOperationtime(String.valueOf(UCDateUtils.getSystime()));
 		record.setOid(newId.intValue());
+		record.setCountryCode("86");
 		MapperFactory.getUcMembersOperationMapper().insert(record);
 		return operationCode;
 	}

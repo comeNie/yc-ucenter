@@ -34,7 +34,12 @@ public final class PasswordMD5Util {
  		return UUID.randomUUID().toString().replace("-", "");
  	}
 
- 	public static String getSalt(){
+ 	public static String creatSalt(){
+ 		StringBuffer salt = new StringBuffer(getUUID().substring(getUUID().length()-6));
+ 		return salt.toString();
+ 	}
+ 	
+	public static String getSalt(String username){
  		StringBuffer salt = new StringBuffer(getUUID().substring(getUUID().length()-6));
  		return salt.toString();
  	}
@@ -45,13 +50,7 @@ public final class PasswordMD5Util {
  		
  	}
  	
-     public static void main(String[] args) {
-    	 String password = "111111";
-    	 String salt = "d30ffc";
-    	System.out.println(getPassSaltMd5(password,salt));
-    
-    	
-	}
+
     
      public static class Md5Utils {
     	    /**

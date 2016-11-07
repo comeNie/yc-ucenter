@@ -9,7 +9,7 @@ public class UcMembersGetOperationcodeRequest extends BaseInfo{
     /**
      * 用户id(只有手机/邮箱验证码和邮箱激活码用到，有值。)
      */
-    private String uid;
+    private Integer uid;
 
     /**
      * 移动电话/邮件
@@ -27,11 +27,11 @@ public class UcMembersGetOperationcodeRequest extends BaseInfo{
      */
     private String operationtype;
 
-	public String getUid() {
+	public Integer getUid() {
 		return uid;
 	}
 
-	public void setUid(String uid) {
+	public void setUid(Integer uid) {
 		this.uid = uid;
 	}
 

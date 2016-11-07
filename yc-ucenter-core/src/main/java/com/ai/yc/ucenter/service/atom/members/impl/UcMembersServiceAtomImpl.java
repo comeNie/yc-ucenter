@@ -12,7 +12,7 @@ import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
-import com.ai.yc.ucenter.api.members.param.get.UcMembersGetModeEnum;
+import com.ai.yc.ucenter.api.members.param.get.UcMembersGetModeFlag;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginModeEnum;
@@ -26,6 +26,7 @@ import com.ai.yc.ucenter.dao.mapper.factory.MapperFactory;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
 import com.ai.yc.ucenter.util.PasswordMD5Util;
 import com.ai.yc.ucenter.util.UCDateUtils;
+
 
 
 @Component
@@ -67,7 +68,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		BeanUtils.copyProperties(ucMembers, request);
 		Long newId =SeqUtil.getNewId("SYS$UCMEMBERS$UID");
 		
-		String salt = PasswordMD5Util.getSalt();
+		String salt = PasswordMD5Util.creatSalt();
 		ucMembers.setSalt(salt);
 		ucMembers.setPassword(PasswordMD5Util.getPassSaltMd5(request.getPassword(),salt));
 
@@ -83,6 +84,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		
 		ucMembers.setLogincount(1);
 		ucMembers.setModifydate(0);
+
 		int insertCount = MapperFactory.getUcMembersMapper().insert(ucMembers);
 		if(insertCount>0){
 			return newId.toString();
@@ -112,21 +114,21 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 	
 	@Override
 	public List<UcMembers> getMember(UcMembersGetRequest request) {
-		UcMembersGetResponse response = new UcMembersGetResponse();
+	
 		UcMembersCriteria example = new UcMembersCriteria();
 		Criteria criteria = example.createCriteria();
 		String reqUsername = request.getUsername();
 		//用户id获取
-		if(UcMembersGetModeEnum.USERID_ENUM.equals(request.getGetmode())){
+		if(UcMembersGetModeFlag.USERID_FLAG.equals(request.getGetmode())){
 			criteria.andUidEqualTo(Integer.parseInt(reqUsername));
 		}//邮箱获取
-		else if(UcMembersGetModeEnum.EMAIL_ENUM.equals(request.getGetmode())){
+		else if(UcMembersGetModeFlag.EMAIL_FLAG.equals(request.getGetmode())){
 			criteria.andEmailEqualTo(reqUsername);
 		}//手机获取
-		else if(UcMembersGetModeEnum.MOBILE_ENUM.equals(request.getGetmode())){
+		else if(UcMembersGetModeFlag.MOBILE_FLAG.equals(request.getGetmode())){
 			criteria.andMobilephoneEqualTo(reqUsername);
 		}//用户名获取
-		else if(UcMembersGetModeEnum.USERNAME_MODE.equals(request.getGetmode())){
+		else if(UcMembersGetModeFlag.USERNAME_FLAG.equals(request.getGetmode())){
 			criteria.andUsernameEqualTo(reqUsername);
 		}
 		List<UcMembers> list = MapperFactory.getUcMembersMapper().selectByExample(example);
@@ -134,6 +136,8 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		return list;
 	}
 
+	
+	
 	@Override
 	public int updateMobilephone(UcMembersEditMobileRequest request) {
 		UcMembersCriteria example = new UcMembersCriteria();

@@ -2,6 +2,7 @@ package com.ai.yc.ucenter.api.members.param.register;
 
 
 import com.ai.opt.base.vo.BaseResponse;
+import com.ai.yc.ucenter.api.members.param.base.UcBaseResponse;
 
 /**
  * Ucenter-用户信息查询结果类<br>
@@ -10,37 +11,61 @@ import com.ai.opt.base.vo.BaseResponse;
  *
  * @author mengbo
  */
-public class UcMembersRegisterResponse extends BaseResponse {
+public class UcMembersRegisterResponse extends UcBaseResponse {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
 	/**
-     * 主键
-     */
-    private String uid;
+	 * 消息体
+	 *uid：用户ID
+	 *operationcode：邮箱激活码
+	 */
+	private UcMembersRegisterResponseDate date;
+	
 
-    /**
-     * 邮箱激活码
-     */
-    private String operationcode;
-
-	public String getUid() {
-		return uid;
+	public UcMembersRegisterResponseDate getDate() {
+		return date;
 	}
 
-	public void setUid(String uid) {
-		this.uid = uid;
+
+	public void setDate(UcMembersRegisterResponseDate date) {
+		this.date = date;
 	}
 
-	public String getOperationcode() {
-		return operationcode;
-	}
 
-	public void setOperationcode(String operationcode) {
-		this.operationcode = operationcode;
+	public static class UcMembersRegisterResponseDate{
+		/**
+	     * 主键
+	     */
+	    private String uid;
+
+	    /**
+	     * 邮箱激活码
+	     */
+	    private String operationcode;
+
+		public String getUid() {
+			return uid;
+		}
+
+		public void setUid(String uid) {
+			this.uid = uid;
+		}
+		
+		public String getOperationcode() {
+			return operationcode;
+		}
+
+		public void setOperationcode(String operationcode) {
+			this.operationcode = operationcode;
+		}
 	}
+	
+
+
 
   
     

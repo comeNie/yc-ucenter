@@ -20,4 +20,11 @@ public class UCDateUtils {
 		return 0;
 	
 	}
+	//1478549191-1478549224
+	public static void main(String[] args) {
+		System.out.println(getSystime());
+		
+		long c = 1478549191-1478549224;
+		System.out.println(c);
+	}
 }

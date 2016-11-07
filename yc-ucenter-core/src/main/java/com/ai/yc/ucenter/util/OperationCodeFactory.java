@@ -1,8 +1,6 @@
 package com.ai.yc.ucenter.util;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+
 
 public class OperationCodeFactory {
 	

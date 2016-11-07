@@ -14,21 +14,25 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ai.opt.base.vo.ResponseHeader;
+import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
+import com.ai.yc.ucenter.api.members.param.base.ResponseCode;
+import com.ai.yc.ucenter.api.members.param.base.ResponseMessage;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
-import com.ai.yc.ucenter.api.members.param.editpass.UcMemEditPassbersResponse;
 import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
+import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse.UcMembersGetDate;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginModeEnum;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterRequest;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterResponse;
+import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterResponse.UcMembersRegisterResponseDate;
 import com.ai.yc.ucenter.constants.CheckEmailResultCodeConstants;
 import com.ai.yc.ucenter.constants.CheckMobilResultCodeConstants;
 import com.ai.yc.ucenter.constants.Constants;
@@ -43,8 +47,9 @@ import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
 import com.ai.yc.ucenter.service.business.members.IUcMembersBusinessService;
 import com.ai.yc.ucenter.util.BeanValidators;
 import com.ai.yc.ucenter.util.LoginValidators;
+import com.ai.yc.ucenter.util.OperationValidateUtils;
 import com.ai.yc.ucenter.util.PasswordMD5Util;
-import com.ai.yc.ucenter.util.RegisterValidators;
+import com.ai.yc.ucenter.util.UcmembersValidators;
 
 
 @Component
@@ -64,7 +69,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 		UcMembers ucMembers = iUcMembersAtomService.getSalt(request);
 		return ucMembers;
 	}
-	
+
 	
 	@Override
 	public UcMembersLoginResponse loginMember(UcMembersLoginRequest request) {
@@ -120,16 +125,48 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 	public UcMembersRegisterResponse insertMember(UcMembersRegisterRequest request) {
 		UcMembersRegisterResponse response = new UcMembersRegisterResponse();
 		//验证 用户名电话邮箱必输一项
-		if(!RegisterValidators.validateUserAccount(request)){
-			ResponseHeader responseHeader=new ResponseHeader(false,RegResultCodeConstants.FAIL_CODE,"注册失败，用户名、电话邮箱必输一项");
-			response.setResponseHeader(responseHeader);
+		if(!UcmembersValidators.validateUserAccount(request)){
+			ResponseMessage responseMessage = new ResponseMessage(false, RegResultCodeConstants.FAIL_CODE, "失败");
+			ResponseCode responseCode = new ResponseCode(RegResultCodeConstants.USERNAME_ERROR, "用户名、电话邮箱必输一项");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
 			return response;
 		}
-	
+		//用户名已经存在
+		if(StringUtils.isNotBlank(request.getUsername()) && !UcmembersValidators.validateUsername(request.getUsername())){
+			ResponseMessage responseMessage = new ResponseMessage(false, RegResultCodeConstants.FAIL_CODE, "失败");
+			ResponseCode responseCode = new ResponseCode(RegResultCodeConstants.USERNAME_EXISTS, "用户名已存在");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
+			return response;
+
+		}
+		//邮箱存在
+		if(StringUtils.isNotBlank(request.getEmail()) && !UcmembersValidators.validateEmail(request.getEmail())){
+			ResponseMessage responseMessage = new ResponseMessage(false, RegResultCodeConstants.FAIL_CODE, "失败");
+			ResponseCode responseCode = new ResponseCode(RegResultCodeConstants.EMAIL_REGISTERED, "该邮箱已注册");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
+			return response;
+		}
+		
+		//手机存在
+		if(StringUtils.isNotBlank(request.getMobilephone()) && !UcmembersValidators.validateMobilephone(request.getMobilephone())){
+			ResponseMessage responseMessage = new ResponseMessage(false, RegResultCodeConstants.FAIL_CODE, "失败");
+			ResponseCode responseCode = new ResponseCode(RegResultCodeConstants.MOBILE_REGISTERED, "该手机号码已注册");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
+			return response;
+		}
+		
+		//包含不允许注册的词语
+		
 		//手机+密码方式手机激活码(operationcode)有值	
 		if(UcMembersLoginModeEnum.PHONEPASS_MODE.equals(request.getLoginmode()) && StringUtils.isBlank(request.getOperationcode())){
-			ResponseHeader responseHeader=new ResponseHeader(false,RegResultCodeConstants.FAIL_CODE,"手机验证码不能为空");
-			response.setResponseHeader(responseHeader);
+		
+			ResponseMessage responseMessage = new ResponseMessage(false, RegResultCodeConstants.FAIL_CODE, "失败,手机激活码不能为空");
+
+			response.setMessage(responseMessage);
 			return response;
 		}
 		
@@ -139,8 +176,10 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 		}catch(ConstraintViolationException ex){
 			List<String> list = BeanValidators.extractPropertyAndMessageAsList(ex, ": ");
 			list.add(0, "数据验证失败：");
-			ResponseHeader responseHeader=new ResponseHeader(false,RegResultCodeConstants.FAIL_CODE,list.toString());
-			response.setResponseHeader(responseHeader);
+
+			ResponseMessage responseMessage = new ResponseMessage(false, RegResultCodeConstants.FAIL_CODE, "格式有误");
+
+			response.setMessage(responseMessage);
 			return response;
 		}
 	
@@ -148,19 +187,32 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 		
 		try {
 			String resultUid = iUcMembersAtomService.insertMember(request);
+			if(StringUtils.isBlank(resultUid)){
+				ResponseMessage responseMessage = new ResponseMessage(false, RegResultCodeConstants.FAIL_CODE, "失败");
+
+				response.setMessage(responseMessage);
+				return response;
+			}
+			
 			//生成验证码并发送
 		
 			UcMembersGetOperationcodeRequest getOperaRequest = new UcMembersGetOperationcodeRequest();
 			getOperaRequest.setUserinfo(getUserinfoAndOper(request).get("userinfo").toString());
 			getOperaRequest.setOperationtype(getUserinfoAndOper(request).get("operationtype").toString());
+			getOperaRequest.setUid(Integer.valueOf(resultUid));
 			String code = iUcMembersOperationAtomService.saveOperationcode(getOperaRequest);
-			ResponseHeader responseHeader=new ResponseHeader(false,RegResultCodeConstants.SUCCESS_CODE,"注册成功");
-			response.setResponseHeader(responseHeader);
-			response.setOperationcode(code);
-			response.setUid(resultUid);
+			
+			ResponseMessage responseMessage = new ResponseMessage(false, RegResultCodeConstants.SUCCESS_CODE, "注册成功");
+			UcMembersRegisterResponseDate date = new UcMembersRegisterResponseDate();
+			date.setOperationcode(code);
+			date.setUid(resultUid);
+			response.setMessage(responseMessage);
+			response.setDate(date);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ResponseMessage responseMessage = new ResponseMessage(false, RegResultCodeConstants.FAIL_CODE, "失败");
+
+			response.setMessage(responseMessage);
+			return response;
 		}
 		
 		
@@ -190,8 +242,11 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 		}catch(ConstraintViolationException ex){
 			List<String> list = BeanValidators.extractPropertyAndMessageAsList(ex, ": ");
 			list.add(0, "数据验证失败：");
-			ResponseHeader responseHeader=new ResponseHeader(false,Constants.GetUcMembersResultConstants.NOT_EMPTY,list.toString());
-			response.setResponseHeader(responseHeader);
+		
+			ResponseMessage responseMessage = new ResponseMessage(false, Constants.GetUcMembersResultConstants.FAIL_CODE, "失败");
+			ResponseCode responseCode = new ResponseCode(Constants.GetUcMembersResultConstants.NOT_EMPTY, list.toString());	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
 			return response;
 		}
 		
@@ -201,16 +256,28 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 			UcMembers ucMembers = list.get(0);
 			//判断账号是否未激活
 			if(("0").equals(ucMembers.getEnablestatus())){
-				ResponseHeader responseHeader=new ResponseHeader(true,Constants.GetUcMembersResultConstants.NO_ACTIV,"账户未激活");
-				response.setResponseHeader(responseHeader);
+			
+				ResponseMessage responseMessage = new ResponseMessage(false, Constants.GetUcMembersResultConstants.SUCCESS_CODE, "成功，账户未激活");
+				ResponseCode responseCode = new ResponseCode(Constants.GetUcMembersResultConstants.NO_ACTIV, "账户未激活");	
+				UcMembersGetDate ucMembersGetDate = new UcMembersGetDate();
+				BeanUtils.copyProperties(ucMembersGetDate, ucMembers);
+				response.setDate(ucMembersGetDate);
+				response.setCode(responseCode);
+				response.setMessage(responseMessage);
 				return response;
 			}
-			ResponseHeader responseHeader=new ResponseHeader(true,Constants.GetUcMembersResultConstants.SUCCESS_CODE,"认证成功");
-			response.setResponseHeader(responseHeader);
+			ResponseMessage responseMessage = new ResponseMessage(false, Constants.GetUcMembersResultConstants.SUCCESS_CODE, "成功");
+			ResponseCode responseCode = new ResponseCode(Constants.GetUcMembersResultConstants.SUCCESS_CODE, "成功");	
+			UcMembersGetDate ucMembersGetDate = new UcMembersGetDate();
+			BeanUtils.copyProperties(ucMembersGetDate, ucMembers);
+			response.setDate(ucMembersGetDate);
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
 			return response;
 		}else{
-			ResponseHeader responseHeader=new ResponseHeader(true,Constants.GetUcMembersResultConstants.FAIL_CODE,"获取用户信息失败");
-			response.setResponseHeader(responseHeader);
+			ResponseMessage responseMessage = new ResponseMessage(false,Constants.GetUcMembersResultConstants.FAIL_CODE, "失败，为找到该用户信息");
+	
+			response.setMessage(responseMessage);
 			return response;
 		}
 
@@ -219,13 +286,44 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 	@Override
 	public UcMembersResponse updateMobilephone(UcMembersEditMobileRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
+		try{
+			BeanValidators.validateWithException(validator, request);
+		}catch(ConstraintViolationException ex){
+			List<String> list = BeanValidators.extractPropertyAndMessageAsList(ex, ": ");
+			list.add(0, "数据验证失败：");
+		
+			ResponseMessage responseMessage = new ResponseMessage(false, EditMobileResultCodeConstants.FAIL_CODE, "失败");
+		
+			response.setMessage(responseMessage);
+			return response;
+		}
+		//验证码是否一致,验证码有效期
+		if(!OperationValidateUtils.mobileActivAndDyan(request.getUid(), request.getOperationcode())){
+			ResponseMessage responseMessage = new ResponseMessage(false, EditMobileResultCodeConstants.FAIL_CODE, "失败");
+			ResponseCode responseCode = new ResponseCode(EditMobileResultCodeConstants.OVERDUE_ERROR, "验证码过期，修改/绑定失败");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
+		}		
+		//该电话已被注册
+		if(!UcmembersValidators.validateMobilephone(request.getMobilephone())){
+			ResponseMessage responseMessage = new ResponseMessage(false, EditMobileResultCodeConstants.FAIL_CODE, "失败");
+			ResponseCode responseCode = new ResponseCode(EditMobileResultCodeConstants.EXISTS_ERROR, "该电话已经被注册，修改/绑定失败");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
+		}
+		
 		int resultCount = iUcMembersAtomService.updateMobilephone(request);
 		if(resultCount>0){
-			ResponseHeader responseHeader=new ResponseHeader(true,EditMobileResultCodeConstants.SUCCESS_CODE,"认证成功");
-			response.setResponseHeader(responseHeader);
+			
+			ResponseMessage responseMessage = new ResponseMessage(false, EditMobileResultCodeConstants.SUCCESS_CODE, "成功");
+			ResponseCode responseCode = new ResponseCode(EditMobileResultCodeConstants.SUCCESS_CODE, "更新成功");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
+
 		}else{
-			ResponseHeader responseHeader=new ResponseHeader(false,EditMobileResultCodeConstants.EXISTS_ERROR,"认证失败");
-			response.setResponseHeader(responseHeader);
+			ResponseMessage responseMessage = new ResponseMessage(false, Constants.GetUcMembersResultConstants.FAIL_CODE, "失败");
+
+			response.setMessage(responseMessage);
 		}
 		return response;
 	}
@@ -233,13 +331,23 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 	@Override
 	public UcMembersResponse updateEmail(UcMembersEditEmailRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
+		//验证码过期，修改/绑定失败
+		if(!OperationValidateUtils.emailVali(request.getUid(), request.getOperationcode())){
+			ResponseMessage responseMessage = new ResponseMessage(false, EditMobileResultCodeConstants.FAIL_CODE, "失败");
+			ResponseCode responseCode = new ResponseCode(EditMobileResultCodeConstants.OVERDUE_ERROR, "验证码过期，修改/绑定失败");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
+		}
+		
 		int resultCount = iUcMembersAtomService.updateEmail(request);
 		if(resultCount>0){
-			ResponseHeader responseHeader=new ResponseHeader(true,EditMobileResultCodeConstants.SUCCESS_CODE,"认证成功");
-			response.setResponseHeader(responseHeader);
+			ResponseMessage responseMessage = new ResponseMessage(false, EditMobileResultCodeConstants.SUCCESS_CODE, "成功");
+			ResponseCode responseCode = new ResponseCode(EditMobileResultCodeConstants.SUCCESS_CODE, "成功");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
 		}else{
-			ResponseHeader responseHeader=new ResponseHeader(false,EditMobileResultCodeConstants.EXISTS_ERROR,"认证失败");
-			response.setResponseHeader(responseHeader);
+			ResponseMessage responseMessage = new ResponseMessage(false, EditMobileResultCodeConstants.FAIL_CODE, "失败");
+			response.setMessage(responseMessage);
 		}
 		return response;
 	}
@@ -257,7 +365,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 			List<String> list = BeanValidators.extractPropertyAndMessageAsList(ex, ": ");
 			list.add(0, "数据验证失败：");
 			ResponseHeader responseHeader=new ResponseHeader(false,ResultCodeConstants.ERROR_CODE,list.toString());
-			response.setResponseHeader(responseHeader);
+//			response.setResponseHeader(responseHeader);
 			return response;
 		}
 		//2、验证方式为旧密码
@@ -272,23 +380,23 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 
 			 if(!oldpassMD5.equals(ucMembers.getPassword())){
 					ResponseHeader responseHeader=new ResponseHeader(false,EditPassResultCodeConstants.OLDPASS_ERROR,"旧密码输入有误，修改失败");
-					response.setResponseHeader(responseHeader);
+//					response.setResponseHeader(responseHeader);
 					return response;
 			 } //2.2 封装修改密码对象
 			 else{
 				 String newpass = request.getChecke_code();
 				 //生成新salt
-				 String salt = PasswordMD5Util.getSalt();
+				 String salt = PasswordMD5Util.creatSalt();
 				 String newpassMD5 = PasswordMD5Util.getPassSaltMd5(newpass,salt);
 				 ucMembers.setPassword(newpassMD5);
 				 ucMembers.setSalt(salt);
 				int resultCount = iUcMembersAtomService.updatePassword(ucMembers);
 				if(resultCount>0){
 					ResponseHeader responseHeader=new ResponseHeader(true,EditPassResultCodeConstants.SUCCESS_CODE,"认证成功");
-					response.setResponseHeader(responseHeader);
+//					response.setResponseHeader(responseHeader);
 				}else{
 					ResponseHeader responseHeader=new ResponseHeader(false,EditPassResultCodeConstants.NONERECORD_ERROR,"没有生效记录，修改失败");
-					response.setResponseHeader(responseHeader);
+//					response.setResponseHeader(responseHeader);
 				}
 				return response;
 			 }
@@ -313,10 +421,10 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 		int resultCount = iUcMembersAtomService.checkEmail(request);
 		if(resultCount>0){
 			ResponseHeader responseHeader=new ResponseHeader(true,CheckEmailResultCodeConstants.EXIST_ERROR,"失败，该 Email 已经被注册");
-			response.setResponseHeader(responseHeader);
+//			response.setResponseHeader(responseHeader);
 		}else{
 			ResponseHeader responseHeader=new ResponseHeader(false,CheckEmailResultCodeConstants.SUCCESS_CODE,"成功");
-			response.setResponseHeader(responseHeader);
+//			response.setResponseHeader(responseHeader);
 		}
 		return response;
 	}
@@ -327,10 +435,10 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 		int resultCount = iUcMembersAtomService.checkMobilephone(request);
 		if(resultCount>0){
 			ResponseHeader responseHeader=new ResponseHeader(true,CheckMobilResultCodeConstants.EXIST_ERROR,"失败，该 Email 已经被注册");
-			response.setResponseHeader(responseHeader);
+//			response.setResponseHeader(responseHeader);
 		}else{
 			ResponseHeader responseHeader=new ResponseHeader(false,CheckMobilResultCodeConstants.SUCCESS_CODE,"成功");
-			response.setResponseHeader(responseHeader);
+//			response.setResponseHeader(responseHeader);
 		}
 		return response;
 	}
