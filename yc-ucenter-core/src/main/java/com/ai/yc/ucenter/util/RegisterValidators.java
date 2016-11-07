@@ -26,7 +26,7 @@ public class RegisterValidators {
 		String username = request.getUsername();
 		String email = request.getEmail();
 		String mobilephone = request.getMobilephone();
-		if(StringUtils.isAnyBlank(username,email,mobilephone)){
+		if(StringUtils.isNotBlank(username) || StringUtils.isNotBlank(email) || StringUtils.isNotBlank(mobilephone)){
 			return true;
 		}
 			return false;
