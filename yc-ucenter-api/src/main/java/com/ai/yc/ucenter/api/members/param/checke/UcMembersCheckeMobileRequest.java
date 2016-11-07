@@ -1,6 +1,9 @@
 package com.ai.yc.ucenter.api.members.param.checke;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.ai.opt.base.vo.BaseInfo;
+import com.ai.opt.validator.constraints.MobilePhone;
 
 public class UcMembersCheckeMobileRequest extends BaseInfo{
 	
@@ -14,6 +17,8 @@ public class UcMembersCheckeMobileRequest extends BaseInfo{
     /**
      * 移动电话
      */
+    @NotBlank
+    @MobilePhone
     private String mobilephone;
 
 	public Integer getUid() {

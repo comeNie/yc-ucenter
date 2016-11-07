@@ -8,6 +8,10 @@ public class EditPassResultCodeConstants {
      */
 	public static final String SUCCESS_CODE = "1";
 	 /**
+     * 表示更新失败
+     */
+	public static final String FAIL_CODE = "0";
+	 /**
      * 旧密码输入有误，修改失败
      */
 	public static final String OLDPASS_ERROR = "-1";

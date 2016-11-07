@@ -1,7 +1,7 @@
 package com.ai.yc.ucenter.api.members.param.opera;
 
 
-import com.ai.opt.base.vo.BaseResponse;
+import com.ai.yc.ucenter.api.members.param.base.UcBaseResponse;
   
 /**
  * Ucenter-用户信息查询结果类<br>
@@ -10,7 +10,7 @@ import com.ai.opt.base.vo.BaseResponse;
  *
  * @author mengbo
  */
-public class UcMembersGetOperationcodeResponse extends BaseResponse {
+public class UcMembersGetOperationcodeResponse extends UcBaseResponse {
     /**
 	 * 
 	 */
@@ -19,13 +19,13 @@ public class UcMembersGetOperationcodeResponse extends BaseResponse {
     /**
      * 操作码
      */
-	private String operationcode;
+	private Object operationcode;
 
-	public String getOperationcode() {
+	public Object getOperationcode() {
 		return operationcode;
 	}
 
-	public void setOperationcode(String operationcode) {
+	public void setOperationcode(Object operationcode) {
 		this.operationcode = operationcode;
 	}
 	

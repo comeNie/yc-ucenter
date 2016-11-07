@@ -19,6 +19,10 @@ public class CheckEmailResultCodeConstants {
      * 该 Email 已经被注册
      */
     public static final String EXIST_ERROR = "-6";
+    /**
+     * 失败
+     */
+	public static final String FAIL_CODE = "0";
    
 	
 }

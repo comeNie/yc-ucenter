@@ -364,8 +364,8 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 		}catch(ConstraintViolationException ex){
 			List<String> list = BeanValidators.extractPropertyAndMessageAsList(ex, ": ");
 			list.add(0, "数据验证失败：");
-			ResponseHeader responseHeader=new ResponseHeader(false,ResultCodeConstants.ERROR_CODE,list.toString());
-//			response.setResponseHeader(responseHeader);
+			ResponseMessage responseMessage = new ResponseMessage(false, EditPassResultCodeConstants.FAIL_CODE, "失败");
+			response.setMessage(responseMessage);
 			return response;
 		}
 		//2、验证方式为旧密码
@@ -379,8 +379,11 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 			 String oldpassMD5 = PasswordMD5Util.getPassSaltMd5(oldpass,ucMembers.getSalt());
 
 			 if(!oldpassMD5.equals(ucMembers.getPassword())){
-					ResponseHeader responseHeader=new ResponseHeader(false,EditPassResultCodeConstants.OLDPASS_ERROR,"旧密码输入有误，修改失败");
-//					response.setResponseHeader(responseHeader);
+
+					ResponseMessage responseMessage = new ResponseMessage(false, EditPassResultCodeConstants.FAIL_CODE, "失败");
+					ResponseCode responseCode = new ResponseCode(EditPassResultCodeConstants.OLDPASS_ERROR, "旧密码输入有误，修改失败");	
+					response.setMessage(responseMessage);
+					response.setCode(responseCode);
 					return response;
 			 } //2.2 封装修改密码对象
 			 else{
@@ -392,11 +395,19 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 				 ucMembers.setSalt(salt);
 				int resultCount = iUcMembersAtomService.updatePassword(ucMembers);
 				if(resultCount>0){
-					ResponseHeader responseHeader=new ResponseHeader(true,EditPassResultCodeConstants.SUCCESS_CODE,"认证成功");
-//					response.setResponseHeader(responseHeader);
+
+					ResponseMessage responseMessage = new ResponseMessage(false, EditPassResultCodeConstants.SUCCESS_CODE, "成功");
+					ResponseCode responseCode = new ResponseCode(EditPassResultCodeConstants.SUCCESS_CODE, "修改成功");	
+					response.setMessage(responseMessage);
+					response.setCode(responseCode);
+					return response;
 				}else{
-					ResponseHeader responseHeader=new ResponseHeader(false,EditPassResultCodeConstants.NONERECORD_ERROR,"没有生效记录，修改失败");
-//					response.setResponseHeader(responseHeader);
+
+					ResponseMessage responseMessage = new ResponseMessage(false, EditPassResultCodeConstants.FAIL_CODE, "失败");
+					ResponseCode responseCode = new ResponseCode(EditPassResultCodeConstants.NONERECORD_ERROR, "没有生效记录，修改失败");	
+					response.setMessage(responseMessage);
+					response.setCode(responseCode);
+					
 				}
 				return response;
 			 }
@@ -405,11 +416,38 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 			
 		 }
 		
-		//3、验证方式为验证码
+		//3、验证方式为验证码 此处验证码都是操作码生
+		 else if(("2").equals(checke_mode)){
+			 
+			 if(!OperationValidateUtils.mobileActivAndDyan(request.getUid(), request.getChecke_code())){
+					ResponseMessage responseMessage = new ResponseMessage(false, EditPassResultCodeConstants.FAIL_CODE, "失败");
+					ResponseCode responseCode = new ResponseCode(EditPassResultCodeConstants.OVERDUE_ERROR, "验证码过期，修改密码失败");	
+					response.setCode(responseCode);
+					response.setMessage(responseMessage);
+			 }
+			 
+			 UcMembers ucMembers = new UcMembers();
+			 ucMembers.setUid(request.getUid());
+			 String salt = PasswordMD5Util.creatSalt();
+			 ucMembers.setSalt(salt);
+			 ucMembers.setPassword(PasswordMD5Util.getPassSaltMd5(request.getNewpw(), salt));
+			int resultCountmobile =  iUcMembersAtomService.updatePassword(ucMembers);
+			if(resultCountmobile>0){
 
-		
-		
-	
+				ResponseMessage responseMessage = new ResponseMessage(false, EditPassResultCodeConstants.SUCCESS_CODE, "成功");
+				ResponseCode responseCode = new ResponseCode(EditPassResultCodeConstants.SUCCESS_CODE, "修改成功");	
+				response.setMessage(responseMessage);
+				response.setCode(responseCode);
+				return response;
+			}else{
+
+				ResponseMessage responseMessage = new ResponseMessage(false, EditPassResultCodeConstants.FAIL_CODE, "失败");
+				ResponseCode responseCode = new ResponseCode(EditPassResultCodeConstants.NONERECORD_ERROR, "没有生效记录，修改失败");	
+				response.setMessage(responseMessage);
+				response.setCode(responseCode);
+				
+			}
+		 }
 		 return response;
 
 	}
@@ -418,13 +456,29 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 	@Override
 	public UcMembersResponse ucCheckeEmail(UcMembersCheckEmailRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
+		try{
+			BeanValidators.validateWithException(validator, request);
+		}catch(ConstraintViolationException ex){
+			List<String> list = BeanValidators.extractPropertyAndMessageAsList(ex, ": ");
+			list.add(0, "数据验证失败：");
+		
+			ResponseMessage responseMessage = new ResponseMessage(false, CheckEmailResultCodeConstants.FAIL_CODE, "失败");
+			ResponseCode responseCode = new ResponseCode(CheckEmailResultCodeConstants.FORMAT_ERROR, "邮箱格式有误");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
+			return response;
+		}
 		int resultCount = iUcMembersAtomService.checkEmail(request);
 		if(resultCount>0){
-			ResponseHeader responseHeader=new ResponseHeader(true,CheckEmailResultCodeConstants.EXIST_ERROR,"失败，该 Email 已经被注册");
-//			response.setResponseHeader(responseHeader);
+			ResponseMessage responseMessage = new ResponseMessage(false, CheckEmailResultCodeConstants.FAIL_CODE, "失败");
+			ResponseCode responseCode = new ResponseCode(CheckEmailResultCodeConstants.EXIST_ERROR, "该邮箱已被注册");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
 		}else{
-			ResponseHeader responseHeader=new ResponseHeader(false,CheckEmailResultCodeConstants.SUCCESS_CODE,"成功");
-//			response.setResponseHeader(responseHeader);
+			ResponseMessage responseMessage = new ResponseMessage(false, CheckEmailResultCodeConstants.SUCCESS_CODE, "成功");
+			ResponseCode responseCode = new ResponseCode(CheckEmailResultCodeConstants.SUCCESS_CODE, "成功");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
 		}
 		return response;
 	}
@@ -432,13 +486,29 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 	@Override
 	public UcMembersResponse ucCheckeMobilephone(UcMembersCheckeMobileRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
+		try{
+			BeanValidators.validateWithException(validator, request);
+		}catch(ConstraintViolationException ex){
+			List<String> list = BeanValidators.extractPropertyAndMessageAsList(ex, ": ");
+			list.add(0, "数据验证失败：");
+		
+			ResponseMessage responseMessage = new ResponseMessage(false, CheckMobilResultCodeConstants.FAIL_CODE, "失败");
+			ResponseCode responseCode = new ResponseCode(CheckMobilResultCodeConstants.FORMAT_ERROR, "手机格式有误");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
+			return response;
+		}
 		int resultCount = iUcMembersAtomService.checkMobilephone(request);
 		if(resultCount>0){
-			ResponseHeader responseHeader=new ResponseHeader(true,CheckMobilResultCodeConstants.EXIST_ERROR,"失败，该 Email 已经被注册");
-//			response.setResponseHeader(responseHeader);
+			ResponseMessage responseMessage = new ResponseMessage(false, CheckMobilResultCodeConstants.FAIL_CODE, "失败");
+			ResponseCode responseCode = new ResponseCode(CheckMobilResultCodeConstants.EXIST_ERROR, "该手机号码已被注册");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
 		}else{
-			ResponseHeader responseHeader=new ResponseHeader(false,CheckMobilResultCodeConstants.SUCCESS_CODE,"成功");
-//			response.setResponseHeader(responseHeader);
+			ResponseMessage responseMessage = new ResponseMessage(false, CheckMobilResultCodeConstants.SUCCESS_CODE, "成功");
+			ResponseCode responseCode = new ResponseCode(CheckMobilResultCodeConstants.SUCCESS_CODE, "成功");	
+			response.setCode(responseCode);
+			response.setMessage(responseMessage);
 		}
 		return response;
 	}

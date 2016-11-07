@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import com.ai.opt.sdk.components.sequence.util.SeqUtil;
 import com.ai.opt.sdk.util.BeanUtils;
-import com.ai.opt.sdk.util.DateUtil;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersActiveRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperation;
@@ -32,7 +31,6 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 		record.setOperationcode(operationCode);
 		record.setOperationtime(String.valueOf(UCDateUtils.getSystime()));
 		record.setOid(newId.intValue());
-		record.setCountryCode("86");
 		MapperFactory.getUcMembersOperationMapper().insert(record);
 		return operationCode;
 	}
@@ -41,7 +39,7 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 	
 
 	@Override
-	public int getActiveMembe(UcMembersActiveRequest request) {
+	public List<UcMembersOperation> getActiveMembe(UcMembersActiveRequest request) {
 		
 		UcMembersOperationCriteria example = new UcMembersOperationCriteria();
 		Criteria criteria = example.createCriteria();
@@ -51,7 +49,7 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 		criteria.andOperationtypeEqualTo(request.getOperationtype());
 		
 		List<UcMembersOperation> list  = MapperFactory.getUcMembersOperationMapper().selectByExample(example);
-		return list.size();
+		return list;
 	}
 	
 	

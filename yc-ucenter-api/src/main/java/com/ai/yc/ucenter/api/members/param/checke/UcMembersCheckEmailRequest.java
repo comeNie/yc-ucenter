@@ -1,5 +1,8 @@
 package com.ai.yc.ucenter.api.members.param.checke;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.ai.opt.base.vo.BaseInfo;
 
 public class UcMembersCheckEmailRequest extends BaseInfo{
@@ -14,6 +17,8 @@ public class UcMembersCheckEmailRequest extends BaseInfo{
     /**
      * 邮箱
      */
+    @NotBlank
+    @Email
     private String email;
     
    
