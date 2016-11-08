@@ -202,7 +202,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 			getOperaRequest.setUid(Integer.valueOf(resultUid));
 			String code = iUcMembersOperationAtomService.saveOperationcode(getOperaRequest);
 			
-			ResponseMessage responseMessage = new ResponseMessage(false, RegResultCodeConstants.SUCCESS_CODE, "注册成功");
+			ResponseMessage responseMessage = new ResponseMessage(true, RegResultCodeConstants.SUCCESS_CODE, "注册成功");
 			UcMembersRegisterResponseDate date = new UcMembersRegisterResponseDate();
 			date.setOperationcode(code);
 			date.setUid(resultUid);
@@ -257,7 +257,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 			//判断账号是否未激活
 			if(("0").equals(ucMembers.getEnablestatus())){
 			
-				ResponseMessage responseMessage = new ResponseMessage(false, Constants.GetUcMembersResultConstants.SUCCESS_CODE, "成功，账户未激活");
+				ResponseMessage responseMessage = new ResponseMessage(true, Constants.GetUcMembersResultConstants.SUCCESS_CODE, "成功，账户未激活");
 				ResponseCode responseCode = new ResponseCode(Constants.GetUcMembersResultConstants.NO_ACTIV, "账户未激活");	
 				UcMembersGetDate ucMembersGetDate = new UcMembersGetDate();
 				BeanUtils.copyProperties(ucMembersGetDate, ucMembers);
@@ -266,7 +266,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 				response.setMessage(responseMessage);
 				return response;
 			}
-			ResponseMessage responseMessage = new ResponseMessage(false, Constants.GetUcMembersResultConstants.SUCCESS_CODE, "成功");
+			ResponseMessage responseMessage = new ResponseMessage(true, Constants.GetUcMembersResultConstants.SUCCESS_CODE, "成功");
 			ResponseCode responseCode = new ResponseCode(Constants.GetUcMembersResultConstants.SUCCESS_CODE, "成功");	
 			UcMembersGetDate ucMembersGetDate = new UcMembersGetDate();
 			BeanUtils.copyProperties(ucMembersGetDate, ucMembers);
@@ -315,7 +315,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 		int resultCount = iUcMembersAtomService.updateMobilephone(request);
 		if(resultCount>0){
 			
-			ResponseMessage responseMessage = new ResponseMessage(false, EditMobileResultCodeConstants.SUCCESS_CODE, "成功");
+			ResponseMessage responseMessage = new ResponseMessage(true, EditMobileResultCodeConstants.SUCCESS_CODE, "成功");
 			ResponseCode responseCode = new ResponseCode(EditMobileResultCodeConstants.SUCCESS_CODE, "更新成功");	
 			response.setCode(responseCode);
 			response.setMessage(responseMessage);
@@ -341,7 +341,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 		
 		int resultCount = iUcMembersAtomService.updateEmail(request);
 		if(resultCount>0){
-			ResponseMessage responseMessage = new ResponseMessage(false, EditMobileResultCodeConstants.SUCCESS_CODE, "成功");
+			ResponseMessage responseMessage = new ResponseMessage(true, EditMobileResultCodeConstants.SUCCESS_CODE, "成功");
 			ResponseCode responseCode = new ResponseCode(EditMobileResultCodeConstants.SUCCESS_CODE, "成功");	
 			response.setCode(responseCode);
 			response.setMessage(responseMessage);
@@ -396,7 +396,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 				int resultCount = iUcMembersAtomService.updatePassword(ucMembers);
 				if(resultCount>0){
 
-					ResponseMessage responseMessage = new ResponseMessage(false, EditPassResultCodeConstants.SUCCESS_CODE, "成功");
+					ResponseMessage responseMessage = new ResponseMessage(true, EditPassResultCodeConstants.SUCCESS_CODE, "成功");
 					ResponseCode responseCode = new ResponseCode(EditPassResultCodeConstants.SUCCESS_CODE, "修改成功");	
 					response.setMessage(responseMessage);
 					response.setCode(responseCode);
@@ -434,7 +434,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 			int resultCountmobile =  iUcMembersAtomService.updatePassword(ucMembers);
 			if(resultCountmobile>0){
 
-				ResponseMessage responseMessage = new ResponseMessage(false, EditPassResultCodeConstants.SUCCESS_CODE, "成功");
+				ResponseMessage responseMessage = new ResponseMessage(true, EditPassResultCodeConstants.SUCCESS_CODE, "成功");
 				ResponseCode responseCode = new ResponseCode(EditPassResultCodeConstants.SUCCESS_CODE, "修改成功");	
 				response.setMessage(responseMessage);
 				response.setCode(responseCode);
@@ -475,7 +475,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 			response.setCode(responseCode);
 			response.setMessage(responseMessage);
 		}else{
-			ResponseMessage responseMessage = new ResponseMessage(false, CheckEmailResultCodeConstants.SUCCESS_CODE, "成功");
+			ResponseMessage responseMessage = new ResponseMessage(true, CheckEmailResultCodeConstants.SUCCESS_CODE, "成功");
 			ResponseCode responseCode = new ResponseCode(CheckEmailResultCodeConstants.SUCCESS_CODE, "成功");	
 			response.setCode(responseCode);
 			response.setMessage(responseMessage);
@@ -505,7 +505,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 			response.setCode(responseCode);
 			response.setMessage(responseMessage);
 		}else{
-			ResponseMessage responseMessage = new ResponseMessage(false, CheckMobilResultCodeConstants.SUCCESS_CODE, "成功");
+			ResponseMessage responseMessage = new ResponseMessage(true, CheckMobilResultCodeConstants.SUCCESS_CODE, "成功");
 			ResponseCode responseCode = new ResponseCode(CheckMobilResultCodeConstants.SUCCESS_CODE, "成功");	
 			response.setCode(responseCode);
 			response.setMessage(responseMessage);

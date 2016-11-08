@@ -63,7 +63,7 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 
 		String operationcode =  iUcMembersOperationAtomService.saveOperationcode(request);
 		if(StringUtils.isNotBlank(operationcode)){
-			ResponseMessage responseMessage = new ResponseMessage(false, CheckMobilResultCodeConstants.SUCCESS_CODE, "成功");
+			ResponseMessage responseMessage = new ResponseMessage(true, CheckMobilResultCodeConstants.SUCCESS_CODE, "成功");
 			ResponseCode responseCode = new ResponseCode(CheckMobilResultCodeConstants.SUCCESS_CODE, "成功");	
 			response.setCode(responseCode);
 			response.setMessage(responseMessage);
