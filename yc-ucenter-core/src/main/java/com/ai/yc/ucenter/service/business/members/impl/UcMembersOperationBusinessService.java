@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.base.ResponseCode;
 import com.ai.yc.ucenter.api.members.param.base.ResponseMessage;
@@ -45,6 +45,7 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 			if(!UcmembersValidators.validateMobilephone(request.getUserinfo())){
 				ResponseMessage responseMessage = new ResponseMessage(true, CheckMobilResultCodeConstants.FAIL_CODE, "失败");
 				ResponseCode responseCode = new ResponseCode(CheckMobilResultCodeConstants.EXIST_ERROR, "该手机号已被注册");	
+			
 				response.setCode(responseCode);
 				response.setMessage(responseMessage);
 			}
@@ -66,6 +67,7 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 		if(StringUtils.isNotBlank(operationcode)){
 			ResponseMessage responseMessage = new ResponseMessage(true, CheckMobilResultCodeConstants.SUCCESS_CODE, "成功");
 			ResponseCode responseCode = new ResponseCode(CheckMobilResultCodeConstants.SUCCESS_CODE, "成功");	
+			response.setOperationcode(operationcode);
 			response.setCode(responseCode);
 			response.setMessage(responseMessage);
 		}
