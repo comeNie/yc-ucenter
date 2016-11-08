@@ -1,24 +1,25 @@
 package com.ai.yc.ucenter.service.business.members.impl;
 
 
-import java.util.List;
+
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ai.opt.base.vo.ResponseHeader;
+
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.base.ResponseCode;
 import com.ai.yc.ucenter.api.members.param.base.ResponseMessage;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersActiveRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeResponse;
-import com.ai.yc.ucenter.constants.ActiveOperResultCodeConstants;
+
 import com.ai.yc.ucenter.constants.CheckMobilResultCodeConstants;
 import com.ai.yc.ucenter.constants.EditMobileResultCodeConstants;
 import com.ai.yc.ucenter.constants.OperationtypeConstants;
-import com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperation;
+
 import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
 import com.ai.yc.ucenter.service.business.members.IUcMembersOperationBusinessService;
 import com.ai.yc.ucenter.util.OperationValidateUtils;
@@ -29,7 +30,7 @@ import com.ai.yc.ucenter.util.UcmembersValidators;
 @Component
 @Transactional
 public class UcMembersOperationBusinessService implements IUcMembersOperationBusinessService {
-	
+	@Autowired
 	private IUcMembersOperationAtomService iUcMembersOperationAtomService;
 	@Override
 	public UcMembersGetOperationcodeResponse saveOperationcode(UcMembersGetOperationcodeRequest request) {
