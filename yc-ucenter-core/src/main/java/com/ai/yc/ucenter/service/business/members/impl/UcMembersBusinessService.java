@@ -184,18 +184,23 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 		}
 	
 		
-		
+		String resultUid ="";
 		try {
-			String resultUid = iUcMembersAtomService.insertMember(request);
+			resultUid = iUcMembersAtomService.insertMember(request);
 			if(StringUtils.isBlank(resultUid)){
-				ResponseMessage responseMessage = new ResponseMessage(true, RegResultCodeConstants.FAIL_CODE, "失败");
+				ResponseMessage responseMessage = new ResponseMessage(true, RegResultCodeConstants.FAIL_CODE, "失败，没有返回Uid");
 
 				response.setMessage(responseMessage);
 				return response;
 			}
-			
+		} catch (Exception e) {
+			ResponseMessage responseMessage = new ResponseMessage(true, RegResultCodeConstants.FAIL_CODE, "失败，保存用户信息失败");
+
+			response.setMessage(responseMessage);
+			return response;
+		}
 			//生成验证码并发送
-		
+		try {
 			UcMembersGetOperationcodeRequest getOperaRequest = new UcMembersGetOperationcodeRequest();
 			getOperaRequest.setUserinfo(getUserinfoAndOper(request).get("userinfo").toString());
 			getOperaRequest.setOperationtype(getUserinfoAndOper(request).get("operationtype").toString());
@@ -209,7 +214,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 			response.setMessage(responseMessage);
 			response.setDate(date);
 		} catch (Exception e) {
-			ResponseMessage responseMessage = new ResponseMessage(true, RegResultCodeConstants.FAIL_CODE, "失败");
+			ResponseMessage responseMessage = new ResponseMessage(true, RegResultCodeConstants.FAIL_CODE, "失败,生成验证码失败");
 
 			response.setMessage(responseMessage);
 			return response;
