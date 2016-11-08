@@ -42,7 +42,7 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 		if(OperationtypeConstants.MOBILE_ACTIV.equals(operationtype)){
 			//首先判断手机号是否被注册的合法性，如果注册过直接返回获取失败
 			if(!UcmembersValidators.validateMobilephone(request.getUserinfo())){
-				ResponseMessage responseMessage = new ResponseMessage(false, CheckMobilResultCodeConstants.FAIL_CODE, "失败");
+				ResponseMessage responseMessage = new ResponseMessage(true, CheckMobilResultCodeConstants.FAIL_CODE, "失败");
 				ResponseCode responseCode = new ResponseCode(CheckMobilResultCodeConstants.EXIST_ERROR, "该手机号已被注册");	
 				response.setCode(responseCode);
 				response.setMessage(responseMessage);
@@ -54,7 +54,7 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 		else if(OperationtypeConstants.DYN_PASS.equals(operationtype)){
 			//首先判断手机号是否被注册的合法性，如果注册过直接返回获取失败
 			if(!UcmembersValidators.validateMobilephone(request.getUserinfo())){
-				ResponseMessage responseMessage = new ResponseMessage(false, CheckMobilResultCodeConstants.FAIL_CODE, "失败");
+				ResponseMessage responseMessage = new ResponseMessage(true, CheckMobilResultCodeConstants.FAIL_CODE, "失败");
 				ResponseCode responseCode = new ResponseCode(CheckMobilResultCodeConstants.EXIST_ERROR, "该手机号已被注册");	
 				response.setCode(responseCode);
 				response.setMessage(responseMessage);
@@ -80,7 +80,7 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 		if(OperationtypeConstants.EMAIL_ACTIV.equals(operationtype)
 				||OperationtypeConstants.MOBILE_ACTIV.equals(operationtype)){
 			if(!OperationValidateUtils.mobileActivAndDyan(request.getUid(), request.getOperationcode())){
-				ResponseMessage responseMessage = new ResponseMessage(false, EditMobileResultCodeConstants.FAIL_CODE, "失败");
+				ResponseMessage responseMessage = new ResponseMessage(true, EditMobileResultCodeConstants.FAIL_CODE, "失败");
 				ResponseCode responseCode = new ResponseCode(EditMobileResultCodeConstants.OVERDUE_ERROR, "验证码过期");	
 				response.setCode(responseCode);
 				response.setMessage(responseMessage);
@@ -89,7 +89,7 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 		}//判断验证码
 		else{
 			if(!OperationValidateUtils.emailVali(request.getUid(), request.getOperationcode())){
-				ResponseMessage responseMessage = new ResponseMessage(false, EditMobileResultCodeConstants.FAIL_CODE, "失败");
+				ResponseMessage responseMessage = new ResponseMessage(true, EditMobileResultCodeConstants.FAIL_CODE, "失败");
 				ResponseCode responseCode = new ResponseCode(EditMobileResultCodeConstants.OVERDUE_ERROR, "验证码过期");	
 				response.setCode(responseCode);
 				response.setMessage(responseMessage);
