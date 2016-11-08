@@ -1,6 +1,14 @@
 package com.ai.yc.ucenter.api.members.param.base;
-public  class ResponseMessage{
+
+import java.io.Serializable;
+
+public  class ResponseMessage implements Serializable{
 		
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 		private boolean isSuccess;
 		 
 		private String code; 
