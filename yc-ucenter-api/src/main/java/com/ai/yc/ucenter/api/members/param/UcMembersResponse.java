@@ -15,6 +15,18 @@ public class UcMembersResponse extends UcBaseResponse {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private Object date;
+
+	public Object getDate() {
+		return date;
+	}
+
+	public void setDate(Object date) {
+		this.date = date;
+	}
+	
+	
 
 
 

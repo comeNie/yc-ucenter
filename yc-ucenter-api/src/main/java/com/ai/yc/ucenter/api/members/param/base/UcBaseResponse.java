@@ -12,6 +12,8 @@ public class UcBaseResponse implements Serializable{
 
 	private ResponseCode code;
 	
+	public UcBaseResponse(){}
+	
 	
 	
 

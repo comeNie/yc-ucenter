@@ -8,6 +8,8 @@ public  class ResponseCode implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+		public ResponseCode(){}
 
 		private String code;  
 		   
