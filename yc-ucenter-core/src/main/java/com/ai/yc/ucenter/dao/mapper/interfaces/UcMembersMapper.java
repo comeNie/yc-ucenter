@@ -22,6 +22,8 @@ public interface UcMembersMapper {
 
     UcMembers selectSalt(UcMembers record);
     
+    UcMembers selectPrimaryKey(UcMembers record);
+    
     int updateByExampleSelective(@Param("record") UcMembers record, @Param("example") UcMembersCriteria example);
 
     int updateByExample(@Param("record") UcMembers record, @Param("example") UcMembersCriteria example);

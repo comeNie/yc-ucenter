@@ -65,20 +65,17 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 	public String insertMember(UcMembersRegisterRequest request) throws Exception {
 		UcMembers ucMembers =  new UcMembers();
 		BeanUtils.copyProperties(ucMembers, request);
-		Long newId =SeqUtil.getNewId("SYS$UCMEMBERS$UID");
-		
 		String salt = PasswordMD5Util.creatSalt();
 		ucMembers.setSalt(salt);
 		ucMembers.setPassword(PasswordMD5Util.getPassSaltMd5(request.getPassword(),salt));
-
-		ucMembers.setUid(newId.intValue());
 		ucMembers.setUsername(getUsername(request));
 		//未激活
 		ucMembers.setEnablestatus("0");
 		
 		//必填
 		ucMembers.setEmailcheck(0); 
-		ucMembers.setRegdate((int)UCDateUtils.getSystime());
+		Integer regdate =(int)UCDateUtils.getSystime() ;
+		ucMembers.setRegdate(regdate);
 		ucMembers.setLastloginip("0");
 		
 		ucMembers.setLogincount(1);
@@ -86,7 +83,10 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 
 		int insertCount = MapperFactory.getUcMembersMapper().insert(ucMembers);
 		if(insertCount>0){
-			return newId.toString();
+			
+			Integer newId = MapperFactory.getUcMembersMapper().selectPrimaryKey(ucMembers).getUid();
+		
+			return String.valueOf(newId);
 		}else{
 			return null;
 		}

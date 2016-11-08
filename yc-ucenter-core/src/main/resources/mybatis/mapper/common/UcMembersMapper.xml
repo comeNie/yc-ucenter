@@ -135,6 +135,28 @@
    
   </select>
   
+  
+     <select id="selectPrimaryKey" resultMap="BaseResultMap" parameterType="com.ai.yc.ucenter.dao.mapper.bo.UcMembers" >
+    select 
+    <include refid="Base_Column_List" />
+    from uc_members
+    <where>
+   	 		<if test="username != null and username!= null and username != ''">
+   	 			AND username = #{username,jdbcType=CHAR}
+   	 		</if>
+   	 		<if test="email != null and email!= null and email != ''">
+   	 			AND email = #{email,jdbcType=CHAR}
+   	 		</if>
+    	 	<if test="mobilephone != null and mobilephone!= null and mobilephone != ''">
+   	 			AND mobilephone = #{mobilephone,jdbcType=CHAR}
+   	 		</if>  	
+       	 	<if test="regdate != null and regdate!= null and regdate != ''">
+   	 			AND regdate = #{regdate,jdbcType=INTEGER}
+   	 		</if>  		 		 	
+    </where>
+   
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="Integer" >
     delete from uc_members
     where uid = #{uid,jdbcType=INTEGER}
@@ -146,7 +168,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ai.yc.ucenter.dao.mapper.bo.UcMembers" >
-    insert into uc_members (uid, username, password, 
+    insert into uc_members (username, password, 
       email, emailcheck, myid, 
       myidkey, regip, regdate, 
       lastloginip, lastlogintime, salt, 
@@ -155,7 +177,7 @@
       loginway, enablestatus, createtime, 
       domain_name, modifydate, logincount, 
       loginsystem)
-    values (#{uid,jdbcType=INTEGER}, #{username,jdbcType=CHAR}, #{password,jdbcType=CHAR}, 
+    values (#{username,jdbcType=CHAR}, #{password,jdbcType=CHAR}, 
       #{email,jdbcType=CHAR}, #{emailcheck,jdbcType=INTEGER}, #{myid,jdbcType=CHAR}, 
       #{myidkey,jdbcType=CHAR}, #{regip,jdbcType=CHAR}, #{regdate,jdbcType=INTEGER}, 
       #{lastloginip,jdbcType=CHAR}, #{lastlogintime,jdbcType=INTEGER}, #{salt,jdbcType=CHAR}, 
