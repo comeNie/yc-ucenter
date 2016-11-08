@@ -133,7 +133,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 			return response;
 		}
 		//用户名已经存在
-		if(StringUtils.isNotBlank(request.getUsername()) && !UcmembersValidators.validateUsername(request.getUsername())){
+		if(StringUtils.isNotBlank(request.getUsername()) && UcmembersValidators.validateUsername(request.getUsername())){
 			ResponseMessage responseMessage = new ResponseMessage(true, RegResultCodeConstants.FAIL_CODE, "失败");
 			ResponseCode responseCode = new ResponseCode(RegResultCodeConstants.USERNAME_EXISTS, "用户名已存在");	
 			response.setCode(responseCode);
@@ -142,7 +142,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 
 		}
 		//邮箱存在
-		if(StringUtils.isNotBlank(request.getEmail()) && !UcmembersValidators.validateEmail(request.getEmail())){
+		if(StringUtils.isNotBlank(request.getEmail()) && UcmembersValidators.validateEmail(request.getEmail())){
 			ResponseMessage responseMessage = new ResponseMessage(true, RegResultCodeConstants.FAIL_CODE, "失败");
 			ResponseCode responseCode = new ResponseCode(RegResultCodeConstants.EMAIL_REGISTERED, "该邮箱已注册");	
 			response.setCode(responseCode);
@@ -151,7 +151,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 		}
 		
 		//手机存在
-		if(StringUtils.isNotBlank(request.getMobilephone()) && !UcmembersValidators.validateMobilephone(request.getMobilephone())){
+		if(StringUtils.isNotBlank(request.getMobilephone()) && UcmembersValidators.validateMobilephone(request.getMobilephone())){
 			ResponseMessage responseMessage = new ResponseMessage(true, RegResultCodeConstants.FAIL_CODE, "失败");
 			ResponseCode responseCode = new ResponseCode(RegResultCodeConstants.MOBILE_REGISTERED, "该手机号码已注册");	
 			response.setCode(responseCode);

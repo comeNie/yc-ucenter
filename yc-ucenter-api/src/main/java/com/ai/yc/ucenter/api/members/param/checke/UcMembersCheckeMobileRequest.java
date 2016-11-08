@@ -10,12 +10,12 @@ public class UcMembersCheckeMobileRequest extends BaseInfo{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-     * 主键 
+     * 修改绑定操作传值，注册不传。
      */
     private Integer uid;
     
     /**
-     * 移动电话
+     * 移动电话（必填）
      */
     @NotBlank
     @MobilePhone

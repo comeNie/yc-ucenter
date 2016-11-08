@@ -146,10 +146,10 @@ public interface IUcMembersSV {
 	/**
      * 检查移动电话合法性接口
      * <p/>
-     *
-     *
-     * @param condition
-     * @return
+     * @param uid  用户id  （修改绑定操作传值，注册不传。）
+     * @param mobilephone 移动电话（必填）
+     * @return  message   0：失败，1：成功
+     * @return  code  1:成功，-10: 手机号格式有误，-11：手机号已经被注册  
      * @throws BusinessException,SystemException
      * @ApiDocMethod
      * @ApiCode UC_0008
