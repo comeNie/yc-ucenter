@@ -49,7 +49,7 @@ public class UcmembersValidators {
 		
 		Criteria criteria = example.createCriteria();
 		criteria.andUsernameEqualTo(username);
-		criteria.andEnablestatusEqualTo("1");
+
 		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
 		if(list.size()>0){
 			return false;
@@ -67,7 +67,7 @@ public class UcmembersValidators {
 		
 		Criteria criteria = example.createCriteria();
 		criteria.andMobilephoneEqualTo(mobilephone);
-		criteria.andEnablestatusEqualTo("1");
+
 		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
 		if(list.size()>0){
 			return false;
@@ -85,7 +85,7 @@ public class UcmembersValidators {
 	
 		Criteria criteria = example.createCriteria();
 		criteria.andEmailEqualTo(email);
-		criteria.andEnablestatusEqualTo("1");
+
 		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
 		if(list.size()>0){
 			return false;
