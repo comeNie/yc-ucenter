@@ -46,10 +46,14 @@ public final class PasswordMD5Util {
  	
  	public static String getPassSaltMd5(String password,String salt){
  		
+ 		return Md5Utils.md5(password.concat(salt));
+ 		
+ 	}
+ 	public static String getPassSaltMd5Double(String password,String salt){
+ 		
  		return Md5Utils.md5(Md5Utils.md5(password).concat(salt));
  		
  	}
- 	
 
     
      public static class Md5Utils {

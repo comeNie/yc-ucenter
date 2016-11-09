@@ -3,6 +3,7 @@ package com.ai.yc.ucenter.api.members.param.register;
 
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.yc.ucenter.api.members.param.base.UcBaseResponse;
+import com.ai.yc.ucenter.api.members.param.base.UcResponseDate;
 
 /**
  * Ucenter-用户信息查询结果类<br>
@@ -18,25 +19,15 @@ public class UcMembersRegisterResponse extends UcBaseResponse {
 	private static final long serialVersionUID = 1L;
 
 	
-	/**
-	 * 消息体
-	 *uid：用户ID
-	 *operationcode：邮箱激活码
-	 */
-	private UcMembersRegisterResponseDate date;
 	
 
-	public UcMembersRegisterResponseDate getDate() {
-		return date;
-	}
 
+	public static class UcMembersRegisterResponseDate extends UcResponseDate{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
-	public void setDate(UcMembersRegisterResponseDate date) {
-		this.date = date;
-	}
-
-
-	public static class UcMembersRegisterResponseDate{
 		/**
 	     * 主键
 	     */

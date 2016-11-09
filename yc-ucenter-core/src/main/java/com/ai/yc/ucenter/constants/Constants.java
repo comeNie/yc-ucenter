@@ -59,12 +59,12 @@ public final class Constants {
         }
 
         //成功
-        public final static String SUCCESS_CODE= "1";
+        public final static int SUCCESS_CODE= 1;
         //失败
-        public final static String FAIL_CODE = "-1";     
+        public final static int FAIL_CODE = -1;     
         //未激活
-        public final static String NO_ACTIV = "-12";     
+        public final static int NO_ACTIV = -12;     
         //输入信息不能为空
-        public final static String NOT_EMPTY= "-16";  
+        public final static int NOT_EMPTY= -16;  
     }
 }

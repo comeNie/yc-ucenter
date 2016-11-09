@@ -17,7 +17,7 @@ public class UcMembersRegisterRequest extends BaseInfo implements Cloneable{
     /**
      * 移动电话（可用于登录）
      */
-    @MobilePhone
+    @MobilePhone(message="这不是合法的移动电话号码")
     private String mobilephone;
     /**
      * 邮箱
@@ -32,7 +32,7 @@ public class UcMembersRegisterRequest extends BaseInfo implements Cloneable{
     /**
      * 注册IP
      */
-    @NotBlank
+    @NotBlank(message="IP地址不能为空")
     private String regip;
     
     /**

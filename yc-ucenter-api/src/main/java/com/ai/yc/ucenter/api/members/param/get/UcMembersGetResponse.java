@@ -2,6 +2,7 @@ package com.ai.yc.ucenter.api.members.param.get;
 
 
 import com.ai.yc.ucenter.api.members.param.base.UcBaseResponse;
+import com.ai.yc.ucenter.api.members.param.base.UcResponseDate;
 
 /**
  * Ucenter-用户信息查询结果类<br>
@@ -30,7 +31,7 @@ public class UcMembersGetResponse extends UcBaseResponse {
 	}
 
 
-	public static class UcMembersGetDate{
+	public static class UcMembersGetDate extends UcResponseDate{
 		/**
 	     * 用户id
 	     */
