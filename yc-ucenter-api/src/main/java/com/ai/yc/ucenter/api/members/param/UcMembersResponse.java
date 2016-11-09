@@ -2,6 +2,7 @@ package com.ai.yc.ucenter.api.members.param;
 
 
 import com.ai.yc.ucenter.api.members.param.base.UcBaseResponse;
+import com.ai.yc.ucenter.api.members.param.base.UcResponseDate;
 
 /**
  * Ucenter-用户信息查询结果类<br>
@@ -16,13 +17,13 @@ public class UcMembersResponse extends UcBaseResponse {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Object date;
+	private UcResponseDate date;
 
-	public Object getDate() {
+	public UcResponseDate getDate() {
 		return date;
 	}
 
-	public void setDate(Object date) {
+	public void setDate(UcResponseDate date) {
 		this.date = date;
 	}
 	
