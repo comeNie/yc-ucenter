@@ -44,6 +44,7 @@ import com.ai.yc.ucenter.constants.ResultCodeConstants;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
+
 import com.ai.yc.ucenter.service.business.members.IUcMembersBusinessService;
 import com.ai.yc.ucenter.util.BeanValidators;
 import com.ai.yc.ucenter.util.LoginValidators;
@@ -54,7 +55,7 @@ import com.ai.yc.ucenter.util.UcmembersValidators;
 
 @Component
 @Transactional
-public class UcMembersBusinessService implements IUcMembersBusinessService {
+public class UcMembersBusinessService  implements IUcMembersBusinessService {
 
 	@Autowired
 	private IUcMembersAtomService iUcMembersAtomService;
@@ -209,6 +210,8 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 			
 			ResponseMessage responseMessage = new ResponseMessage(true, RegResultCodeConstants.SUCCESS_CODE, "注册成功");
 			UcMembersRegisterResponseDate date = new UcMembersRegisterResponseDate();
+			ResponseCode responseCode = new ResponseCode(RegResultCodeConstants.SUCCESS_CODE, "用户注册成功");	
+			response.setCode(responseCode);
 			date.setOperationcode(code);
 			date.setUid(resultUid);
 			response.setMessage(responseMessage);
@@ -255,8 +258,8 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 			return response;
 		}
 		
-		
 		List<UcMembers> list = iUcMembersAtomService.getMember(request);
+		
 		if(list.size()>0){
 			UcMembers ucMembers = list.get(0);
 			//判断账号是否未激活
@@ -265,6 +268,7 @@ public class UcMembersBusinessService implements IUcMembersBusinessService {
 				ResponseMessage responseMessage = new ResponseMessage(true, Constants.GetUcMembersResultConstants.SUCCESS_CODE, "成功，账户未激活");
 				ResponseCode responseCode = new ResponseCode(Constants.GetUcMembersResultConstants.NO_ACTIV, "账户未激活");	
 				UcMembersGetDate ucMembersGetDate = new UcMembersGetDate();
+				
 				BeanUtils.copyProperties(ucMembersGetDate, ucMembers);
 				response.setDate(ucMembersGetDate);
 				response.setCode(responseCode);
