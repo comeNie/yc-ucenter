@@ -75,6 +75,7 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 	}
 
 	@Override
+	@Transactional
 	public UcMembersResponse checkActiveMembe(UcMembersActiveRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
 		String operationtype = request.getOperationtype();
@@ -82,16 +83,24 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 		//判断激活码
 		if(OperationtypeConstants.EMAIL_ACTIV.equals(operationtype)
 				||OperationtypeConstants.MOBILE_ACTIV.equals(operationtype)){
-			if(!OperationValidateUtils.mobileActivAndDyan(request.getUid(), request.getOperationcode())){
+			if(!OperationValidateUtils.mobileActivAndDyan(request.getUid(), operationcode)){
 				ResponseMessage responseMessage = new ResponseMessage(true, EditMobileResultCodeConstants.FAIL_CODE, "失败");
 				ResponseCode responseCode = new ResponseCode(EditMobileResultCodeConstants.OVERDUE_ERROR, "验证码过期");	
 				response.setCode(responseCode);
 				response.setMessage(responseMessage);
 			}
 			
+			int resultActive =   iUcMembersOperationAtomService.updateActiveMember(request);
+			if(resultActive>0){
+				ResponseMessage responseMessage = new ResponseMessage(true, EditMobileResultCodeConstants.SUCCESS_CODE, "成功");
+				ResponseCode responseCode = new ResponseCode(EditMobileResultCodeConstants.SUCCESS_CODE, "激活成功");	
+				response.setCode(responseCode);
+				response.setMessage(responseMessage);
+			}
+			
 		}//判断验证码
 		else{
-			if(!OperationValidateUtils.emailVali(request.getUid(), request.getOperationcode())){
+			if(!OperationValidateUtils.emailVali(request.getUid(), operationcode)){
 				ResponseMessage responseMessage = new ResponseMessage(true, EditMobileResultCodeConstants.FAIL_CODE, "失败");
 				ResponseCode responseCode = new ResponseCode(EditMobileResultCodeConstants.OVERDUE_ERROR, "验证码过期");	
 				response.setCode(responseCode);

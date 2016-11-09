@@ -12,6 +12,8 @@ public interface IUcMembersOperationAtomService {
 	String saveOperationcode(UcMembersGetOperationcodeRequest request);
 
 	List<UcMembersOperation>  getActiveMembe(UcMembersActiveRequest request);
+
+	int updateActiveMember(UcMembersActiveRequest request);
  
     
 }

@@ -8,6 +8,9 @@ import com.ai.opt.sdk.components.sequence.util.SeqUtil;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersActiveRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
+import com.ai.yc.ucenter.constants.OperationtypeConstants;
+import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
+import com.ai.yc.ucenter.dao.mapper.bo.UcMembersCriteria;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperation;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperationCriteria;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperationCriteria.Criteria;
@@ -50,6 +53,30 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 		
 		List<UcMembersOperation> list  = MapperFactory.getUcMembersOperationMapper().selectByExample(example);
 		return list;
+	}
+
+
+
+
+	/**
+	 * 激活码验证通过后，激活账号
+	 */
+	@Override
+	public int updateActiveMember(UcMembersActiveRequest request) {
+		Integer uid = request.getUid();
+		String operationcode = request.getOperationcode();
+		UcMembers record = new UcMembers();
+		record.setEnablestatus("1");
+		if(operationcode.equals(OperationtypeConstants.EMAIL_ACTIV)){
+			record.setEmailcheck(1);
+		}
+		UcMembersCriteria example = new UcMembersCriteria();
+		com.ai.yc.ucenter.dao.mapper.bo.UcMembersCriteria.Criteria criteria = example.createCriteria();
+		criteria.andUidEqualTo(uid);
+		MapperFactory.getUcMembersMapper().updateByExampleSelective(record, example);
+		
+		
+		return MapperFactory.getUcMembersMapper().updateByExampleSelective(record, example);
 	}
 	
 	
