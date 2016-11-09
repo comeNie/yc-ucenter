@@ -130,6 +130,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		else if(UcMembersGetModeFlag.USERNAME_FLAG.equals(request.getGetmode())){
 			criteria.andUsernameEqualTo(reqUsername);
 		}
+		criteria.andEnablestatusEqualTo("1");
 		List<UcMembers> list = MapperFactory.getUcMembersMapper().selectByExample(example);
 	
 		return list;
