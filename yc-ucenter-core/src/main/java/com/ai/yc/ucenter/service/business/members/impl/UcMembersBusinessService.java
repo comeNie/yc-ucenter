@@ -6,11 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
-import javax.validation.Validator;
 
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +28,7 @@ import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse.UcMembersGet
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginModeEnum;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse;
+import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse.UcMembersLoginResponseDate;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterRequest;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterResponse;
@@ -54,11 +52,11 @@ import com.ai.yc.ucenter.util.OperationValidateUtils;
 import com.ai.yc.ucenter.util.PasswordMD5Util;
 import com.ai.yc.ucenter.util.UcmembersValidators;
 
-
+ 
 @Component
 @Transactional
-public class UcMembersBusinessService  extends UcBaseService{
-
+public class UcMembersBusinessService  extends UcBaseService implements IUcMembersBusinessService{
+ 
 	@Autowired
 	private IUcMembersAtomService iUcMembersAtomService;
 	@Autowired
@@ -83,22 +81,21 @@ public class UcMembersBusinessService  extends UcBaseService{
 		}catch(ConstraintViolationException ex){
 			List<String> list = BeanValidators.extractPropertyAndMessageAsList(ex, ": ");
 			list.add(0, "数据验证失败：");
-			ResponseHeader responseHeader=new ResponseHeader(false,ResultCodeConstants.ERROR_CODE,list.toString());
-			response.setResponseHeader(responseHeader);
+
+			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, list.toString(), null);
 			return response;
 		}
 		
 		UcMembers ucMembers = getUcMembers(request);
 
 		if(!LoginValidators.validateEnablestatus(ucMembers)){
-			ResponseHeader responseHeader=new ResponseHeader(false,ResultCodeConstants.ERROR_CODE,"认证失败,账号未激活");
-			response.setResponseHeader(responseHeader);
+ 
+			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "认证失败,账号未激活", null);
 			return response;
 		}
 		
 		if(StringUtils.isBlank(ucMembers.getSalt())){
-			ResponseHeader responseHeader=new ResponseHeader(false,ResultCodeConstants.ERROR_CODE,"认证失败");
-			response.setResponseHeader(responseHeader);
+			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "认证失败", null);
 			return response;
 		}
 
@@ -106,16 +103,19 @@ public class UcMembersBusinessService  extends UcBaseService{
 
 		List<UcMembers> list = iUcMembersAtomService.loginMember(request.getUsername(),passMd5,request.getLoginmode());
 		if(list.size()>0){
-			ResponseHeader responseHeader=new ResponseHeader(true,ResultCodeConstants.SUCCESS_CODE,"认证成功");
+			
 			UcMembers ucMembersResponse = list.get(0);
-			response.setUid(ucMembersResponse.getUid());
-			response.setEmail(ucMembersResponse.getEmail());
-			response.setMobilephone(ucMembersResponse.getMobilephone());
-//			response.setPassword(ucMembersResponse.getPassword());
-			response.setResponseHeader(responseHeader);
+			UcMembersLoginResponseDate responseDate= new UcMembersLoginResponseDate();
+			
+			responseDate.setUid(ucMembersResponse.getUid());
+			responseDate.setEmail(ucMembersResponse.getEmail());
+			responseDate.setMobilephone(ucMembersResponse.getMobilephone());
+
+			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.SUCCESS_CODE, "认证成功", responseDate);
 		}else{
-			ResponseHeader responseHeader=new ResponseHeader(false,ResultCodeConstants.ERROR_CODE,"认证失败");
-			response.setResponseHeader(responseHeader);
+
+			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "认证失败", null);
+
 		}
 		return response;
 	}
@@ -355,11 +355,7 @@ public class UcMembersBusinessService  extends UcBaseService{
 				
 			}else{
 
-				ResponseMessage responseMessage = new ResponseMessage(true, EditPassResultCodeConstants.FAIL_CODE, "失败");
-				ResponseCode responseCode = new ResponseCode(EditPassResultCodeConstants.NONERECORD_ERROR, "没有生效记录，修改失败");	
-				response.setMessage(responseMessage);
-				response.setCode(responseCode);
-				
+				response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.NONERECORD_ERROR, "没有生效记录，修改失败", null);
 			}
 		 }
 		 return response;

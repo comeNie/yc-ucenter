@@ -39,6 +39,20 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 		//手机激活码、动态密码、邮箱验证码、邮箱激活连接发出后，60秒后可再次获取
 		
 		
+		//校验：Uid只有手机/邮箱验证码和邮箱激活码用到，有值。
+		if(OperationtypeConstants.EMAIL_ACTIV.equals(operationtype) || OperationtypeConstants.MOBILE_VALI.equals(operationtype)
+				|| OperationtypeConstants.EMAIL_VALI.equals(operationtype)){
+			if(!StringUtils.isNotBlank(request.getUid().toString())){
+				ResponseMessage responseMessage = new ResponseMessage(true, CheckMobilResultCodeConstants.FAIL_CODE, "失败");
+				ResponseCode responseCode = new ResponseCode(CheckMobilResultCodeConstants.EXIST_ERROR, "Uid不能为空");	
+			
+				response.setCode(responseCode);
+				response.setMessage(responseMessage);
+				
+				return response;
+			}
+		}
+		
 		//1、生成手机激活码操作
 		if(OperationtypeConstants.MOBILE_ACTIV.equals(operationtype)){
 			//首先判断手机号是否被注册的合法性，如果注册过直接返回获取失败
@@ -48,6 +62,8 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 			
 				response.setCode(responseCode);
 				response.setMessage(responseMessage);
+				
+				return response;
 			}
 			
 			//如果没有注册过，需根据手机号注册账号，账号状态为未激活，生成并返回手机激活码		
@@ -60,6 +76,7 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 				ResponseCode responseCode = new ResponseCode(CheckMobilResultCodeConstants.EXIST_ERROR, "该手机号已被注册");	
 				response.setCode(responseCode);
 				response.setMessage(responseMessage);
+				return response;
 			}
 		}
 
@@ -109,5 +126,5 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 		}
 		return response;
 	}
-	
+
 }

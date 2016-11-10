@@ -20,7 +20,7 @@ import com.ai.yc.ucenter.util.BeanValidators;
 
 
 
-public abstract class UcBaseService implements IUcMembersBusinessService{
+public abstract class UcBaseService {
 	
 	/**
 	 * 日志对象
