@@ -11,7 +11,7 @@ public class UcMembersEditPassRequest extends BaseInfo{
 	/**
      * 用户ID 
      */
-	@NotBlank
+	
     private Integer uid;
     
     /**
