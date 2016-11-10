@@ -42,7 +42,7 @@ import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
 import com.ai.yc.ucenter.service.base.UcBaseService;
 import com.ai.yc.ucenter.service.business.members.IUcMembersBusinessService;
-import com.ai.yc.ucenter.service.business.members.IUcMembersOperationBusinessService;
+
 import com.ai.yc.ucenter.util.LoginValidators;
 import com.ai.yc.ucenter.util.OperationValidateUtils;
 import com.ai.yc.ucenter.util.PasswordMD5Util;

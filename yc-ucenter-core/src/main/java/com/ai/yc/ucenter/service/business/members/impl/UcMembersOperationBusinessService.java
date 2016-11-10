@@ -13,9 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
-import com.ai.yc.ucenter.api.members.param.base.ResponseCode;
-import com.ai.yc.ucenter.api.members.param.base.ResponseMessage;
-import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersActiveRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeResponse;
