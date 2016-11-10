@@ -7,13 +7,13 @@ import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ai.opt.sdk.util.BeanUtils;
+import com.ai.yc.ucenter.api.members.param.UcBeanUtils;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
@@ -42,11 +42,10 @@ import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
 import com.ai.yc.ucenter.service.base.UcBaseService;
 import com.ai.yc.ucenter.service.business.members.IUcMembersBusinessService;
-import com.ai.yc.ucenter.util.BeanValidators;
+import com.ai.yc.ucenter.service.business.members.IUcMembersOperationBusinessService;
 import com.ai.yc.ucenter.util.LoginValidators;
 import com.ai.yc.ucenter.util.OperationValidateUtils;
 import com.ai.yc.ucenter.util.PasswordMD5Util;
-import com.ai.yc.ucenter.util.UcBeanUtils;
 import com.ai.yc.ucenter.util.UcmembersValidators;
 
  
@@ -58,9 +57,8 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 	private IUcMembersAtomService iUcMembersAtomService;
 	@Autowired
 	private IUcMembersOperationAtomService iUcMembersOperationAtomService;
-	
-	
-	
+
+
 	@Override
 	public UcMembers getUcMembers(UcMembersLoginRequest request){
 		UcMembers ucMembers = iUcMembersAtomService.getSalt(request);
@@ -71,17 +69,12 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 	@Override
 	public UcMembersLoginResponse loginMember(UcMembersLoginRequest request) {
 		UcMembersLoginResponse response = new UcMembersLoginResponse();
-		
-
-		try{
-			BeanValidators.validateWithException(validator, request);
-		}catch(ConstraintViolationException ex){
-			List<String> list = BeanValidators.extractPropertyAndMessageAsList(ex, ": ");
-			list.add(0, "数据验证失败：");
-
-			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, list+"", null);
+		List<String > listValidator  = beanValidator(request);
+		if(listValidator != null&&!listValidator.isEmpty()){
+			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, listValidator+"", null);
 			return response;
 		}
+	
 		
 		UcMembers ucMembers = getUcMembers(request);
 
@@ -100,15 +93,12 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 
 		List<UcMembers> list = iUcMembersAtomService.loginMember(request.getUsername(),passMd5,request.getLoginmode());
 		if(list.size()>0){
-			
+		
 			UcMembers ucMembersResponse = list.get(0);
-//			UcMembersLoginResponseDate responseDate= new UcMembersLoginResponseDate();
 			Map<Object, Object> responseDate = new HashMap<Object, Object>();
 			responseDate.put("uid", ucMembersResponse.getUid());
 			responseDate.put("email", ucMembersResponse.getEmail());
 			responseDate.put("mobilephone", ucMembersResponse.getMobilephone());
-
-
 			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.SUCCESS_CODE, "认证成功", responseDate);
 		}else{
 
@@ -159,7 +149,8 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			response = (UcMembersRegisterResponse) addResponse(response,true, RegResultCodeConstants.FAIL_CODE, "失败,手机激活码不能为空", null);
 			return response;
 		}
-	
+		//注册方式
+
 		String resultUid ="";
 		try {
 			resultUid = iUcMembersAtomService.insertMember(request);
@@ -187,9 +178,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		} catch (Exception e) {
 			response = (UcMembersRegisterResponse) addResponse(response,true,RegResultCodeConstants.FAIL_CODE, "失败,生成验证码失败", null);
 			return response;
-		}
-		
-		
+		}	
 		return response;
 	}
 
