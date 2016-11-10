@@ -300,7 +300,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		}
 
 		//2、验证方式为旧密码
-		 String checke_mode = request.getChecke_code();
+		 String checke_mode = request.getChecke_mode();
 		 if(("1").equals(checke_mode)){
 			 
 			 //2.1 验证密码是否输入正确
