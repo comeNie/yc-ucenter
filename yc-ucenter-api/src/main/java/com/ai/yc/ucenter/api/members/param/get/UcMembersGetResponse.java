@@ -1,7 +1,7 @@
 package com.ai.yc.ucenter.api.members.param.get;
 
 
-import java.util.Map;
+
 
 import com.ai.yc.ucenter.api.members.param.base.UcBaseResponse;
 import com.ai.yc.ucenter.api.members.param.base.UcResponseDate;
@@ -23,6 +23,10 @@ public class UcMembersGetResponse extends UcBaseResponse {
 
 
 	public static class UcMembersGetDate extends UcResponseDate{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		/**
 	     * 用户id
 	     */
@@ -149,6 +153,7 @@ public class UcMembersGetResponse extends UcBaseResponse {
 			this.thirduid = thirduid;
 		}
 
+	
 	  
 	    
 	}

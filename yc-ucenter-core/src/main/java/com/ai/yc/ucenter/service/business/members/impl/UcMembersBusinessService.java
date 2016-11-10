@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
 
-import org.apache.commons.beanutils.BeanMap;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -46,6 +46,7 @@ import com.ai.yc.ucenter.util.BeanValidators;
 import com.ai.yc.ucenter.util.LoginValidators;
 import com.ai.yc.ucenter.util.OperationValidateUtils;
 import com.ai.yc.ucenter.util.PasswordMD5Util;
+import com.ai.yc.ucenter.util.UcBeanUtils;
 import com.ai.yc.ucenter.util.UcmembersValidators;
 
  
@@ -223,13 +224,14 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			if(("0").equals(ucMembers.getEnablestatus())){		
 				UcMembersGetDate ucMembersGetDate = new UcMembersGetDate();
 				BeanUtils.copyProperties(ucMembersGetDate, ucMembers);			
-				Map<Object, Object> responseMap = new BeanMap(ucMembersGetDate);
+				Map<String, Object> responseMap =UcBeanUtils.transBean2Map(ucMembersGetDate);
 				response = (UcMembersGetResponse) addResponse(response,true,Constants.GetUcMembersResultConstants.NO_ACTIV, "账户未激活", responseMap);
 				return response;
 			}
 			UcMembersGetDate ucMembersGetDate = new UcMembersGetDate();
 			BeanUtils.copyProperties(ucMembersGetDate, ucMembers);
-			Map<Object, Object> responseDate = new BeanMap(ucMembersGetDate);
+
+			Map<String, Object> responseDate = UcBeanUtils.transBean2Map(ucMembersGetDate);
 			
 			response = (UcMembersGetResponse) addResponse(response,true,Constants.GetUcMembersResultConstants.SUCCESS_CODE, "成功", responseDate);
 			return response;
