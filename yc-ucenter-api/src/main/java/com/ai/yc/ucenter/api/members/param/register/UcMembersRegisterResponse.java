@@ -18,8 +18,7 @@ public class UcMembersRegisterResponse extends UcBaseResponse {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
-	
+
 
 
 	public static class UcMembersRegisterResponseDate extends UcResponseDate{
@@ -27,6 +26,7 @@ public class UcMembersRegisterResponse extends UcBaseResponse {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
+
 
 		/**
 	     * 主键
@@ -53,6 +53,7 @@ public class UcMembersRegisterResponse extends UcBaseResponse {
 		public void setOperationcode(String operationcode) {
 			this.operationcode = operationcode;
 		}
+	
 	}
 	
 

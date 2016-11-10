@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
 
+import org.apache.commons.beanutils.BeanMap;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
-import com.ai.yc.ucenter.api.members.param.base.ResponseCode;
-import com.ai.yc.ucenter.api.members.param.base.ResponseMessage;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
@@ -27,11 +26,9 @@ import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse.UcMembersGet
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginModeEnum;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse;
-import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse.UcMembersLoginResponseDate;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterRequest;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterResponse;
-import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterResponse.UcMembersRegisterResponseDate;
 import com.ai.yc.ucenter.constants.CheckEmailResultCodeConstants;
 import com.ai.yc.ucenter.constants.CheckMobilResultCodeConstants;
 import com.ai.yc.ucenter.constants.Constants;
@@ -104,11 +101,12 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		if(list.size()>0){
 			
 			UcMembers ucMembersResponse = list.get(0);
-			UcMembersLoginResponseDate responseDate= new UcMembersLoginResponseDate();
-			
-			responseDate.setUid(ucMembersResponse.getUid());
-			responseDate.setEmail(ucMembersResponse.getEmail());
-			responseDate.setMobilephone(ucMembersResponse.getMobilephone());
+//			UcMembersLoginResponseDate responseDate= new UcMembersLoginResponseDate();
+			Map<Object, Object> responseDate = new HashMap<Object, Object>();
+			responseDate.put("uid", ucMembersResponse.getUid());
+			responseDate.put("email", ucMembersResponse.getEmail());
+			responseDate.put("mobilephone", ucMembersResponse.getMobilephone());
+
 
 			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.SUCCESS_CODE, "认证成功", responseDate);
 		}else{
@@ -180,10 +178,11 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			getOperaRequest.setOperationtype(getUserinfoAndOper(request).get("operationtype")+"");
 			getOperaRequest.setUid(Integer.valueOf(resultUid));
 			String code = iUcMembersOperationAtomService.saveOperationcode(getOperaRequest);	
-			UcMembersRegisterResponseDate date = new UcMembersRegisterResponseDate();
-			date.setOperationcode(code);
-			date.setUid(resultUid);
-			response = (UcMembersRegisterResponse) addResponse(response,true,RegResultCodeConstants.SUCCESS_CODE, "用户注册成功", date);
+
+			Map<Object, Object> responseDate = new HashMap<Object, Object>();
+			responseDate.put("uid", resultUid);
+			responseDate.put("operationcode", code);
+			response = (UcMembersRegisterResponse) addResponse(response,true,RegResultCodeConstants.SUCCESS_CODE, "用户注册成功",responseDate);
 		} catch (Exception e) {
 			response = (UcMembersRegisterResponse) addResponse(response,true,RegResultCodeConstants.FAIL_CODE, "失败,生成验证码失败", null);
 			return response;
@@ -223,13 +222,16 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			//判断账号是否未激活
 			if(("0").equals(ucMembers.getEnablestatus())){		
 				UcMembersGetDate ucMembersGetDate = new UcMembersGetDate();
-				BeanUtils.copyProperties(ucMembersGetDate, ucMembers);				
-				response = (UcMembersGetResponse) addResponse(response,true,Constants.GetUcMembersResultConstants.NO_ACTIV, "账户未激活", ucMembersGetDate);
+				BeanUtils.copyProperties(ucMembersGetDate, ucMembers);			
+				Map<Object, Object> responseMap = new BeanMap(ucMembersGetDate);
+				response = (UcMembersGetResponse) addResponse(response,true,Constants.GetUcMembersResultConstants.NO_ACTIV, "账户未激活", responseMap);
 				return response;
 			}
 			UcMembersGetDate ucMembersGetDate = new UcMembersGetDate();
 			BeanUtils.copyProperties(ucMembersGetDate, ucMembers);
-			response = (UcMembersGetResponse) addResponse(response,true,Constants.GetUcMembersResultConstants.SUCCESS_CODE, "成功", ucMembersGetDate);
+			Map<Object, Object> responseDate = new BeanMap(ucMembersGetDate);
+			
+			response = (UcMembersGetResponse) addResponse(response,true,Constants.GetUcMembersResultConstants.SUCCESS_CODE, "成功", responseDate);
 			return response;
 		}else{
 			response = (UcMembersGetResponse) addResponse(response,true,Constants.GetUcMembersResultConstants.FAIL_CODE, "失败，未找到该用户信息", null);

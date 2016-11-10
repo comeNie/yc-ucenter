@@ -1,6 +1,7 @@
 package com.ai.yc.ucenter.service.base;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
@@ -12,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ai.yc.ucenter.api.members.param.base.ResponseCode;
 import com.ai.yc.ucenter.api.members.param.base.ResponseMessage;
 import com.ai.yc.ucenter.api.members.param.base.UcBaseResponse;
-import com.ai.yc.ucenter.api.members.param.base.UcResponseDate;
 import com.ai.yc.ucenter.constants.MessageConstantsEnum;
-import com.ai.yc.ucenter.constants.RegResultCodeConstants;
-import com.ai.yc.ucenter.service.business.members.IUcMembersBusinessService;
 import com.ai.yc.ucenter.util.BeanValidators;
 
 
@@ -63,7 +61,7 @@ public abstract class UcBaseService {
 
 
 
-	protected UcBaseResponse addResponse(UcBaseResponse response,boolean isSuccess,int code,String  message,UcResponseDate date){
+	protected UcBaseResponse addResponse(UcBaseResponse response,boolean isSuccess,int code,String  message,Map date){
 		
 		
 		ResponseMessage responseMessage = new ResponseMessage(isSuccess,(isSuccess)?MessageConstantsEnum.MESSAGE_SUCCESS.getIndex():MessageConstantsEnum.MESSAGE_FAIL.getIndex(), (isSuccess)?MessageConstantsEnum.MESSAGE_SUCCESS.getValue():MessageConstantsEnum.MESSAGE_FAIL.getValue());

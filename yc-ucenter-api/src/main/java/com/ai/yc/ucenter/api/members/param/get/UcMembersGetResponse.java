@@ -1,6 +1,8 @@
 package com.ai.yc.ucenter.api.members.param.get;
 
 
+import java.util.Map;
+
 import com.ai.yc.ucenter.api.members.param.base.UcBaseResponse;
 import com.ai.yc.ucenter.api.members.param.base.UcResponseDate;
 
@@ -17,18 +19,7 @@ public class UcMembersGetResponse extends UcBaseResponse {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
-	private UcMembersGetDate date;
-	
-	
-	public UcMembersGetDate getDate() {
-		return date;
-	}
 
-
-	public void setDate(UcMembersGetDate date) {
-		this.date = date;
-	}
 
 
 	public static class UcMembersGetDate extends UcResponseDate{

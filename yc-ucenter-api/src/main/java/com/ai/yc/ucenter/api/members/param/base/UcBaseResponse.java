@@ -1,6 +1,7 @@
 package com.ai.yc.ucenter.api.members.param.base;
 
 import java.io.Serializable;
+import java.util.Map;
 
 
 
@@ -19,15 +20,15 @@ public class UcBaseResponse implements Serializable{
 	 *uid：用户ID
 	 *operationcode：邮箱激活码
 	 */
-	private UcResponseDate date;
+	protected Map<?, ?> date;
 	
 
-	public UcResponseDate getDate() {
+	public Map<?, ?> getDate() {
 		return date;
 	}
 
 
-	public void setDate(UcResponseDate date) {
+	public void setDate(Map<?, ?> date) {
 		this.date = date;
 	}
 	
