@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.base.ResponseCode;
@@ -82,7 +81,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			List<String> list = BeanValidators.extractPropertyAndMessageAsList(ex, ": ");
 			list.add(0, "数据验证失败：");
 
-			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, list.toString(), null);
+			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, list+"", null);
 			return response;
 		}
 		
@@ -128,7 +127,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		UcMembersRegisterResponse response = new UcMembersRegisterResponse();
 		List<String > listValidator  = beanValidator(request);
 		if(listValidator != null&&!listValidator.isEmpty()){
-			response = (UcMembersRegisterResponse) addResponse(response,true,RegResultCodeConstants.FAIL_CODE, listValidator.toString(), null);
+			response = (UcMembersRegisterResponse) addResponse(response,true,RegResultCodeConstants.FAIL_CODE, listValidator+"", null);
 			return response;
 		}
 		//验证 用户名电话邮箱必输一项
@@ -177,8 +176,8 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			//生成验证码并发送
 		try {
 			UcMembersGetOperationcodeRequest getOperaRequest = new UcMembersGetOperationcodeRequest();
-			getOperaRequest.setUserinfo(getUserinfoAndOper(request).get("userinfo").toString());
-			getOperaRequest.setOperationtype(getUserinfoAndOper(request).get("operationtype").toString());
+			getOperaRequest.setUserinfo(getUserinfoAndOper(request).get("userinfo")+"");
+			getOperaRequest.setOperationtype(getUserinfoAndOper(request).get("operationtype")+"");
 			getOperaRequest.setUid(Integer.valueOf(resultUid));
 			String code = iUcMembersOperationAtomService.saveOperationcode(getOperaRequest);	
 			UcMembersRegisterResponseDate date = new UcMembersRegisterResponseDate();
@@ -213,7 +212,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		UcMembersGetResponse response = new UcMembersGetResponse();
 		List<String > listValidator  = beanValidator(request);
 		if(listValidator != null&&!listValidator.isEmpty()){
-			response = (UcMembersGetResponse) addResponse(response,true,Constants.GetUcMembersResultConstants.NOT_EMPTY, listValidator.toString(), null);
+			response = (UcMembersGetResponse) addResponse(response,true,Constants.GetUcMembersResultConstants.NOT_EMPTY, listValidator+"", null);
 			return response;
 		}
 		
@@ -244,7 +243,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		UcMembersResponse response = new UcMembersResponse();
 		List<String > listValidator  = beanValidator(request);
 		if(listValidator != null&&!listValidator.isEmpty()){
-			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, listValidator.toString(), null);
+			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, listValidator+"", null);
 			return response;
 		}
 		//验证码是否一致,验证码有效期
@@ -299,7 +298,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		//1、校验入参必填
 		List<String > listValidator  = beanValidator(request);
 		if(listValidator != null&&!listValidator.isEmpty()){
-			response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.FAIL_CODE, listValidator.toString(), null);
+			response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.FAIL_CODE, listValidator+"", null);
 			return response;
 		}
 
@@ -368,7 +367,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		UcMembersResponse response = new UcMembersResponse();
 		List<String > listValidator  = beanValidator(request);
 		if(listValidator != null&&!listValidator.isEmpty()){
-			response = (UcMembersResponse) addResponse(response,true,CheckEmailResultCodeConstants.FORMAT_ERROR, listValidator.toString(), null);
+			response = (UcMembersResponse) addResponse(response,true,CheckEmailResultCodeConstants.FORMAT_ERROR, listValidator+"", null);
 			return response;
 		}
 
@@ -386,7 +385,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		UcMembersResponse response = new UcMembersResponse();
 		List<String > listValidator  = beanValidator(request);
 		if(listValidator != null&&!listValidator.isEmpty()){
-			response = (UcMembersResponse) addResponse(response,true,CheckMobilResultCodeConstants.FORMAT_ERROR, listValidator.toString(), null);
+			response = (UcMembersResponse) addResponse(response,true,CheckMobilResultCodeConstants.FORMAT_ERROR, listValidator+"", null);
 			return response;
 		}
 		int resultCount = iUcMembersAtomService.checkMobilephone(request);

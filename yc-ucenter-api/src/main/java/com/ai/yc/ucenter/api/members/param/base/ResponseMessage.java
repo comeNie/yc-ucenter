@@ -11,14 +11,14 @@ public  class ResponseMessage implements Serializable{
 
 		private boolean isSuccess;
 		 
-		private int code; 
+		private Integer messageCode; 
 		
-		private String message; 
+		private String messageValue; 
 		
-		public ResponseMessage(boolean isSuccess,int code,String message){
+		public ResponseMessage(boolean isSuccess,Integer messageCode,String messageValue){
 			this.isSuccess = isSuccess;
-			this.code = code;
-			this.message = message;
+			this.messageCode = messageCode;
+			this.messageValue = messageValue;
 		}
 
 		public boolean isSuccess() {
@@ -29,21 +29,23 @@ public  class ResponseMessage implements Serializable{
 			this.isSuccess = isSuccess;
 		}
 
-		public int getCode() {
-			return code;
+		public Integer getMessageCode() {
+			return messageCode;
 		}
 
-		public void setCode(int code) {
-			this.code = code;
+		public void setMessageCode(Integer messageCode) {
+			this.messageCode = messageCode;
 		}
 
-		public String getMessage() {
-			return message;
+		public String getMessageValue() {
+			return messageValue;
 		}
 
-		public void setMessage(String message) {
-			this.message = message;
+		public void setMessageValue(String messageValue) {
+			this.messageValue = messageValue;
 		}
+
+		
 		
 		
 	}

@@ -71,7 +71,7 @@ public class BeanValidators {
 	public static Map<String, String> extractPropertyAndMessage(Set<? extends ConstraintViolation> constraintViolations) {
 		Map<String, String> errorMessages = Maps.newHashMap();
 		for (ConstraintViolation violation : constraintViolations) {
-			errorMessages.put(violation.getPropertyPath().toString(), violation.getMessage());
+			errorMessages.put(violation.getPropertyPath()+"", violation.getMessage());
 		}
 		return errorMessages;
 	}

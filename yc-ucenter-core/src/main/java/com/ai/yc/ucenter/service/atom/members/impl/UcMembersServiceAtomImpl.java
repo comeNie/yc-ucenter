@@ -108,7 +108,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		}else if(Constants.LoginWayConstant.USER_PASS.equals(loginway)){
 			username.append(request.getUsername());
 		}
-		return username.toString();
+		return username+"";
 	}
 	
 	@Override

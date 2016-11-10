@@ -31,17 +31,17 @@ public final class PasswordMD5Util {
  	 */
  	private static String getUUID() {
 
- 		return UUID.randomUUID().toString().replace("-", "");
+ 		return UUID.randomUUID()+"".replace("-", "");
  	}
 
  	public static String creatSalt(){
  		StringBuffer salt = new StringBuffer(getUUID().substring(getUUID().length()-6));
- 		return salt.toString();
+ 		return salt+"";
  	}
  	
 	public static String getSalt(String username){
  		StringBuffer salt = new StringBuffer(getUUID().substring(getUUID().length()-6));
- 		return salt.toString();
+ 		return salt+"";
  	}
  	
  	public static String getPassSaltMd5(String password,String salt){

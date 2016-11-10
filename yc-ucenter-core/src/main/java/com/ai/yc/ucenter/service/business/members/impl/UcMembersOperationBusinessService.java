@@ -42,7 +42,7 @@ public class UcMembersOperationBusinessService implements IUcMembersOperationBus
 		//校验：Uid只有手机/邮箱验证码和邮箱激活码用到，有值。
 		if(OperationtypeConstants.EMAIL_ACTIV.equals(operationtype) || OperationtypeConstants.MOBILE_VALI.equals(operationtype)
 				|| OperationtypeConstants.EMAIL_VALI.equals(operationtype)){
-			if(!StringUtils.isNotBlank(request.getUid().toString())){
+			if(!StringUtils.isNotBlank(request.getUid()+"")){
 				ResponseMessage responseMessage = new ResponseMessage(true, CheckMobilResultCodeConstants.FAIL_CODE, "失败");
 				ResponseCode responseCode = new ResponseCode(CheckMobilResultCodeConstants.EXIST_ERROR, "Uid不能为空");	
 			

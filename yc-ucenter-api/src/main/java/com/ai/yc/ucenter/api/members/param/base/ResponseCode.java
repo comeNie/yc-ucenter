@@ -11,29 +11,31 @@ public  class ResponseCode implements Serializable{
 	
 		public ResponseCode(){}
 
-		private int code;  
+		private Integer codeNumber;  
 		   
-		private String message;
+		private String codeMessage;
 
-		public ResponseCode(int code,String message){
-			this.code = code;
-			this.message = message;
-		}
-		public int getCode() {
-			return code;
+		public ResponseCode(Integer codeNumber,String codeMessage){
+			this.codeNumber = codeNumber;
+			this.codeMessage = codeMessage;
 		}
 
-		public void setCode(int code) {
-			this.code = code;
+		public Integer getCodeNumber() {
+			return codeNumber;
 		}
 
-		public String getMessage() {
-			return message;
+		public void setCodeNumber(Integer codeNumber) {
+			this.codeNumber = codeNumber;
 		}
 
-		public void setMessage(String message) {
-			this.message = message;
+		public String getCodeMessage() {
+			return codeMessage;
 		}
+
+		public void setCodeMessage(String codeMessage) {
+			this.codeMessage = codeMessage;
+		}
+	
 		
 		
 	}
