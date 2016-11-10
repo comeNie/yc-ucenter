@@ -23,6 +23,7 @@ import com.ai.yc.ucenter.constants.ResultCodeConstants;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
+import com.ai.yc.ucenter.service.base.UcBaseService;
 import com.ai.yc.ucenter.service.business.members.IUcMembersOperationBusinessService;
 import com.ai.yc.ucenter.util.OperationValidateUtils;
 import com.ai.yc.ucenter.util.UCDateUtils;
@@ -32,7 +33,7 @@ import com.ai.yc.ucenter.util.UcmembersValidators;
 
 @Component
 @Transactional
-public class UcMembersOperationBusinessService extends UcMembersBusinessService implements IUcMembersOperationBusinessService {
+public class UcMembersOperationBusinessService extends UcBaseService implements IUcMembersOperationBusinessService {
 	@Autowired
 	private IUcMembersOperationAtomService iUcMembersOperationAtomService;
 	
