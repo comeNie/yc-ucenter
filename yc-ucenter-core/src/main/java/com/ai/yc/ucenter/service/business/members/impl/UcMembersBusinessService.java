@@ -77,6 +77,10 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 	
 		
 		UcMembers ucMembers = getUcMembers(request);
+		if(ucMembers == null){
+			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "认证失败", null);
+			return response;
+		}
 
 		if(!LoginValidators.validateEnablestatus(ucMembers)){
  
