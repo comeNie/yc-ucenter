@@ -335,10 +335,10 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		//3、验证方式为验证码 此处验证码都是操作码生
 		 else if(("2").equals(checke_mode)){
 			 
-			 if(!OperationValidateUtils.mobileActivAndDyan(request.getUid(), request.getChecke_code())){
-					response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.OVERDUE_ERROR, "验证码过期，修改密码失败", null);
-					return response;
-			 }
+//			 if(!OperationValidateUtils.mobileActivAndDyan(request.getUid(), request.getChecke_code())){
+//					response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.OVERDUE_ERROR, "验证码过期，修改密码失败", null);
+//					return response;
+//			 }
 			 
 			 UcMembers ucMembers = new UcMembers();
 			 ucMembers.setUid(request.getUid());
