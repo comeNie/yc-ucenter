@@ -127,7 +127,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 	public UcMembersRegisterResponse insertMember(UcMembersRegisterRequest request) {
 		UcMembersRegisterResponse response = new UcMembersRegisterResponse();
 		List<String > listValidator  = beanValidator(request);
-		if(!listValidator.isEmpty()){
+		if(listValidator != null&&!listValidator.isEmpty()){
 			response = (UcMembersRegisterResponse) addResponse(response,true,RegResultCodeConstants.FAIL_CODE, listValidator.toString(), null);
 			return response;
 		}
@@ -212,7 +212,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 	public UcMembersGetResponse getMember(UcMembersGetRequest request) {
 		UcMembersGetResponse response = new UcMembersGetResponse();
 		List<String > listValidator  = beanValidator(request);
-		if(!listValidator.isEmpty()){
+		if(listValidator != null&&!listValidator.isEmpty()){
 			response = (UcMembersGetResponse) addResponse(response,true,Constants.GetUcMembersResultConstants.NOT_EMPTY, listValidator.toString(), null);
 			return response;
 		}
@@ -243,7 +243,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 	public UcMembersResponse updateMobilephone(UcMembersEditMobileRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
 		List<String > listValidator  = beanValidator(request);
-		if(!listValidator.isEmpty()){
+		if(listValidator != null&&!listValidator.isEmpty()){
 			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, listValidator.toString(), null);
 			return response;
 		}
@@ -298,7 +298,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		UcMembersResponse response = new UcMembersResponse();
 		//1、校验入参必填
 		List<String > listValidator  = beanValidator(request);
-		if(!listValidator.isEmpty()){
+		if(listValidator != null&&!listValidator.isEmpty()){
 			response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.FAIL_CODE, listValidator.toString(), null);
 			return response;
 		}
@@ -367,7 +367,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 	public UcMembersResponse ucCheckeEmail(UcMembersCheckEmailRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
 		List<String > listValidator  = beanValidator(request);
-		if(!listValidator.isEmpty()){
+		if(listValidator != null&&!listValidator.isEmpty()){
 			response = (UcMembersResponse) addResponse(response,true,CheckEmailResultCodeConstants.FORMAT_ERROR, listValidator.toString(), null);
 			return response;
 		}
@@ -385,7 +385,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 	public UcMembersResponse ucCheckeMobilephone(UcMembersCheckeMobileRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
 		List<String > listValidator  = beanValidator(request);
-		if(!listValidator.isEmpty()){
+		if(listValidator != null&&!listValidator.isEmpty()){
 			response = (UcMembersResponse) addResponse(response,true,CheckMobilResultCodeConstants.FORMAT_ERROR, listValidator.toString(), null);
 			return response;
 		}
