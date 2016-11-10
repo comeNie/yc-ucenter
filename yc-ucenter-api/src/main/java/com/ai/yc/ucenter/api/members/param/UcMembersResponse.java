@@ -1,8 +1,9 @@
 package com.ai.yc.ucenter.api.members.param;
 
 
+import java.util.Map;
+
 import com.ai.yc.ucenter.api.members.param.base.UcBaseResponse;
-import com.ai.yc.ucenter.api.members.param.base.UcResponseDate;
 
 /**
  * Ucenter-用户信息查询结果类<br>
@@ -17,13 +18,13 @@ public class UcMembersResponse extends UcBaseResponse {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private UcResponseDate date;
+	private Map<?, ?> date;
 
-	public UcResponseDate getDate() {
+	public Map<?, ?> getDate() {
 		return date;
 	}
 
-	public void setDate(UcResponseDate date) {
+	public void setDate(Map<?, ?> date) {
 		this.date = date;
 	}
 	
