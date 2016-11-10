@@ -11,7 +11,7 @@ public class UcMembersActiveRequest extends BaseInfo{
     /**
      * 用户id(必填)
      */
-	@NotBlank
+
     private Integer uid;
 
     /**

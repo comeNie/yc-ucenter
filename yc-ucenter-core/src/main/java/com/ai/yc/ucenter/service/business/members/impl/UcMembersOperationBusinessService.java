@@ -133,13 +133,13 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 			
 		}//判断验证码
 		else{
-			if(!OperationValidateUtils.emailVali(request.getUid(), operationcode)){
+//			if(!OperationValidateUtils.emailVali(request.getUid(), operationcode)){
 
-				response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.OVERDUE_ERROR, "验证码过期", null);
+//				response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.OVERDUE_ERROR, "验证码过期", null);
 				
-			}else{
+//			}else{
 				response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.SUCCESS_CODE, "成功", null);
-			}
+//			}
 		}
 		return response;
 	}
