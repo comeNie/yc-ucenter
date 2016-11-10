@@ -20,15 +20,15 @@ public class UcMembersVo extends BaseInfo implements Serializable {
 	
 	
 
-	public UcMembersVo(Map<String, Object> responseMap){
-			UcBeanUtils.transMap2Bean(responseMap, this);	
+	public UcMembersVo(Map<?, ?> map){
+			UcBeanUtils.transMap2Bean(map, this);	
 
 	}
 
 	/**
      * 主键
      */
-    private Integer uid;
+    private String uid;
 
     /**
      * 用户名称
@@ -107,11 +107,11 @@ public class UcMembersVo extends BaseInfo implements Serializable {
 		this.operationcode = operationcode;
 	}
 
-	public Integer getUid() {
+	public String getUid() {
 		return uid;
 	}
 
-	public void setUid(Integer uid) {
+	public void setUid(String uid) {
 		this.uid = uid;
 	}
 

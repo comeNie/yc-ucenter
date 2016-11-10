@@ -4,6 +4,7 @@ package com.ai.yc.ucenter.service.atom.members.impl;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -228,9 +229,23 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 
 	@Override
 	public UcMembers getUcMembersbyUid(Integer uid) {
-		// TODO Auto-generated method stub
+		
 		return MapperFactory.getUcMembersMapper().selectByPrimaryKey(uid);
 	}
+
+	@Override
+	public String insertMemberPo(UcMembers ucMembers) {
+		// TODO Auto-generated method stub
+		int insertCount =  MapperFactory.getUcMembersMapper().insert(ucMembers);
+		if(insertCount>0){
+			Integer newId = MapperFactory.getUcMembersMapper().selectPrimaryKey(ucMembers).getUid();	
+			return newId+"";
+		}else{
+			return "";
+		}
+	}
+
+
 
 
 }

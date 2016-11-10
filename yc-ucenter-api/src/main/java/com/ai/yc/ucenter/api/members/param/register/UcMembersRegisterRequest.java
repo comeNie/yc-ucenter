@@ -84,7 +84,23 @@ public class UcMembersRegisterRequest extends BaseInfo implements Cloneable{
      * 手机激活码（ 手机+密码方式有值）
      *
      */    
-    private String operationcode;
+    
+   /**
+    * 所属国家代码
+    */
+   private String  domainname;
+   
+   
+   
+   
+    public String getDomainname() {
+	return domainname;
+}
+public void setDomainname(String domainname) {
+	this.domainname = domainname;
+}
+
+	private String operationcode;
 	public String getUsername() {
 		return username;
 	}

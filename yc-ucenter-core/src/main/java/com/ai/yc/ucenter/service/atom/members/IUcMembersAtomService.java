@@ -21,6 +21,8 @@ public interface IUcMembersAtomService {
 
 	String insertMember(UcMembersRegisterRequest request) throws Exception;
 
+	String insertMemberPo(UcMembers ucMembers) ;
+	
 	List<UcMembers> getMember(UcMembersGetRequest request);
 
 	int updateMobilephone(UcMembersEditMobileRequest request);
@@ -33,11 +35,11 @@ public interface IUcMembersAtomService {
 
 	int checkMobilephone(UcMembersCheckeMobileRequest request);
 
-
-
 	UcMembers getSalt(UcMembersLoginRequest request) ;
 
 	com.ai.yc.ucenter.dao.mapper.bo.UcMembers getUcMembersbyUid(Integer uid);
+
+
  
     
 }

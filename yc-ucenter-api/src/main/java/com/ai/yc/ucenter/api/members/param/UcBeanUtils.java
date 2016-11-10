@@ -12,8 +12,20 @@ import org.apache.commons.beanutils.BeanUtils;
 public class UcBeanUtils {  
   
 
+    // Map --> Bean 2: 利用org.apache.commons.beanutils 工具类实现 Map --> Bean  
+    public static void transMap2Bean2(Map<String, Object> map, Object obj) {  
+        if (map == null || obj == null) {  
+            return;  
+        }  
+        try {  
+            BeanUtils.populate(obj, map);  
+        } catch (Exception e) {  
+            System.out.println("transMap2Bean2 Error " + e);  
+        }  
+    }  
+  
     // Map --> Bean 1: 利用Introspector,PropertyDescriptor实现 Map --> Bean  
-    public static void transMap2Bean(Map<String, Object> map, Object obj) {  
+    public static void transMap2Bean(Map<?, ?> map, Object obj) {  
   
         try {  
             BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());  
