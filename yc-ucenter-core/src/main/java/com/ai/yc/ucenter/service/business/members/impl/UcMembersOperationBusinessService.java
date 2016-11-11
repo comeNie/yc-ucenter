@@ -79,8 +79,8 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 				mobileUcmebers.setLogincount(0);
 				mobileUcmebers.setModifydate(0);
 			    responseUid = iUcMembersAtomService.insertMemberPo(mobileUcmebers);
-		
-
+			    if(StringUtils.isNotBlank(responseUid))
+			    	request.setUid(Integer.valueOf(responseUid));
 			
 			}
 		}//2、手机动态密码
