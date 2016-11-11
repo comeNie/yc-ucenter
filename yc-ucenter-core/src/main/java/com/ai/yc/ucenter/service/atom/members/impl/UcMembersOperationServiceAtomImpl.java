@@ -128,6 +128,9 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 		UcMembers ucMembers = getUcMembers(uid);
 		//获取最新的验证码
 		UcMembersOperation realOperation = lastTimeOperation(uid,operationtype);	
+		if(realOperation==null){
+			return RESULT_VALI_NOTIN;
+		}
 		//如果传入的验证码和查到的最新验证码不符合，就返回
 		if(!realOperation.getOperationcode().equals(validateCode)){		
 			return RESULT_VALI_DIFFERENT;
