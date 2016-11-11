@@ -241,6 +241,12 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 	@Override
 	public UcMembersResponse updateMobilephone(UcMembersEditMobileRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
+		
+		if(request.getUid()==null){
+			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "Uid不能为空"+"", null);
+			return response;
+		}
+		
 		List<String > listValidator  = beanValidator(request);
 		if(listValidator != null&&!listValidator.isEmpty()){
 			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, listValidator+"", null);
@@ -278,6 +284,18 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 	@Override
 	public UcMembersResponse updateEmail(UcMembersEditEmailRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
+		if(request.getUid()==null){
+			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "Uid不能为空"+"", null);
+			return response;
+		}
+		
+		List<String > listValidator  = beanValidator(request);
+		if(listValidator != null&&!listValidator.isEmpty()){
+			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, listValidator+"", null);
+			return response;
+		}
+		
+		
 		//验证码过期，修改/绑定失败	
 		
 		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(), OperationtypeConstants.PASS_VALI, "vali");

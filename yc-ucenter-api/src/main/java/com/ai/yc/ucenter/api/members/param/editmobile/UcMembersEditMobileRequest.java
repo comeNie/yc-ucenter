@@ -11,7 +11,7 @@ public class UcMembersEditMobileRequest extends BaseInfo{
 	/**
      * 主键
      */
-	@NotBlank
+
     private Integer uid;
     
     /**
