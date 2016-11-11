@@ -116,7 +116,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 			
 			
 			Map<Object, Object> responseDate = new HashMap<Object, Object>();
-			responseDate.put("uid", responseUid);
+			responseDate.put("uid", (StringUtils.isNotBlank(responseUid))?responseUid:request.getUid());
 			responseDate.put("operationcode",operationcode);
 			response = (UcMembersGetOperationcodeResponse) addResponse(response,true,CheckMobilResultCodeConstants.SUCCESS_CODE, "成功", responseDate);
 		}
