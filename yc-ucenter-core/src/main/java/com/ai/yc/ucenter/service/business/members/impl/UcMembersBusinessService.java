@@ -249,9 +249,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 	
 		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(), OperationtypeConstants.PASS_VALI, "vali");
 		
-		if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_SUCCESS){
-			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.SUCCESS_CODE, "成功", null);
-		}else if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
+		 if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 				|| res==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
 			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "验证码不对", null);
 			return response;
@@ -284,9 +282,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		
 		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(), OperationtypeConstants.PASS_VALI, "vali");
 		
-		if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_SUCCESS){
-			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.SUCCESS_CODE, "成功", null);
-		}else if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
+		if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 				|| res==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
 			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "验证码不对", null);
 			return response;
@@ -356,10 +352,17 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		//3、验证方式为验证码 此处验证码都是操作码生
 		 else if(("2").equals(checke_mode)){
 			 
-//			 if(!OperationValidateUtils.mobileActivAndDyan(request.getUid(), request.getChecke_code())){
-//					response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.OVERDUE_ERROR, "验证码过期，修改密码失败", null);
-//					return response;
-//			 }
+
+				Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getChecke_code(), OperationtypeConstants.PASS_VALI, "vali");
+				
+				if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
+						|| res==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
+					response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "验证码不对", null);
+					return response;
+				}else if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_EXPIRED){
+					response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.OVERDUE_ERROR, "验证码过期，修改/绑定失败", null);
+					return response;
+				}
 			 
 			 UcMembers ucMembers = new UcMembers();
 			 ucMembers.setUid(request.getUid());
