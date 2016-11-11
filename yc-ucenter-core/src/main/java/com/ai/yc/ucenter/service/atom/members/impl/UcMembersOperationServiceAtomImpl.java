@@ -3,6 +3,7 @@ package com.ai.yc.ucenter.service.atom.members.impl;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
 
@@ -106,6 +107,7 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 		UcMembersOperationMapper 	ucMembersOperationMapper = MapperFactory.getUcMembersOperationMapper();
 		UcMembersOperationCriteria example = new UcMembersOperationCriteria();
 		Criteria criteria = example.createCriteria();
+		if(uid!=null)
 		criteria.andUidEqualTo(uid);
 		criteria.andOperationtypeEqualTo(operationtype);
 		String lastTime = ucMembersOperationMapper.selectMaxTime(example);

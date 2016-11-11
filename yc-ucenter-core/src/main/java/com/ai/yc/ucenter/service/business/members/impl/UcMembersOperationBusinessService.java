@@ -55,13 +55,13 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 		
 		String operationtype = request.getOperationtype();
 		//手机激活码、动态密码、邮箱验证码、邮箱激活连接发出后，60秒后可再次获取
-		if(!OperationtypeConstants.MOBILE_VALI.equals(operationtype)
-				|| !OperationtypeConstants.PASS_VALI.equals(operationtype)){
-			UcMembersOperation op = iUcMembersOperationAtomService.lastTimeOperation(request.getUid(), operationtype);
-			if(UCDateUtils.getSystime()>(Long.valueOf(op.getOperationtime())+60)){
-				response = (UcMembersGetOperationcodeResponse) addResponse(response,true,CheckMobilResultCodeConstants.EXIST_ERROR, "手机激活码、动态密码、邮箱验证码、邮箱激活连接发出后，60秒后可再次获取", null);
-			}
-		}
+//		if(!OperationtypeConstants.MOBILE_VALI.equals(operationtype)
+//				|| !OperationtypeConstants.PASS_VALI.equals(operationtype)){
+//			UcMembersOperation op = iUcMembersOperationAtomService.lastTimeOperation(request.getUid(), operationtype);
+//			if(UCDateUtils.getSystime()>(Long.valueOf(op.getOperationtime())+60)){
+//				response = (UcMembersGetOperationcodeResponse) addResponse(response,true,CheckMobilResultCodeConstants.EXIST_ERROR, "手机激活码、动态密码、邮箱验证码、邮箱激活连接发出后，60秒后可再次获取", null);
+//			}
+//		}
 		
 		//手机验证码
 		
