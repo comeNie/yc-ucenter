@@ -19,6 +19,8 @@ public interface UcMembersOperationMapper {
     List<UcMembersOperation> selectByExample(UcMembersOperationCriteria example);
 
     UcMembersOperation selectByPrimaryKey(Integer oid);
+    
+    String selectMaxTime(UcMembersOperationCriteria example);
 
     int updateByExampleSelective(@Param("record") UcMembersOperation record, @Param("example") UcMembersOperationCriteria example);
 
@@ -27,4 +29,6 @@ public interface UcMembersOperationMapper {
     int updateByPrimaryKeySelective(UcMembersOperation record);
 
     int updateByPrimaryKey(UcMembersOperation record);
+
+	UcMembersOperation selectRealCode(UcMembersOperation exampleCode);
 }

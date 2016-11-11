@@ -14,6 +14,6 @@ public interface IUcMembersOperationAtomService {
 	List<UcMembersOperation>  getActiveMembe(UcMembersActiveRequest request);
 
 	int updateActiveMember(UcMembersActiveRequest request);
- 
-    
+	public UcMembersOperation lastTimeOperation(Integer uid,String operationtype);
+	 public  Integer processActivate(Integer uid , String validateCode,String operationtype, String string);
 }

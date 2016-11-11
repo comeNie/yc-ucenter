@@ -89,12 +89,39 @@
       limit #{limitStart} , #{limitEnd}
     </if>
   </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Integer" >
     select 
     <include refid="Base_Column_List" />
     from uc_members_operation
     where oid = #{oid,jdbcType=INTEGER}
   </select>
+  
+    <select id="selectRealCode" resultMap="BaseResultMap" parameterType="com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperation" >
+    select 
+    <include refid="Base_Column_List" />
+    from uc_members_operation
+    where uid = #{uid,jdbcType=INTEGER} 
+     <if test="operationcode != null" >
+    and operationcode= #{operationcode,jdbcType=VARCHAR}
+    </if>
+     <if test="operationtype != null" >
+     and operationtype= #{operationtype,jdbcType=VARCHAR}
+     </if>
+     <if test="operationtime != null" >
+    and operationtime= #{operationtime,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+    <select id="selectMaxTime"  resultType="String" parameterType="com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperationCriteria" >
+    select 
+    max(operationtime)
+    from uc_members_operation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="Integer" >
     delete from uc_members_operation
     where oid = #{oid,jdbcType=INTEGER}

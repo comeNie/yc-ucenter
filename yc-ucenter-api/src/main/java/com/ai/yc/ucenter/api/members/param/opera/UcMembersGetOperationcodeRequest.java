@@ -1,5 +1,7 @@
 package com.ai.yc.ucenter.api.members.param.opera;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.ai.opt.base.vo.BaseInfo;
 
 public class UcMembersGetOperationcodeRequest extends BaseInfo{
@@ -14,6 +16,7 @@ public class UcMembersGetOperationcodeRequest extends BaseInfo{
     /**
      * 移动电话/邮件
      */
+    @NotBlank
     private String userinfo;
     
     /**
@@ -25,6 +28,7 @@ public class UcMembersGetOperationcodeRequest extends BaseInfo{
 			5：邮箱验证码
 			6：密码操作验证码
      */
+    @NotBlank
     private String operationtype;
 
 	public Integer getUid() {
