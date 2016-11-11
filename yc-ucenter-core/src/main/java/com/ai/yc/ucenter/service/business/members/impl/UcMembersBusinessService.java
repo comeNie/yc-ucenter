@@ -362,21 +362,24 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 				}else if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_EXPIRED){
 					response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.OVERDUE_ERROR, "验证码过期，修改/绑定失败", null);
 					return response;
+				}else if(res == UcMembersOperationServiceAtomImpl.RESULT_VALI_SUCCESS){
+					 UcMembers ucMembers = new UcMembers();
+					 ucMembers.setUid(request.getUid());
+					 String salt = PasswordMD5Util.creatSalt();
+					 ucMembers.setSalt(salt);
+					 ucMembers.setEnablestatus("1");
+					 ucMembers.setPassword(PasswordMD5Util.getPassSaltMd5(request.getNewpw(), salt));
+					int resultCountmobile =  iUcMembersAtomService.updatePassword(ucMembers);
+					if(resultCountmobile>0){
+						response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.SUCCESS_CODE, "修改成功", null);
+						
+					}else{
+
+						response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.NONERECORD_ERROR, "没有生效记录，修改失败", null);
+					}
 				}
 			 
-			 UcMembers ucMembers = new UcMembers();
-			 ucMembers.setUid(request.getUid());
-			 String salt = PasswordMD5Util.creatSalt();
-			 ucMembers.setSalt(salt);
-			 ucMembers.setPassword(PasswordMD5Util.getPassSaltMd5(request.getNewpw(), salt));
-			int resultCountmobile =  iUcMembersAtomService.updatePassword(ucMembers);
-			if(resultCountmobile>0){
-				response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.SUCCESS_CODE, "修改成功", null);
-				
-			}else{
 
-				response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.NONERECORD_ERROR, "没有生效记录，修改失败", null);
-			}
 		 }
 		 return response;
 
