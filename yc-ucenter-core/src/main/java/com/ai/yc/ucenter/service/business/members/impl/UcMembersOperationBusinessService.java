@@ -23,7 +23,10 @@ import com.ai.yc.ucenter.constants.EditMobileResultCodeConstants;
 import com.ai.yc.ucenter.constants.OperationtypeConstants;
 import com.ai.yc.ucenter.constants.ResultCodeConstants;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
+import com.ai.yc.ucenter.dao.mapper.bo.UcMembersCriteria;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperation;
+import com.ai.yc.ucenter.dao.mapper.bo.UcMembersCriteria.Criteria;
+import com.ai.yc.ucenter.dao.mapper.factory.MapperFactory;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
 import com.ai.yc.ucenter.service.atom.members.impl.UcMembersOperationServiceAtomImpl;
@@ -67,7 +70,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 		
 		//校验：Uid只有手机/邮箱验证码和邮箱激活码用到，有值。
 		if(OperationtypeConstants.EMAIL_ACTIV.equals(operationtype) || OperationtypeConstants.MOBILE_VALI.equals(operationtype)
-				|| OperationtypeConstants.EMAIL_VALI.equals(operationtype)){
+				|| OperationtypeConstants.EMAIL_VALI.equals(operationtype) ){
 			if(!StringUtils.isNotBlank(request.getUid()+"")){
 
 				response = (UcMembersGetOperationcodeResponse) addResponse(response,true,CheckMobilResultCodeConstants.EXIST_ERROR, "Uid不能为空", null);
@@ -109,6 +112,26 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 				response = (UcMembersGetOperationcodeResponse) addResponse(response,true,CheckMobilResultCodeConstants.EXIST_ERROR, "该手机号已被注册", null);
 				return response;
 			}
+		}// 密码操作验证码
+		else if(OperationtypeConstants.PASS_VALI.equals(operationtype)){
+			
+			
+			UcMembersCriteria example = new UcMembersCriteria();
+			
+			Criteria criteria = example.createCriteria();
+			criteria.andMobilephoneEqualTo(request.getUserinfo());
+			//验证激活状态下
+			criteria.andEnablestatusEqualTo("1");
+			List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
+			
+			UcMembers ucmPV = (UcMembers)list.get(0);
+			if(ucmPV!=null){
+				request.setUid(ucmPV.getUid());
+			}else{
+				response = (UcMembersGetOperationcodeResponse) addResponse(response,true,CheckMobilResultCodeConstants.EXIST_ERROR, "该手机号不存在", null);
+				return response;
+			}
+			
 		}
 
 		String operationcode =  iUcMembersOperationAtomService.saveOperationcode(request);
