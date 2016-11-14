@@ -147,12 +147,10 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 		}else{
 			return RESULT_VALI_NOTIN;
 		}
-			
-		
      //验证用户是否存在   
      if(ucMembers!=null) {    
          //验证用户激活状态    
-         if(("0").equals(ucMembers.getEnablestatus())) {   
+         if(("0").equals(ucMembers.getEnablestatus()) || ("vali").equals(arg)) {   
              ///没激活  
             long sysdate = UCDateUtils.getSystime();//当前时间
 //当前时间小于验证码生成时间+时间限制，则在有效期内
