@@ -135,7 +135,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 			}
 			
 		}
-
+		System.out.println("save------operationcode before------------------"+request.getUid());
 		String operationcode =  iUcMembersOperationAtomService.saveOperationcode(request);
 		if(StringUtils.isNotBlank(operationcode)){
 			

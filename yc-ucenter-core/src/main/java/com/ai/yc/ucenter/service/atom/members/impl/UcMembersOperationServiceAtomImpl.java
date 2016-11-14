@@ -44,7 +44,7 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 		int code = OperationCodeFactory.getInstance().getOperationCode();
 		String operationCode = String.valueOf(code);
 		Long newId =SeqUtil.getNewId("SYS$UCMEMBERSOPERATION$ID");
-	
+	System.out.println("save-------------------------"+request.getUid());
 		UcMembersOperation record = new UcMembersOperation();
 		BeanUtils.copyProperties(record, request);
 		record.setOperationcode(operationCode);
