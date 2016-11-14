@@ -50,6 +50,7 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 		record.setOperationcode(operationCode);
 		record.setOperationtime(String.valueOf(UCDateUtils.getSystime()));
 		record.setOid(newId.intValue());
+		record.setUid(request.getUid());
 		MapperFactory.getUcMembersOperationMapper().insert(record);
 		return operationCode;
 	}

@@ -109,11 +109,11 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 		else if(OperationtypeConstants.DYN_PASS.equals(operationtype)){
 			//首先判断手机号是否被注册的合法性，如果注册过直接返回获取失败
 			if(!UcmembersValidators.validateMobilephone(request.getUserinfo())){
-				response = (UcMembersGetOperationcodeResponse) addResponse(response,true,CheckMobilResultCodeConstants.EXIST_ERROR, "该手机号已被注册", null);
+				response = (UcMembersGetOperationcodeResponse) addResponse(response,true,CheckMobilResultCodeConstants.EXIST_ERROR, "该帐号已被注册", null);
 				return response;
 			}
 		}// 密码操作验证码
-		else {
+		else if(OperationtypeConstants.PASS_VALI.equals(operationtype)){
 			
 			
 			UcMembersCriteria example = new UcMembersCriteria();
