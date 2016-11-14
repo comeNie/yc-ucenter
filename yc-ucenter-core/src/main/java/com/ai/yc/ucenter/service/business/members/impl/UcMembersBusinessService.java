@@ -298,7 +298,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		
 		//验证码过期，修改/绑定失败	
 		
-		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(), OperationtypeConstants.PASS_VALI, "vali");
+		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(), OperationtypeConstants.EMAIL_VALI, "vali");
 		
 		if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 				|| res==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
