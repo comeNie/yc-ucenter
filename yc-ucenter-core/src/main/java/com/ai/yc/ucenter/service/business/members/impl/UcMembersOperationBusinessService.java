@@ -113,7 +113,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 				return response;
 			}
 		}// 密码操作验证码
-		else if(OperationtypeConstants.PASS_VALI.equals(operationtype)){
+		else {
 			
 			
 			UcMembersCriteria example = new UcMembersCriteria();
