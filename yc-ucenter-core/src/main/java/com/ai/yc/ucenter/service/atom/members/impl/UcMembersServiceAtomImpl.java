@@ -175,6 +175,8 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		UcMembersCriteria example = new UcMembersCriteria();
 		Criteria criteria = example.createCriteria();
 		criteria.andEmailEqualTo(request.getEmail());
+		
+		criteria.andEnablestatusEqualTo("1");
 		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
 		return list.size();
 	}
@@ -184,6 +186,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		UcMembersCriteria example = new UcMembersCriteria();
 		Criteria criteria = example.createCriteria();
 		criteria.andMobilephoneEqualTo(request.getMobilephone());
+		criteria.andEnablestatusEqualTo("1");
 		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
 		return list.size();
 	}
