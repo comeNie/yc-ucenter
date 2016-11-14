@@ -147,7 +147,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		UcMembers ucMembers = new UcMembers();
 		ucMembers.setMobilephone(request.getMobilephone());
 		
-		return MapperFactory.getUcMembersMapper().updateByExample(ucMembers, example);
+		return MapperFactory.getUcMembersMapper().updateByExampleSelective(ucMembers, example);
 	}
 
 	@Override
@@ -157,7 +157,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		criteria.andUidEqualTo(request.getUid());
 		UcMembers ucMembers = new UcMembers();
 		ucMembers.setEmail(request.getEmail());
-		return MapperFactory.getUcMembersMapper().updateByExample(ucMembers, example);
+		return MapperFactory.getUcMembersMapper().updateByExampleSelective(ucMembers, example);
 
 	}
 

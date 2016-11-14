@@ -24,7 +24,7 @@ public interface UcMembersOperationMapper {
 
     int updateByExampleSelective(@Param("record") UcMembersOperation record, @Param("example") UcMembersOperationCriteria example);
 
-    int updateByExample(@Param("record") UcMembersOperation record, @Param("example") UcMembersOperationCriteria example);
+   // int updateByExample(@Param("record") UcMembersOperation record, @Param("example") UcMembersOperationCriteria example);
 
     int updateByPrimaryKeySelective(UcMembersOperation record);
 
