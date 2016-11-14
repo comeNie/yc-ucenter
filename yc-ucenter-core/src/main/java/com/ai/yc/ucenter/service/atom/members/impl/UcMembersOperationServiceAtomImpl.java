@@ -110,7 +110,10 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 		Criteria criteria = example.createCriteria();
 		if(uid!=null)
 		criteria.andUidEqualTo(uid);
-		criteria.andOperationtypeEqualTo(operationtype);
+		if(StringUtils.isNotBlank(operationtype)){
+			criteria.andOperationtypeEqualTo(operationtype);
+		}
+		
 		String lastTime = ucMembersOperationMapper.selectMaxTime(example);
 		
 		UcMembersOperationMapper 	operationCodeMapper = MapperFactory.getUcMembersOperationMapper();

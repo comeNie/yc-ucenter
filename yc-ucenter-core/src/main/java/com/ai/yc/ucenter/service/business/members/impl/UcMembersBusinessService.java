@@ -371,8 +371,9 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		 else if(("2").equals(checke_mode)){
 			 
 
-				Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getChecke_code(), OperationtypeConstants.PASS_VALI, "vali");
+				Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getChecke_code(), "", "vali");
 				
+
 				if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 						|| res==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
 					response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "验证码不对", null);
