@@ -253,7 +253,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			return response;
 		}
 	
-		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(), OperationtypeConstants.PASS_VALI, "vali");
+		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(),"", "vali");
 		
 		 if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 				|| res==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){

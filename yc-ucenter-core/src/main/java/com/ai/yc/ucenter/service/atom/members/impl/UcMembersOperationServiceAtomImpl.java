@@ -119,8 +119,9 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 		UcMembersOperationMapper 	operationCodeMapper = MapperFactory.getUcMembersOperationMapper();
 		UcMembersOperation realOperation = new UcMembersOperation();
 		realOperation.setUid(uid);
+		realOperation.setOperationtime(lastTime);
 		if(StringUtils.isNotBlank(operationtype)){
-			realOperation.setOperationtime(lastTime);
+			
 			realOperation.setOperationtype(operationtype);
 		}
 		
