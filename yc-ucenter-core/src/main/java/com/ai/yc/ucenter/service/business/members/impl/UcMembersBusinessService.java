@@ -350,7 +350,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 					return response;
 			 } //2.2 封装修改密码对象
 			 else{
-				 String newpass = request.getChecke_code();
+				 String newpass = request.getNewpw();
 				 //生成新salt
 				 String salt = PasswordMD5Util.creatSalt();
 				 String newpassMD5 = PasswordMD5Util.getPassSaltMd5(newpass,salt);
