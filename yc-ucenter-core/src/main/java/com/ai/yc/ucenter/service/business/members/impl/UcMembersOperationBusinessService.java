@@ -73,7 +73,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 				|| OperationtypeConstants.EMAIL_VALI.equals(operationtype) ){
 			System.out.println("---------------------------"+request.getUid()+"");
 			
-			if(StringUtils.isBlank(request.getUid()+"")){
+			if(request.getUid()==null){
 
 				response = (UcMembersGetOperationcodeResponse) addResponse(response,true,CheckMobilResultCodeConstants.EXIST_ERROR, "Uid不能为空", null);
 				return response;
