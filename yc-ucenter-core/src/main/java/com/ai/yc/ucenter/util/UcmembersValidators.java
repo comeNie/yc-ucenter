@@ -47,9 +47,17 @@ public class UcmembersValidators {
 	public static boolean validateUsername(String username){
 		UcMembersCriteria example = new UcMembersCriteria();
 		
-		Criteria criteria = example.createCriteria();
-		criteria.andUsernameEqualTo(username);
 
+		Criteria orUsername = example.or();
+		orUsername.andUsernameEqualTo(username);
+		orUsername.andEnablestatusEqualTo("1");
+		Criteria orMobile = example.or();
+		orMobile.andMobilephoneEqualTo(username);
+		orMobile.andEnablestatusEqualTo("1");
+		Criteria orEmail = example.or();
+		orEmail.andEmailEqualTo(username);
+		orEmail.andEnablestatusEqualTo("1");
+		
 		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
 		if(list.size()>0){
 			return false;
@@ -68,7 +76,18 @@ public class UcmembersValidators {
 		Criteria criteria = example.createCriteria();
 		criteria.andMobilephoneEqualTo(mobilephone);
 		//验证激活状态下
-		criteria.andEnablestatusEqualTo("1");
+	
+		
+		Criteria orUsername = example.or();
+		orUsername.andUsernameEqualTo(mobilephone);
+		orUsername.andEnablestatusEqualTo("1");
+		Criteria orMobile = example.or();
+		orMobile.andMobilephoneEqualTo(mobilephone);
+		orMobile.andEnablestatusEqualTo("1");
+	
+		
+		
+		
 		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
 		if(list.size()>0){
 			return false;
@@ -84,10 +103,16 @@ public class UcmembersValidators {
 	public static boolean validateEmail(String email){
 		UcMembersCriteria example = new UcMembersCriteria();
 	
-		Criteria criteria = example.createCriteria();
-		criteria.andEmailEqualTo(email);
-		//验证激活状态下
-		criteria.andEnablestatusEqualTo("1");
+		
+		Criteria orUsername = example.or();
+		orUsername.andUsernameEqualTo(email);
+		orUsername.andEnablestatusEqualTo("1");
+
+		Criteria orEmail = example.or();
+		orEmail.andEmailEqualTo(email);
+		orEmail.andEnablestatusEqualTo("1");
+		
+
 		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
 		if(list.size()>0){
 			return false;
