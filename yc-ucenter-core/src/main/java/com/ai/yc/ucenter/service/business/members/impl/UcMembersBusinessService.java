@@ -382,7 +382,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 					response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.OVERDUE_ERROR, "验证码过期，修改/绑定失败", null);
 					return response;
 				}else if(res == UcMembersOperationServiceAtomImpl.RESULT_VALI_SUCCESS){
-					 UcMembers ucMembers = new UcMembers();
+					 UcMembers ucMembers = iUcMembersAtomService.getUcMembersbyUid(request.getUid());
 					 ucMembers.setUid(request.getUid());
 					 String salt = PasswordMD5Util.creatSalt();
 					 ucMembers.setSalt(salt);
