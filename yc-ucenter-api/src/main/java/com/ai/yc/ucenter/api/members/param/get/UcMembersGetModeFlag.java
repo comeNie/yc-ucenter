@@ -26,6 +26,9 @@ public  class UcMembersGetModeFlag {
      * 用户名
      */
 	public static String  USERNAME_FLAG="4"; 
-
+	 /**  
+     * 用户名 或邮箱 或手机号
+     */
+	public static String  UME_FLAG="5"; 
 
 }

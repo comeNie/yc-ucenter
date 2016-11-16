@@ -4,11 +4,9 @@ package com.ai.yc.ucenter.service.atom.members.impl;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ai.opt.sdk.components.sequence.util.SeqUtil;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
@@ -117,21 +115,40 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 	
 		UcMembersCriteria example = new UcMembersCriteria();
 		Criteria criteria = example.createCriteria();
+	
 		String reqUsername = request.getUsername();
+		
+	
 		//用户id获取
 		if(UcMembersGetModeFlag.USERID_FLAG.equals(request.getGetmode())){
 			criteria.andUidEqualTo(Integer.parseInt(reqUsername));
+			criteria.andEnablestatusEqualTo("1");
 		}//邮箱获取
 		else if(UcMembersGetModeFlag.EMAIL_FLAG.equals(request.getGetmode())){
 			criteria.andEmailEqualTo(reqUsername);
+			criteria.andEnablestatusEqualTo("1");
 		}//手机获取
 		else if(UcMembersGetModeFlag.MOBILE_FLAG.equals(request.getGetmode())){
 			criteria.andMobilephoneEqualTo(reqUsername);
+			criteria.andEnablestatusEqualTo("1");
 		}//用户名获取
 		else if(UcMembersGetModeFlag.USERNAME_FLAG.equals(request.getGetmode())){
 			criteria.andUsernameEqualTo(reqUsername);
+			criteria.andEnablestatusEqualTo("1");
+		}//用户名或邮箱或手机获取
+		else if(UcMembersGetModeFlag.UME_FLAG.equals(request.getGetmode())){
+			Criteria orUsername = example.or();
+			orUsername.andUsernameEqualTo(request.getUsername());
+			orUsername.andEnablestatusEqualTo("1");
+			Criteria orMobile = example.or();
+			orMobile.andMobilephoneEqualTo(request.getUsername());
+			orMobile.andEnablestatusEqualTo("1");
+			Criteria orEmail = example.or();
+			orEmail.andEmailEqualTo(request.getUsername());
+			orEmail.andEnablestatusEqualTo("1");
 		}
-		criteria.andEnablestatusEqualTo("1");
+	
+
 		List<UcMembers> list = MapperFactory.getUcMembersMapper().selectByExample(example);
 	
 		return list;

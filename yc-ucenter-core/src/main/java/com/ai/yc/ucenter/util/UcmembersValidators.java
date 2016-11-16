@@ -67,7 +67,8 @@ public class UcmembersValidators {
 		
 		Criteria criteria = example.createCriteria();
 		criteria.andMobilephoneEqualTo(mobilephone);
-
+		//验证激活状态下
+		criteria.andEnablestatusEqualTo("1");
 		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
 		if(list.size()>0){
 			return false;
@@ -85,7 +86,8 @@ public class UcmembersValidators {
 	
 		Criteria criteria = example.createCriteria();
 		criteria.andEmailEqualTo(email);
-
+		//验证激活状态下
+		criteria.andEnablestatusEqualTo("1");
 		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
 		if(list.size()>0){
 			return false;

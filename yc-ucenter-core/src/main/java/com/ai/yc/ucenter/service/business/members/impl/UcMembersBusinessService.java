@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.ConstraintViolationException;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,9 +41,7 @@ import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
 import com.ai.yc.ucenter.service.atom.members.impl.UcMembersOperationServiceAtomImpl;
 import com.ai.yc.ucenter.service.base.UcBaseService;
 import com.ai.yc.ucenter.service.business.members.IUcMembersBusinessService;
-
 import com.ai.yc.ucenter.util.LoginValidators;
-import com.ai.yc.ucenter.util.OperationValidateUtils;
 import com.ai.yc.ucenter.util.PasswordMD5Util;
 import com.ai.yc.ucenter.util.UcmembersValidators;
 
@@ -358,7 +354,10 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 				 ucMembers.setSalt(salt);
 				int resultCount = iUcMembersAtomService.updatePassword(ucMembers);
 				if(resultCount>0){
-					response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.SUCCESS_CODE, "修改成功", null);
+					Map<String, Object> responseDate =new HashMap<String, Object>();
+					responseDate.put("uid", ucMembers.getUid());
+					responseDate.put("username", ucMembers.getUsername());
+					response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.SUCCESS_CODE, "修改成功", responseDate);
 				}else{
 					response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.NONERECORD_ERROR, "没有生效记录，修改失败", null);
 				}
@@ -390,7 +389,10 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 					 ucMembers.setPassword(PasswordMD5Util.getPassSaltMd5(request.getNewpw(), salt));
 					int resultCountmobile =  iUcMembersAtomService.updatePassword(ucMembers);
 					if(resultCountmobile>0){
-						response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.SUCCESS_CODE, "修改成功", null);
+						Map<String, Object> responseDate =new HashMap<String, Object>();
+						responseDate.put("uid", ucMembers.getUid());
+						responseDate.put("username", ucMembers.getUsername());
+						response = (UcMembersResponse) addResponse(response,true,EditPassResultCodeConstants.SUCCESS_CODE, "修改成功", responseDate);
 						
 					}else{
 
