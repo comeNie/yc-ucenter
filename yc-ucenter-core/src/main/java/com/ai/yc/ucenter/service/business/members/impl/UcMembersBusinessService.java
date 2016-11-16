@@ -177,6 +177,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			Map<Object, Object> responseDate = new HashMap<Object, Object>();
 			responseDate.put("uid", resultUid);
 			responseDate.put("operationcode", code);
+			responseDate.put("username", iUcMembersAtomService.getUsername(request));
 			response = (UcMembersRegisterResponse) addResponse(response,true,RegResultCodeConstants.SUCCESS_CODE, "用户注册成功",responseDate);
 		} catch (Exception e) {
 			response = (UcMembersRegisterResponse) addResponse(response,true,RegResultCodeConstants.FAIL_CODE, "失败,生成验证码失败", null);
