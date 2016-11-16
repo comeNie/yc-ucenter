@@ -97,7 +97,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 	 * @param request
 	 * @return
 	 */
-	private String getUsername(UcMembersRegisterRequest request){
+	public String getUsername(UcMembersRegisterRequest request){
 		StringBuffer username = new StringBuffer();
 		String loginway = request.getLoginway();
 		if(Constants.LoginWayConstant.EMAIL_PASS.equals(loginway)){

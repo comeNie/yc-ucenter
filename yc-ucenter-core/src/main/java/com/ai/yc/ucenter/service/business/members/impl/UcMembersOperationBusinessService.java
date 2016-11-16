@@ -71,8 +71,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 		//校验：Uid只有手机/邮箱验证码和邮箱激活码用到，有值。
 		if(OperationtypeConstants.EMAIL_ACTIV.equals(operationtype) || OperationtypeConstants.MOBILE_VALI.equals(operationtype)
 				|| OperationtypeConstants.EMAIL_VALI.equals(operationtype) ){
-			System.out.println("---------------------------"+request.getUid()+"");
-			
+
 			if(request.getUid()==null){
 
 				response = (UcMembersGetOperationcodeResponse) addResponse(response,true,CheckMobilResultCodeConstants.EXIST_ERROR, "Uid不能为空", null);
@@ -135,7 +134,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 			}
 			
 		}
-		System.out.println("save------operationcode before------------------"+request.getUid());
+	
 		String operationcode =  iUcMembersOperationAtomService.saveOperationcode(request);
 		if(StringUtils.isNotBlank(operationcode)){
 			

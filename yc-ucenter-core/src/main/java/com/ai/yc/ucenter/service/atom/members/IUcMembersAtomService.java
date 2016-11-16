@@ -38,7 +38,7 @@ public interface IUcMembersAtomService {
 	UcMembers getSalt(UcMembersLoginRequest request) ;
 
 	com.ai.yc.ucenter.dao.mapper.bo.UcMembers getUcMembersbyUid(Integer uid);
-
+	public String getUsername(UcMembersRegisterRequest request);
 
  
     
