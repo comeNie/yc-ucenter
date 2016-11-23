@@ -2,8 +2,10 @@ package com.ai.yc.ucenter.service.atom.members.impl;
 
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +18,12 @@ import com.ai.yc.ucenter.api.members.param.get.UcMembersGetRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginModeEnum;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterRequest;
-import com.ai.yc.ucenter.constants.Constants;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembersCriteria;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembersCriteria.Criteria;
 import com.ai.yc.ucenter.dao.mapper.factory.MapperFactory;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
+import com.ai.yc.ucenter.util.Global;
 import com.ai.yc.ucenter.util.PasswordMD5Util;
 import com.ai.yc.ucenter.util.UCDateUtils;
 
@@ -29,6 +31,8 @@ import com.ai.yc.ucenter.util.UCDateUtils;
 
 @Component
 public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
+	
+	
 
 	@Override
 	public List<UcMembers> loginMember(String username, String passMd5, String loginmode) {
@@ -67,7 +71,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		String salt = PasswordMD5Util.creatSalt();
 		ucMembers.setSalt(salt);
 		ucMembers.setPassword(PasswordMD5Util.getPassSaltMd5(request.getPassword(),salt));
-		ucMembers.setUsername(getUsername(request));
+		ucMembers.setUsername(getUsername());
 		//未激活
 		ucMembers.setEnablestatus("0");
 		
@@ -97,16 +101,27 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 	 * @param request
 	 * @return
 	 */
-	public String getUsername(UcMembersRegisterRequest request){
-		StringBuffer username = new StringBuffer();
-		String loginway = request.getLoginway();
-		if(Constants.LoginWayConstant.EMAIL_PASS.equals(loginway)){
-			username.append(request.getEmail());
-		}else if(Constants.LoginWayConstant.MOBILE_DYNA.equals(loginway) || Constants.LoginWayConstant.MOBILE_PASS.equals(loginway)){
-			username.append(request.getMobilephone());
-		}else if(Constants.LoginWayConstant.USER_PASS.equals(loginway)){
-			username.append(request.getUsername());
+	public String getUsername(){
+		
+		//String loginway = request.getLoginway();
+		ThreadLocalRandom tlr = ThreadLocalRandom.current();
+
+		StringBuffer username = new StringBuffer(Global.getUsernamPrefix());
+		Integer nameLength = (StringUtils.isBlank(Global.getUsernamLength()))?16:Integer.valueOf(Global.getUsernamLength());
+		
+		for(int i = 0; i < nameLength; i++){
+			username.append(tlr.nextInt(0,9));  
 		}
+		
+
+		
+//		if(Constants.LoginWayConstant.EMAIL_PASS.equals(loginway)){
+//			username.append(request.getEmail());
+//		}else if(Constants.LoginWayConstant.MOBILE_DYNA.equals(loginway) || Constants.LoginWayConstant.MOBILE_PASS.equals(loginway)){
+//			username.append(request.getMobilephone());
+//		}else if(Constants.LoginWayConstant.USER_PASS.equals(loginway)){
+//			username.append(request.getUsername());
+//		}
 		return username+"";
 	}
 	
@@ -266,6 +281,14 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 	}
 
 
+	
 
-
+//public static void main(String[] args) {
+//	ThreadLocalRandom tlr = ThreadLocalRandom.current();
+//	StringBuffer nameRandom = new StringBuffer("yiyu");
+//	for(int i = 0; i < 16; i++){
+//		nameRandom.append(tlr.nextInt(0,9));  
+//	}
+//	System.out.println(nameRandom.toString());
+//}
 }

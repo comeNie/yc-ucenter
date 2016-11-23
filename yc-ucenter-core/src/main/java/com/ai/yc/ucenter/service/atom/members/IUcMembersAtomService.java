@@ -6,9 +6,7 @@ import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
-import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetRequest;
-import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterRequest;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
@@ -38,7 +36,7 @@ public interface IUcMembersAtomService {
 	UcMembers getSalt(UcMembersLoginRequest request) ;
 
 	com.ai.yc.ucenter.dao.mapper.bo.UcMembers getUcMembersbyUid(Integer uid);
-	public String getUsername(UcMembersRegisterRequest request);
+	public String getUsername();
 
  
     

@@ -39,6 +39,10 @@ public class UcMembersGetResponse extends UcBaseResponse {
 	     * 邮箱
 	     */
 	    private String email;
+	    /**
+	     * 干扰码
+	     */
+	    private String salt;
 		/**
 	     * 移动电话
 	     */    
@@ -151,6 +155,14 @@ public class UcMembersGetResponse extends UcBaseResponse {
 
 		public void setThirduid(String thirduid) {
 			this.thirduid = thirduid;
+		}
+
+		public String getSalt() {
+			return salt;
+		}
+
+		public void setSalt(String salt) {
+			this.salt = salt;
 		}
 
 	

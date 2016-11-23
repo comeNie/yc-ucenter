@@ -6,8 +6,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
-
-import com.ai.opt.sdk.components.sequence.util.SeqUtil;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersActiveRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
@@ -21,16 +19,16 @@ import com.ai.yc.ucenter.dao.mapper.factory.MapperFactory;
 import com.ai.yc.ucenter.dao.mapper.interfaces.UcMembersMapper;
 import com.ai.yc.ucenter.dao.mapper.interfaces.UcMembersOperationMapper;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
+import com.ai.yc.ucenter.util.Global;
 import com.ai.yc.ucenter.util.OperationCodeFactory;
 import com.ai.yc.ucenter.util.UCDateUtils;
 
 
 @Component
 public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAtomService {
+ 
 
-	public static final long MOBIL_ACTIVE_VALID=30*60;//手机激活码或动态密码30分钟有效
-	public static final long VERIF_VALID=60*60;//验证码60分钟有效
-	public static final long GET_AGAIN = 60; //60秒再次获取
+	//public static final long GET_AGAIN3 = Global.getCodeAgain(); //60秒再次获取
 
 	public static final Integer RESULT_VALI_DIFFERENT = -1;//验证码与查到最新的验证码不符合
 	public static final Integer RESULT_VALI_NOTIN= -2;//传入的验证码不存在
@@ -43,13 +41,12 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 	public String saveOperationcode(UcMembersGetOperationcodeRequest request) {
 		int code = OperationCodeFactory.getInstance().getOperationCode();
 		String operationCode = String.valueOf(code);
-		Long newId =SeqUtil.getNewId("SYS$UCMEMBERSOPERATION$ID");
-	System.out.println("save-------------------------"+request.getUid());
+
 		UcMembersOperation record = new UcMembersOperation();
 		BeanUtils.copyProperties(record, request);
 		record.setOperationcode(operationCode);
 		record.setOperationtime(String.valueOf(UCDateUtils.getSystime()));
-		record.setOid(newId.intValue());
+
 		record.setUid(request.getUid());
 		MapperFactory.getUcMembersOperationMapper().insert(record);
 		return operationCode;
@@ -151,7 +148,7 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 			along = new AtomicLong();
 			along.set(reqOptime);
 			
-			along.getAndAdd((("activ").equals(arg))?MOBIL_ACTIVE_VALID:VERIF_VALID);
+			along.getAndAdd((("activ").equals(arg))?Global.getMobilActiveValid():Global.getVerifValid());
 		}else{
 			return RESULT_VALI_NOTIN;
 		}

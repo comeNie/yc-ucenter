@@ -91,7 +91,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 			else{
 				UcMembers mobileUcmebers = new UcMembers();
 				mobileUcmebers.setMobilephone(request.getUserinfo());
-				mobileUcmebers.setUsername(request.getUserinfo());
+				mobileUcmebers.setUsername(iUcMembersAtomService.getUsername());
 				mobileUcmebers.setEnablestatus("0");
 				
 				mobileUcmebers.setEmailcheck(0); 
