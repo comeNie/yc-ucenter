@@ -2,7 +2,7 @@
 
 #env
 APP_HOME=/dubbo-service
-APP_NAME="general.common"
+APP_NAME="yc.ucenter"
 APP_PARM="aiopt.product.name=${APP_NAME}"
 PROCESS_PARM="general.common.dubbo.port=${REST_PORT}"
 
@@ -17,7 +17,7 @@ CLASSPATH="${DUBBO_CONFIG_PATH}:${CLASSPATH}"
 export CLASSPATH
 
 MEM_ARGS="-Xms256m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128M"
-JAVA_OPTIONS="-Dfile.encoding=UTF-8 -Djava.net.preferIPv4Stack=true -Dsun.net.inetaddr.ttl=10 -Ddubbo.provider.timeout=20000 -Djava.security.egd=file:/dev/./urandom"
+JAVA_OPTIONS="-Duser.timezone=GMT -Dfile.encoding=UTF-8 -Djava.net.preferIPv4Stack=true -Dsun.net.inetaddr.ttl=10 -Ddubbo.provider.timeout=20000 -Djava.security.egd=file:/dev/./urandom"
 
 echo "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"
 START_CMD="${MEM_ARGS} -D${APP_PARM} -D${PROCESS_PARM}  ${JAVA_OPTIONS} com.ai.opt.sdk.appserver.DubboServiceStart  >> $LOG_PATH & 2 > 1 &"
@@ -32,7 +32,7 @@ sed -i "s/ccs.appname=.*/ccs.appname=${CCS_NAME}/g" ${APP_HOME}/config/paas/paas
 sed -i "s/ccs.zk_address=.*/ccs.zk_address=${ZK_ADDR}/g" ${APP_HOME}/config/paas/paas-conf.properties
 
 sed -i "s/dubbo.registry.address=.*/dubbo.registry.address=${REST_REGISTRY_ADDR}/g" ${APP_HOME}/config/dubbo/dubbo.properties
-sed -i "s/general.common.dubbo.port=.*/general.common.dubbo.port=${REST_PORT}/g" ${APP_HOME}/config/dubbo/dubbo.properties
+sed -i "s/yc.ucenter.dubbo.port=.*/yc.ucenter.dubbo.port=${REST_PORT}/g" ${APP_HOME}/config/dubbo/dubbo.properties
 sed -i "s/dubbo.protocol.contextpath=.*/dubbo.protocol.contextpath=${CONTEXT_PATH}/g" ${APP_HOME}/config/dubbo/dubbo.properties
 
 echo "-------------------${APP_NAME} dubbo service start --------------------"
