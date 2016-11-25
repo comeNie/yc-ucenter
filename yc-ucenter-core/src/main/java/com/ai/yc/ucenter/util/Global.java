@@ -35,7 +35,7 @@ public class Global {
 	/**
 	 * 属性文件加载对象
 	 */
-	private static PropertiesLoader loader = new PropertiesLoader("uc.properties");
+	private static PropertiesLoader loader = new PropertiesLoader("/context/uc.properties");
 
 	
 	/**
@@ -91,25 +91,25 @@ public class Global {
 	/**
 	 * 获取手机激活码或动态密码30分钟有效
 	 */
-	public static Long getMobilActiveValid() {
+	public static String getMobilActiveValid() {
 	
 		
-		return getLong("mobil.active.valid");
+		return getConfig("mobil.active.valid");
 	}
 
 	
 	/**
 	 * 验证码60分钟有效
 	 */
-	public static Long getVerifValid() {
-		return getLong("verif.valid");
+	public static String getVerifValid() {
+		return getConfig("verif.valid");
 	}
 	
 	/**
 	 * 60秒再次获取
 	 */
-	public static Long getCodeAgain() {
-		return getLong("get_again");
+	public static String getCodeAgain() {
+		return getConfig("get_again");
 	}
     /**
      * 获取工程路径

@@ -147,8 +147,12 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 	
 			along = new AtomicLong();
 			along.set(reqOptime);
+			String mobliact = Global.getMobilActiveValid();
+			String verifVa = Global.getVerifValid();
+			Integer mobilActiveValid = StringUtils.isNotBlank(mobliact)?Integer.valueOf(mobliact):null;
+			Integer verifValid = StringUtils.isNotBlank(verifVa)?Integer.valueOf(verifVa):null;
 			
-			along.getAndAdd((("activ").equals(arg))?Global.getMobilActiveValid():Global.getVerifValid());
+			along.getAndAdd((("activ").equals(arg))?mobilActiveValid:verifValid);
 		}else{
 			return RESULT_VALI_NOTIN;
 		}
