@@ -280,6 +280,27 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		}
 	}
 
+	@Override
+	public Integer updateUserName(Integer uid, String username) {
+		UcMembers record = new UcMembers();
+		record.setUsername(username);
+		UcMembersCriteria example = new UcMembersCriteria();
+		Criteria criteria = example.createCriteria();
+		criteria.andUidEqualTo(uid);
+		return MapperFactory.getUcMembersMapper().updateByExampleSelective(record, example);
+		
+	}
+
+	@Override
+	public List<UcMembers> getMemberByUsername(String username) {
+		UcMembersCriteria example = new UcMembersCriteria();
+		Criteria criteria = example.createCriteria();
+		criteria.andUsernameEqualTo(username);
+		criteria.andEnablestatusEqualTo("1");
+		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
+		return list;
+	}
+
 
 	
 
