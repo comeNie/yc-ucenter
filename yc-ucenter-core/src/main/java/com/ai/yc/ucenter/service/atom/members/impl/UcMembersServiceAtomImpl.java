@@ -84,7 +84,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		ucMembers.setLogincount(1);
 		ucMembers.setModifydate(0);
 		
-		ucMembers.setDomainName(request.getLocale().getCountry());
+		ucMembers.setDomainName(request.getDomainname());
 		ucMembers.setCreatetime(regdate+"");
 		ucMembers.setThirduid("");
 		ucMembers.setUsersource("");
@@ -189,7 +189,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		criteria.andUidEqualTo(request.getUid());
 		UcMembers ucMembers = new UcMembers();
 		ucMembers.setMobilephone(request.getMobilephone());
-		
+		ucMembers.setDomainName(request.getDomainname());
 		return MapperFactory.getUcMembersMapper().updateByExampleSelective(ucMembers, example);
 	}
 

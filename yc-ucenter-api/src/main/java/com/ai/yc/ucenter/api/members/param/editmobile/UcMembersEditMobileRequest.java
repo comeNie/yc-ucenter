@@ -25,6 +25,12 @@ public class UcMembersEditMobileRequest extends BaseInfo{
      */
 	@NotBlank
     private String operationcode;
+	
+    /**
+     * 国家代码
+     */
+	@NotBlank
+	private String domainname;
 
 	public Integer getUid() {
 		return uid;
@@ -48,6 +54,14 @@ public class UcMembersEditMobileRequest extends BaseInfo{
 
 	public void setOperationcode(String operationcode) {
 		this.operationcode = operationcode;
+	}
+
+	public String getDomainname() {
+		return domainname;
+	}
+
+	public void setDomainname(String domainname) {
+		this.domainname = domainname;
 	}
     
     
