@@ -73,8 +73,8 @@ public class UcmembersValidators {
 	public static boolean validateMobilephone(String mobilephone){
 		UcMembersCriteria example = new UcMembersCriteria();
 		
-		Criteria criteria = example.createCriteria();
-		criteria.andMobilephoneEqualTo(mobilephone);
+//		Criteria criteria = example.createCriteria();
+//		criteria.andMobilephoneEqualTo(mobilephone);
 		//验证激活状态下
 	
 		
