@@ -16,14 +16,14 @@ docker run -d --name yc-ucenter -p 10882:10882 \
 -e "REST_REGISTRY_ADDR=10.19.13.13:29181" \
 -e "REST_PORT=10882" \
 -e "CONTEXT_PATH=yc-ucenter" \ 
--e "SDK_MODE=1" \
+-e "SDK_MODE=0" \
 -e "PAAS_AUTH_URL=http://10.1.245.4:19811/service-portal-uac-web/service/auth" \
 -e "PAAS_AUTH_PID=D14F7D708109471AB6F3084B2ABAE9A6" \
 -e "PAAS_CCS_ID=CCS001" \
 -e "PAAS_CCS_PWD=123456" \
 -e "CCS_NAME=aiopt-aiplatform" \ 
 -e "ZK_ADDR=10.19.13.13:29181"  \
-10.19.13.18:5000/yc-ucenter:v1.0 
+10.19.13.20:5000/yc-ucenter:v1.0 
 #查看镜像启动日志
 docker logs yc-ucenter
 #进入容器，查看镜像内部的情况
