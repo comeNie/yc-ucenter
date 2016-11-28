@@ -14,6 +14,7 @@ import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
+import com.ai.yc.ucenter.api.members.param.editusername.UcMembersEditUserNameRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
@@ -111,6 +112,23 @@ public interface IUcMembersSV {
 	@POST
 	@Path("/ucEditEmail")
 	UcMembersResponse ucEditEmail(UcMembersEditEmailRequest request) throws BusinessException,SystemException;
+	
+	/**
+     * 修改用户名
+     * <p/>
+     * @param uid  用户id  （修改绑定操作传值，注册不传。）
+     * @param username 移动电话（必填）
+     * @return  message   0：失败，1：成功
+     * @return  code  1:成功，-2: 修改失败，
+     * @throws BusinessException,SystemException
+     * @ApiDocMethod
+     * @ApiCode UC_0008
+     * @RestRelativeURL ucmembers/ucEditUserName
+	 */
+	@POST
+	@Path("/ucCheckeMobilephone")
+	UcMembersResponse ucEditUserName(UcMembersEditUserNameRequest request) throws BusinessException,SystemException;
+	
 	
 	/**
      * 修改用户密码

@@ -101,6 +101,17 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 				
 				mobileUcmebers.setLogincount(0);
 				mobileUcmebers.setModifydate(0);
+				
+				mobileUcmebers.setDomainName(request.getLocale().getCountry());
+				mobileUcmebers.setCreatetime(regdate+"");
+				mobileUcmebers.setThirduid("");
+				mobileUcmebers.setUsersource("");
+				mobileUcmebers.setSecques("");
+				mobileUcmebers.setMyid("");
+				mobileUcmebers.setMyidkey("");
+				mobileUcmebers.setSystemsource("0");
+				mobileUcmebers.setLogincount(0);
+				mobileUcmebers.setLoginsystem("0");
 			    responseUid = iUcMembersAtomService.insertMemberPo(mobileUcmebers);
 			    if(StringUtils.isNotBlank(responseUid))
 			    	request.setUid(Integer.valueOf(responseUid));
@@ -173,7 +184,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 				}
 			}else if(result==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 					|| result==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
-				response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "激活码不对", null);
+				response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "激活码错误", null);
 				return response;
 			}else if(result==UcMembersOperationServiceAtomImpl.RESULT_VALI_EXPIRED){
 				response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.OVERDUE_ERROR, "验证超时，请重新发送激活码", null);
@@ -189,7 +200,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 					response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.SUCCESS_CODE, "成功", null);
 				}else if(result==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 						|| result==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
-					response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "激活码不对", null);
+					response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "激活码错误", null);
 					return response;
 				}else if(result==UcMembersOperationServiceAtomImpl.RESULT_VALI_EXPIRED){
 					response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.OVERDUE_ERROR, "验证超时，请重新发送激活码", null);

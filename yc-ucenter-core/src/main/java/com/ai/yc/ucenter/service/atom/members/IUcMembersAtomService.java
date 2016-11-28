@@ -38,6 +38,10 @@ public interface IUcMembersAtomService {
 	com.ai.yc.ucenter.dao.mapper.bo.UcMembers getUcMembersbyUid(Integer uid);
 	public String getUsername();
 
+	Integer updateUserName(Integer uid, String username);
+
+	List<UcMembers> getMemberByUsername(String username);
+
  
     
 }

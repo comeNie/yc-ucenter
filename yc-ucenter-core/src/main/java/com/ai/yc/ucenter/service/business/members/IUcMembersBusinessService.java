@@ -6,6 +6,7 @@ import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
+import com.ai.yc.ucenter.api.members.param.editusername.UcMembersEditUserNameRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
@@ -33,5 +34,7 @@ public interface IUcMembersBusinessService {
 	UcMembersResponse ucCheckeMobilephone(UcMembersCheckeMobileRequest request);
 
 	UcMembers getUcMembers(UcMembersLoginRequest request);
+
+	UcMembersResponse ucEditUserName(UcMembersEditUserNameRequest request);
 
 }

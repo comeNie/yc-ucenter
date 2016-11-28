@@ -83,7 +83,18 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		
 		ucMembers.setLogincount(1);
 		ucMembers.setModifydate(0);
-
+		
+		ucMembers.setDomainName(request.getLocale().getCountry());
+		ucMembers.setCreatetime(regdate+"");
+		ucMembers.setThirduid("");
+		ucMembers.setUsersource("");
+		ucMembers.setSecques("");
+		ucMembers.setMyid("");
+		ucMembers.setMyidkey("");
+		ucMembers.setSystemsource("0");
+		ucMembers.setLogincount(0);
+		ucMembers.setLoginsystem("0");
+		
 		int insertCount = MapperFactory.getUcMembersMapper().insert(ucMembers);
 		if(insertCount>0){
 			
@@ -278,6 +289,27 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		}else{
 			return "";
 		}
+	}
+
+	@Override
+	public Integer updateUserName(Integer uid, String username) {
+		UcMembers record = new UcMembers();
+		record.setUsername(username);
+		UcMembersCriteria example = new UcMembersCriteria();
+		Criteria criteria = example.createCriteria();
+		criteria.andUidEqualTo(uid);
+		return MapperFactory.getUcMembersMapper().updateByExampleSelective(record, example);
+		
+	}
+
+	@Override
+	public List<UcMembers> getMemberByUsername(String username) {
+		UcMembersCriteria example = new UcMembersCriteria();
+		Criteria criteria = example.createCriteria();
+		criteria.andUsernameEqualTo(username);
+		criteria.andEnablestatusEqualTo("1");
+		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
+		return list;
 	}
 
 

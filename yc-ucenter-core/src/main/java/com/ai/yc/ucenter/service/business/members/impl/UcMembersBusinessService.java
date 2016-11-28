@@ -18,6 +18,7 @@ import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
+import com.ai.yc.ucenter.api.members.param.editusername.UcMembersEditUserNameRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse.UcMembersGetDate;
@@ -35,6 +36,8 @@ import com.ai.yc.ucenter.constants.EditPassResultCodeConstants;
 import com.ai.yc.ucenter.constants.OperationtypeConstants;
 import com.ai.yc.ucenter.constants.RegResultCodeConstants;
 import com.ai.yc.ucenter.constants.ResultCodeConstants;
+import com.ai.yc.ucenter.constants.eunm.EditUsernameResultCodeConstantsEnum;
+import com.ai.yc.ucenter.constants.eunm.MessageCodeConstantsEnum;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
@@ -254,7 +257,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		
 		 if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 				|| res==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
-			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "验证码不对", null);
+			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "验证码错误", null);
 			return response;
 		}else if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_EXPIRED){
 			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.OVERDUE_ERROR, "验证码过期，修改/绑定失败", null);
@@ -299,7 +302,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		
 		if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 				|| res==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
-			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "验证码不对", null);
+			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "验证码错误", null);
 			return response;
 		}else if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_EXPIRED){
 			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.OVERDUE_ERROR, 
@@ -376,7 +379,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 
 				if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 						|| res==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
-					response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "验证码不对", null);
+					response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "验证码错误", null);
 					return response;
 				}else if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_EXPIRED){
 					response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.OVERDUE_ERROR, "验证码过期，修改/绑定失败", null);
@@ -441,6 +444,37 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			response = (UcMembersResponse) addResponse(response,true,CheckMobilResultCodeConstants.SUCCESS_CODE, "成功", null);
 		}
 		return response;
+	}
+
+
+	@Override
+	public UcMembersResponse ucEditUserName(UcMembersEditUserNameRequest request) {
+
+		UcMembersResponse response = new UcMembersResponse();
+
+		
+		List<String > listValidator  = beanValidator(request);
+		if(listValidator != null&&!listValidator.isEmpty()){
+			response = (UcMembersResponse) addResponse(response,true,EditUsernameResultCodeConstantsEnum.FORMAT_ERROR.getIndex(), EditUsernameResultCodeConstantsEnum.FORMAT_ERROR.getValue(), null);
+			return response;
+		}
+		List<UcMembers> listByUsername =  iUcMembersAtomService.getMemberByUsername(request.getUsername());
+		if(listByUsername.size()>0){
+			response = (UcMembersResponse) addResponse(response,true,EditUsernameResultCodeConstantsEnum.EXISTS_ERROR.getIndex(), EditUsernameResultCodeConstantsEnum.EXISTS_ERROR.getValue(), null);
+			return response;
+		}
+	
+		Integer resultCount = iUcMembersAtomService.updateUserName(request.getUid(),request.getUsername());
+
+		if(resultCount>0){
+			response = (UcMembersResponse) addResponse(response,true,MessageCodeConstantsEnum.MESSAGE_SUCCESS.getIndex(), 
+					MessageCodeConstantsEnum.MESSAGE_SUCCESS.getValue(), null);
+		}else{
+			response = (UcMembersResponse) addResponse(response,true,EditUsernameResultCodeConstantsEnum.UPDATE_ERROR.getIndex(), 
+					EditUsernameResultCodeConstantsEnum.UPDATE_ERROR.getValue(), null);
+		}
+		return response;
+	
 	}
 
 }

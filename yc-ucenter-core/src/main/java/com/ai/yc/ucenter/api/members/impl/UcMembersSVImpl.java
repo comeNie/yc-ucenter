@@ -14,6 +14,7 @@ import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
+import com.ai.yc.ucenter.api.members.param.editusername.UcMembersEditUserNameRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
@@ -80,6 +81,13 @@ public class UcMembersSVImpl implements IUcMembersSV {
 			throws BusinessException, SystemException {
 		// TODO Auto-generated method stub
 		return iUcMembersBusinessService.ucCheckeMobilephone(request);
+	}
+
+	@Override
+	public UcMembersResponse ucEditUserName(UcMembersEditUserNameRequest request)
+			throws BusinessException, SystemException {
+		// TODO Auto-generated method stub
+		return iUcMembersBusinessService.ucEditUserName(request);
 	}
 
 
