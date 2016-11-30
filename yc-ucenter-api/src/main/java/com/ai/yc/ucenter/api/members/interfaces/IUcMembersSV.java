@@ -122,11 +122,11 @@ public interface IUcMembersSV {
      * @return  code  1:成功，-2: 修改失败，
      * @throws BusinessException,SystemException
      * @ApiDocMethod
-     * @ApiCode UC_0008
+     * @ApiCode UC_0011
      * @RestRelativeURL ucmembers/ucEditUserName
 	 */
 	@POST
-	@Path("/ucCheckeMobilephone")
+	@Path("/ucEditUserName")
 	UcMembersResponse ucEditUserName(UcMembersEditUserNameRequest request) throws BusinessException,SystemException;
 	
 	
