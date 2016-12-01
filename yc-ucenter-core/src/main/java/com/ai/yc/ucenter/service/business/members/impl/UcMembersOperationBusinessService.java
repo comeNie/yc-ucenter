@@ -13,18 +13,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
-import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersActiveRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeResponse;
 import com.ai.yc.ucenter.constants.CheckMobilResultCodeConstants;
-import com.ai.yc.ucenter.constants.Constants;
 import com.ai.yc.ucenter.constants.EditMobileResultCodeConstants;
 import com.ai.yc.ucenter.constants.OperationtypeConstants;
 import com.ai.yc.ucenter.constants.ResultCodeConstants;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembersCriteria;
-import com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperation;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembersCriteria.Criteria;
 import com.ai.yc.ucenter.dao.mapper.factory.MapperFactory;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
@@ -102,7 +99,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 				mobileUcmebers.setLogincount(0);
 				mobileUcmebers.setModifydate(0);
 				
-				mobileUcmebers.setDomainName(request.getLocale().getCountry());
+				mobileUcmebers.setDomainName(request.getDomainname());
 				mobileUcmebers.setCreatetime(regdate+"");
 				mobileUcmebers.setThirduid("");
 				mobileUcmebers.setUsersource("");

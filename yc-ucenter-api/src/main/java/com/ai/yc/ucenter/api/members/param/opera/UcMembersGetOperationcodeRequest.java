@@ -30,6 +30,21 @@ public class UcMembersGetOperationcodeRequest extends BaseInfo{
      */
     @NotBlank
     private String operationtype;
+    
+    /**
+     * 所属国家代码
+     */
+    private String  domainname;
+    
+    
+
+	public String getDomainname() {
+		return domainname;
+	}
+
+	public void setDomainname(String domainname) {
+		this.domainname = domainname;
+	}
 
 	public Integer getUid() {
 		return uid;
