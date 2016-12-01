@@ -116,10 +116,9 @@ public interface IUcMembersSV {
 	/**
      * 修改用户名
      * <p/>
-     * @param uid  用户id  （修改绑定操作传值，注册不传。）
-     * @param username 移动电话（必填）
-     * @return  message   0：失败，1：成功
-     * @return  code  1:成功，-2: 修改失败，
+     * 
+     * @param UcMembersResponse 
+     * @return UcMembersResponse
      * @throws BusinessException,SystemException
      * @ApiDocMethod
      * @ApiCode UC_0011

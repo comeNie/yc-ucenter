@@ -86,7 +86,7 @@ public class UcMembersSVImpl implements IUcMembersSV {
 	@Override
 	public UcMembersResponse ucEditUserName(UcMembersEditUserNameRequest request)
 			throws BusinessException, SystemException {
-		// TODO Auto-generated method stub
+		
 		return iUcMembersBusinessService.ucEditUserName(request);
 	}
 
