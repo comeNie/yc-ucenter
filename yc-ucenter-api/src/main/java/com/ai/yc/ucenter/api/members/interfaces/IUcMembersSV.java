@@ -11,6 +11,7 @@ import com.ai.opt.base.exception.SystemException;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
+import com.ai.yc.ucenter.api.members.param.del.UcMembersDelRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
@@ -117,7 +118,7 @@ public interface IUcMembersSV {
      * 修改用户名
      * <p/>
      * 
-     * @param UcMembersResponse 
+     * @param UcMembersEditUserNameRequest 
      * @return UcMembersResponse
      * @throws BusinessException,SystemException
      * @ApiDocMethod
@@ -175,6 +176,20 @@ public interface IUcMembersSV {
 	@POST
 	@Path("/ucCheckeMobilephone")
 	UcMembersResponse ucCheckeMobilephone(UcMembersCheckeMobileRequest request) throws BusinessException,SystemException;
+	/**
+     * 删除用户
+     * <p/>
+     * 
+     * @param UcMembersDelRequest 
+     * @return UcMembersResponse
+     * @throws BusinessException,SystemException
+     * @ApiDocMethod
+     * @ApiCode UC_0012
+     * @RestRelativeURL ucmembers/ucDelMember
+	 */
+	@POST
+	@Path("/ucDelMember")
+	UcMembersResponse ucDelMember (UcMembersDelRequest request) throws BusinessException,SystemException;
 	
 	
    

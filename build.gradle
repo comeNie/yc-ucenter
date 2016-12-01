@@ -22,9 +22,7 @@ allprojects {
 	    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 	    resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
 	    exclude group: 'log4j', module: 'log4j'
-    	    exclude group: "org.slf4j", module: "slf4j-log4j12"
-    	    exclude group: "org.slf4j", module: "log4j-over-slf4j"
-    	    exclude group: "org.slf4j", module: "slf4j-impl"
+   
  	}
     group="com.ai.yc.ucenter"
 }

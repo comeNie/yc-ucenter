@@ -3,6 +3,7 @@ package com.ai.yc.ucenter.service.business.members;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
+import com.ai.yc.ucenter.api.members.param.del.UcMembersDelRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
@@ -36,5 +37,7 @@ public interface IUcMembersBusinessService {
 	UcMembers getUcMembers(UcMembersLoginRequest request);
 
 	UcMembersResponse ucEditUserName(UcMembersEditUserNameRequest request);
+
+	UcMembersResponse ucDelMember(UcMembersDelRequest request);
 
 }

@@ -15,6 +15,7 @@ import com.ai.yc.ucenter.api.members.param.UcBeanUtils;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
+import com.ai.yc.ucenter.api.members.param.del.UcMembersDelRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
@@ -36,6 +37,7 @@ import com.ai.yc.ucenter.constants.EditPassResultCodeConstants;
 import com.ai.yc.ucenter.constants.OperationtypeConstants;
 import com.ai.yc.ucenter.constants.RegResultCodeConstants;
 import com.ai.yc.ucenter.constants.ResultCodeConstants;
+import com.ai.yc.ucenter.constants.eunm.DelMemberResultCodeConstantsEnum;
 import com.ai.yc.ucenter.constants.eunm.EditUsernameResultCodeConstantsEnum;
 import com.ai.yc.ucenter.constants.eunm.MessageCodeConstantsEnum;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
@@ -478,6 +480,25 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		}
 		return response;
 	
+	}
+
+
+	@Override
+	public UcMembersResponse ucDelMember(UcMembersDelRequest request) {
+		UcMembersResponse response = new UcMembersResponse();
+		if(request.getUid()==null){
+			response = (UcMembersResponse) addResponse(response,true,DelMemberResultCodeConstantsEnum.FORMAT_ERROR.getIndex(), DelMemberResultCodeConstantsEnum.FORMAT_ERROR.getValue(), null);
+			return response;
+		}
+		int resultCount = iUcMembersAtomService.delMember(request.getUid());
+		if(resultCount>0){
+			response = (UcMembersResponse) addResponse(response,true,MessageCodeConstantsEnum.MESSAGE_SUCCESS.getIndex(), 
+					MessageCodeConstantsEnum.MESSAGE_SUCCESS.getValue(), null);
+		}else{
+			response = (UcMembersResponse) addResponse(response,true,DelMemberResultCodeConstantsEnum.DEL_ERROR.getIndex(), 
+					DelMemberResultCodeConstantsEnum.DEL_ERROR.getValue(), null);
+		}
+		return response;
 	}
 
 }

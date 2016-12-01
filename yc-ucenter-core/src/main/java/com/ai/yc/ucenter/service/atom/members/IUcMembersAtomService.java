@@ -2,6 +2,7 @@ package com.ai.yc.ucenter.service.atom.members;
 
 import java.util.List;
 
+import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
@@ -41,6 +42,8 @@ public interface IUcMembersAtomService {
 	Integer updateUserName(Integer uid, String username);
 
 	List<UcMembers> getMemberByUsername(String username);
+
+	int delMember(Integer uid);
 
  
     

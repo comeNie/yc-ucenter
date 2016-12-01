@@ -312,6 +312,12 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		return list;
 	}
 
+	@Override
+	public int delMember(Integer uid) {
+		
+		return MapperFactory.getUcMembersMapper().deleteByPrimaryKey(uid);
+	}
+
 
 	
 
