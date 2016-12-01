@@ -452,7 +452,10 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 
 		UcMembersResponse response = new UcMembersResponse();
 
-		
+		if(request.getUid()==null){
+			response = (UcMembersResponse) addResponse(response,true,EditUsernameResultCodeConstantsEnum.FORMAT_ERROR.getIndex(), EditUsernameResultCodeConstantsEnum.FORMAT_ERROR.getValue(), null);
+			return response;
+		}
 		List<String > listValidator  = beanValidator(request);
 		if(listValidator != null&&!listValidator.isEmpty()){
 			response = (UcMembersResponse) addResponse(response,true,EditUsernameResultCodeConstantsEnum.FORMAT_ERROR.getIndex(), EditUsernameResultCodeConstantsEnum.FORMAT_ERROR.getValue(), null);

@@ -11,7 +11,7 @@ public class UcMembersEditUserNameRequest extends BaseInfo{
 	/**
      * 用户ID （必填）
      */
-	@NotBlank
+	
     private Integer uid;
     
 
