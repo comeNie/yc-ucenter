@@ -80,7 +80,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		
 		UcMembers ucMembers = getUcMembers(request);
 		if(ucMembers == null){
-			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "用户不存在，或者被删除", null);
+			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "用户不存在", null);
 			return response;
 		}
 
@@ -110,8 +110,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			responseDate.put("domainname", ucMembersResponse.getDomainName());
 			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.SUCCESS_CODE, "认证成功", responseDate);
 		}else{
-
-			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "认证失败", null);
+			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "帐号或密码错误", null);
 
 		}
 		return response;
