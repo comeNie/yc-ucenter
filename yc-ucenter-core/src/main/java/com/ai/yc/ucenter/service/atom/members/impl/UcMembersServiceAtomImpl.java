@@ -286,6 +286,22 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 			UcMembers obj = MapperFactory.getUcMembersMapper().selectSalt(record);
 			return obj;
 		}
+		else if(UcMembersLoginModeEnum.ALL_MODE.equals(loginmode)){
+			UcMembersCriteria example = new UcMembersCriteria();
+			Criteria criteria = example.createCriteria();
+			Criteria orUsername = example.or();
+			orUsername.andUsernameEqualTo(request.getUsername());
+			orUsername.andEnablestatusEqualTo("1");
+			Criteria orMobile = example.or();
+			orMobile.andMobilephoneEqualTo(request.getUsername());
+			orMobile.andEnablestatusEqualTo("1");
+			Criteria orEmail = example.or();
+			orEmail.andEmailEqualTo(request.getUsername());
+			orEmail.andEnablestatusEqualTo("1");
+			List<UcMembers> list = MapperFactory.getUcMembersMapper().selectByExample(example);
+			
+			return list.get(0);
+		}
 		return null;
 	
 	}

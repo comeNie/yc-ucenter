@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
 import com.ai.opt.sdk.util.BeanUtils;
+import com.ai.paas.ipaas.ccs.constants.ConfigException;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersActiveRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.constants.OperationtypeConstants;
@@ -147,7 +148,8 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 	
 			along = new AtomicLong();
 			along.set(reqOptime);
-			String mobliact = Global.getMobilActiveValid();
+			String mobliact;
+			mobliact = Global.getMobilActiveValid();
 			String verifVa = Global.getVerifValid();
 			Integer mobilActiveValid = StringUtils.isNotBlank(mobliact)?Integer.valueOf(mobliact):null;
 			Integer verifValid = StringUtils.isNotBlank(verifVa)?Integer.valueOf(verifVa):null;

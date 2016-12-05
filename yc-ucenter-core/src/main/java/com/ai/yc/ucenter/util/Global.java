@@ -9,6 +9,8 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 
+import com.ai.opt.sdk.components.ccs.CCSClientFactory;
+import com.ai.paas.ipaas.ccs.constants.ConfigException;
 import com.google.common.collect.Maps;
 
 /**
@@ -78,23 +80,41 @@ public class Global {
 	 * 获取用户名随机数长度
 	 */
 	public static String getUsernamLength() {
-		return getConfig("username.length");
+		try {
+			return CCSClientFactory.getDefaultConfigClient().get("/username.length");
+		} catch (ConfigException e) {
+			e.printStackTrace();
+			return getConfig("username.length");
+		}
+//		return getConfig("username.length");
 	}
 	
 	/**
 	 * 获取用户名前缀
 	 */
 	public static String getUsernamPrefix() {
-		return getConfig("username.prefix");
+		try {
+			return CCSClientFactory.getDefaultConfigClient().get("/username.prefix");
+		} catch (ConfigException e) {
+			e.printStackTrace();
+			return getConfig("username.prefix");
+		}
+//		return getConfig("username.prefix");
 	}
 	
 	/**
 	 * 获取手机激活码或动态密码30分钟有效
+	 * @throws ConfigException 
 	 */
 	public static String getMobilActiveValid() {
 	
-		
-		return getConfig("mobil.active.valid");
+		try {
+			return CCSClientFactory.getDefaultConfigClient().get("/phone_verifycode_overtime");
+		} catch (ConfigException e) {
+			e.printStackTrace();
+			return getConfig("mobil.active.valid");
+		}
+//		return getConfig("mobil.active.valid");
 	}
 
 	
@@ -102,14 +122,26 @@ public class Global {
 	 * 验证码60分钟有效
 	 */
 	public static String getVerifValid() {
-		return getConfig("verif.valid");
+		try {
+			return CCSClientFactory.getDefaultConfigClient().get("/verif.valid");
+		} catch (ConfigException e) {
+			e.printStackTrace();
+			return getConfig("verif.valid");
+		}
+//		return getConfig("verif.valid");
 	}
 	
 	/**
 	 * 60秒再次获取
 	 */
 	public static String getCodeAgain() {
-		return getConfig("get_again");
+		try {
+			return CCSClientFactory.getDefaultConfigClient().get("/get_again");
+		} catch (ConfigException e) {
+			e.printStackTrace();
+			return getConfig("get_again");
+		}
+//		return getConfig("get_again");
 	}
     /**
      * 获取工程路径

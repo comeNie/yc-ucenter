@@ -80,18 +80,18 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		
 		UcMembers ucMembers = getUcMembers(request);
 		if(ucMembers == null){
-			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "认证失败", null);
+			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "用户不存在，或者被删除", null);
 			return response;
 		}
 
 		if(!LoginValidators.validateEnablestatus(ucMembers)){
  
-			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "认证失败,账号未激活", null);
+			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "账户未激活", null);
 			return response;
 		}
 		
 		if(StringUtils.isBlank(ucMembers.getSalt())){
-			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "认证失败", null);
+			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.ERROR_CODE, "帐号或密码错误", null);
 			return response;
 		}
 
@@ -107,6 +107,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			responseDate.put("mobilephone", ucMembersResponse.getMobilephone());
 			responseDate.put("username", ucMembersResponse.getUsername());
 			responseDate.put("passHav", (StringUtils.isNotBlank(ucMembersResponse.getPassword())?"true":"false"));
+			responseDate.put("domainname", ucMembersResponse.getDomainName());
 			response = (UcMembersLoginResponse) addResponse(response,true,ResultCodeConstants.SUCCESS_CODE, "认证成功", responseDate);
 		}else{
 
@@ -296,6 +297,8 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, listValidator+"", null);
 			return response;
 		}
+		
+		// 别人已经使用过的邮箱
 		
 		
 		//验证码过期，修改/绑定失败	

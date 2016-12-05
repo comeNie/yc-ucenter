@@ -11,6 +11,9 @@ import com.ai.yc.ucenter.api.members.impl.UcMembersOperationSVImpl;
 import com.ai.yc.ucenter.api.members.impl.UcMembersSVImpl;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.editusername.UcMembersEditUserNameRequest;
+import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
+import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse;
+import com.ai.yc.ucenter.util.PasswordMD5Util.Md5Utils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "/context/core-context.xml"})
@@ -23,18 +26,20 @@ public class MembersTest {
 	@Autowired
 	private UcMembersOperationSVImpl ucMembersOperationSVImpl;
 
-/*    @Test
+    @Test
     public void getLogin() {
     	UcMembersLoginRequest request = new UcMembersLoginRequest();
-    	String username = "mico2015121001@163.com";
-    	String password = "111111";
-    	String loginmode = "1";
+//    	String username = "mico2015121001@163.com";
+//    	String password = "111111";
+    	String username = "xyw10000@163.com";
+    	String password = Md5Utils.md5("111111q");
+    	String loginmode = "5";
     	request.setLoginmode(loginmode);
     	request.setPassword(password);
     	request.setUsername(username);
     	UcMembersLoginResponse response =  ucMembersSVImpl.ucLoginMember(request);
-        System.out.println(response.getResponseHeader().getResultCode()+"::"+response.getResponseHeader().getResultMessage());
-    }*/
+        System.out.println(response.getCode()+"::"+response.getMessage());
+    }
     
 //   @Test
 //    public void getReg() {
