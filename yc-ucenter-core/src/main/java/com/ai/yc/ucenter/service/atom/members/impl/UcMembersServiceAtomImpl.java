@@ -42,6 +42,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		if(UcMembersLoginModeEnum.EMAILPASS_MODE.equals(loginmode)){
 			criteria.andEmailEqualTo(username);
 			criteria.andPasswordEqualTo(passMd5);
+			criteria.andEnablestatusNotEqualTo("0");
 			
 		}
 		//手机动态密码
@@ -52,24 +53,29 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		else if(UcMembersLoginModeEnum.PHONEPASS_MODE.equals(loginmode)){
 			criteria.andMobilephoneEqualTo(username);
 			criteria.andPasswordEqualTo(passMd5);
+			criteria.andEnablestatusNotEqualTo("0");
 		}
 		//用户名密码
 		else if(UcMembersLoginModeEnum.USERPASS_MODE.equals(loginmode)){
 			criteria.andUsernameEqualTo(username);
 			criteria.andPasswordEqualTo(passMd5);
+			criteria.andEnablestatusNotEqualTo("0");
 		}		
 		else if(UcMembersLoginModeEnum.ALL_MODE.equals(loginmode)){
 			Criteria orUsername = example.or();
 			orUsername.andUsernameEqualTo(username);
 			orUsername.andPasswordEqualTo(passMd5);
+			orUsername.andEnablestatusNotEqualTo("0");
 			Criteria orMobile = example.or();
 			orMobile.andMobilephoneEqualTo(username);
 			orMobile.andPasswordEqualTo(passMd5);
+			orMobile.andEnablestatusNotEqualTo("0");
 			Criteria orEmail = example.or();
 			orEmail.andEmailEqualTo(username);
 			orEmail.andPasswordEqualTo(passMd5);
+			orEmail.andEnablestatusNotEqualTo("0");
 		}
-		criteria.andEnablestatusNotEqualTo("0");
+//		criteria.andEnablestatusNotEqualTo("0");
 		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
 		
 		return list;
