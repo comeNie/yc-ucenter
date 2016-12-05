@@ -28,6 +28,9 @@ public class UcMembersLoginModeEnum {
     * 用户名密码
     */
    public static final String USERPASS_MODE = "4"; 
-
+   /**
+    * 用户名密码
+    */
+   public static final String ALL_MODE = "5"; 
 
 }

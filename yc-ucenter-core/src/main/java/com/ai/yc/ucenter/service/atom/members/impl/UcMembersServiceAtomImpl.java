@@ -55,9 +55,20 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		}
 		//用户名密码
 		else if(UcMembersLoginModeEnum.USERPASS_MODE.equals(loginmode)){
-				criteria.andUsernameEqualTo(username);
-				criteria.andPasswordEqualTo(passMd5);
+			criteria.andUsernameEqualTo(username);
+			criteria.andPasswordEqualTo(passMd5);
 		}		
+		else if(UcMembersLoginModeEnum.ALL_MODE.equals(loginmode)){
+			Criteria orUsername = example.or();
+			orUsername.andUsernameEqualTo(username);
+			orUsername.andPasswordEqualTo(passMd5);
+			Criteria orMobile = example.or();
+			orMobile.andMobilephoneEqualTo(username);
+			orMobile.andPasswordEqualTo(passMd5);
+			Criteria orEmail = example.or();
+			orEmail.andEmailEqualTo(username);
+			orEmail.andPasswordEqualTo(passMd5);
+		}
 		criteria.andEnablestatusNotEqualTo("0");
 		List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
 		

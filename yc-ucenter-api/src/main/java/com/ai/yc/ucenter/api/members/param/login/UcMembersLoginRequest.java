@@ -28,7 +28,7 @@ public class UcMembersLoginRequest extends BaseInfo{
 		2：手机密码
 		3：手机动态密码
 		4：用户名密码
-
+	 	5. 都行
      */
 	@NotBlank(message="登录方式不能为空")
     private String loginmode;
