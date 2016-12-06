@@ -20,6 +20,7 @@ import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
 import com.ai.yc.ucenter.api.members.param.editusername.UcMembersEditUserNameRequest;
+import com.ai.yc.ucenter.api.members.param.get.UcMembersGetModeFlag;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse.UcMembersGetDate;
@@ -298,7 +299,18 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		}
 		
 		// 别人已经使用过的邮箱
-		
+		UcMembersGetRequest umgr = new UcMembersGetRequest();
+		umgr.setUsername(request.getEmail());
+		umgr.setGetmode(UcMembersGetModeFlag.EMAIL_FLAG);
+		UcMembersGetResponse umgresp = getMember(umgr);
+		if(null != umgresp.getDate().get("uid")){
+			if (umgresp.getDate().get("uid").toString().equals(request.getUid())){
+				response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.SUCCESS_CODE, "您已经绑定此邮箱"+"", null);
+				return response;
+			}
+			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "邮箱已被其他用户绑定"+"", null);
+			return response;
+		}
 		
 		//验证码过期，修改/绑定失败	
 		

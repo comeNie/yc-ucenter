@@ -10,9 +10,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.ai.yc.ucenter.api.members.impl.UcMembersOperationSVImpl;
 import com.ai.yc.ucenter.api.members.impl.UcMembersSVImpl;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
+import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
 import com.ai.yc.ucenter.api.members.param.editusername.UcMembersEditUserNameRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse;
+import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
+import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeResponse;
 import com.ai.yc.ucenter.util.PasswordMD5Util.Md5Utils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -40,6 +43,30 @@ public class MembersTest {
     	UcMembersLoginResponse response =  ucMembersSVImpl.ucLoginMember(request);
         System.out.println(response.getCode()+"::"+response.getMessage());
     }
+    
+    @Test
+    public void a(){
+    	UcMembersGetOperationcodeRequest request = new UcMembersGetOperationcodeRequest();
+    	request.setOperationtype("1");
+    	request.setUserinfo("13848832589");
+    	UcMembersGetOperationcodeResponse response = ucMembersOperationSVImpl.ucGetOperationcode(request);
+  		System.out.println(response);
+    	
+    	UcMembersEditPassRequest a = new UcMembersEditPassRequest();
+    	a.setNewpw(Md5Utils.md5("123456789"));
+    	a.setChecke_mode("2");
+    	a.setChecke_code(response.getDate().get("operationcode").toString().substring(1) + "1");
+    	a.setUid(Integer.valueOf(response.getDate().get("uid").toString()));
+    	UcMembersEditPassRequest b = new UcMembersEditPassRequest();
+    	b.setNewpw(Md5Utils.md5("123456789"));
+    	b.setChecke_mode("2");
+    	b.setChecke_code(response.getDate().get("operationcode").toString());
+    	b.setUid(Integer.valueOf(response.getDate().get("uid").toString()));
+    	UcMembersResponse c = ucMembersSVImpl.ucEditPassword(a);
+    	UcMembersResponse d = ucMembersSVImpl.ucEditPassword(b);
+    	System.out.println("end");
+    }
+    
     
 //   @Test
 //    public void getReg() {
