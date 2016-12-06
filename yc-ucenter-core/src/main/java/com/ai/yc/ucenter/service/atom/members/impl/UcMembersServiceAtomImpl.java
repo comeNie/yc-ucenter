@@ -300,7 +300,14 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 			orEmail.andEnablestatusEqualTo("1");
 			List<UcMembers> list = MapperFactory.getUcMembersMapper().selectByExample(example);
 			
-			return list.get(0);
+			if(list.size() > 0)
+			{
+				return list.get(0);
+			}
+			else
+			{
+				return null;
+			}
 		}
 		return null;
 	

@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.ai.yc.ucenter.api.members.impl.UcMembersOperationSVImpl;
 import com.ai.yc.ucenter.api.members.impl.UcMembersSVImpl;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
+import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
 import com.ai.yc.ucenter.api.members.param.editusername.UcMembersEditUserNameRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
@@ -46,6 +47,7 @@ public class MembersTest {
     
     @Test
     public void a(){
+    	
     	UcMembersGetOperationcodeRequest request = new UcMembersGetOperationcodeRequest();
     	request.setOperationtype("1");
     	request.setUserinfo("13848832589");
@@ -67,6 +69,23 @@ public class MembersTest {
     	System.out.println("end");
     }
     
+    @Test
+    public void updateEmail(){
+    	UcMembersGetOperationcodeRequest request = new UcMembersGetOperationcodeRequest();
+    	request.setOperationtype("5");
+    	request.setUid(100058);
+    	request.setUserinfo("1820025657@qq.com");
+    	UcMembersGetOperationcodeResponse response = ucMembersOperationSVImpl.ucGetOperationcode(request);
+  		System.out.println(response);
+  		
+  		
+    	
+    	UcMembersEditEmailRequest umeer = new UcMembersEditEmailRequest();
+    	umeer.setUid(100058);
+    	umeer.setEmail("3109128041@qq.com");
+    	umeer.setOperationcode(response.getDate().get("operationcode").toString());
+    	UcMembersResponse aa = ucMembersSVImpl.ucEditEmail(umeer);
+    }
     
 //   @Test
 //    public void getReg() {

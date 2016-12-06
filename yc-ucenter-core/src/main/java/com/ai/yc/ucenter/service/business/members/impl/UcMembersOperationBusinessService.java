@@ -133,13 +133,20 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 			criteria.andEnablestatusEqualTo("1");
 			List<UcMembers> list  = MapperFactory.getUcMembersMapper().selectByExample(example);
 			
-			UcMembers ucmPV = (UcMembers)list.get(0);
-			if(ucmPV!=null){
+			if(list.size() > 0){
+				UcMembers ucmPV = (UcMembers)list.get(0);
 				request.setUid(ucmPV.getUid());
-			}else{
+			} else {
 				response = (UcMembersGetOperationcodeResponse) addResponse(response,true,CheckMobilResultCodeConstants.EXIST_ERROR, "该手机号不存在", null);
 				return response;
 			}
+			
+//			if(ucmPV!=null){
+//				request.setUid(ucmPV.getUid());
+//			}else{
+//				response = (UcMembersGetOperationcodeResponse) addResponse(response,true,CheckMobilResultCodeConstants.EXIST_ERROR, "该手机号不存在", null);
+//				return response;
+//			}
 			
 		}
 	
