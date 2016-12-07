@@ -23,8 +23,6 @@
     />
     <dubbo:provider timeout="${dubbo.provider.timeout}" retries="0" threads="300"/>
 
-	<dubbo:monitor protocol="registry" />
-
     <dubbo:annotation package="com.ai.yc.ucenter"/>
 
     <import resource="../../context/core-context.xml"/>
