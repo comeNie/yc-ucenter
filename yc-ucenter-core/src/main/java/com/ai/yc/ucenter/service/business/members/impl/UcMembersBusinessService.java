@@ -256,7 +256,8 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			return response;
 		}
 	
-		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(),"", "vali");
+//		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(),"", "vali");
+		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(),"", "activ");
 		
 		 if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 				|| res==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
@@ -303,13 +304,17 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		umgr.setUsername(request.getEmail());
 		umgr.setGetmode(UcMembersGetModeFlag.EMAIL_FLAG);
 		UcMembersGetResponse umgresp = getMember(umgr);
-		if(null != umgresp.getDate().get("uid")){
-			if (umgresp.getDate().get("uid").toString().equals(request.getUid())){
-				response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.SUCCESS_CODE, "您已经绑定此邮箱"+"", null);
-				return response;
+		if(null != umgresp){
+			if(null != umgresp.getDate()){
+				if(null != umgresp.getDate().get("uid")){
+					if (umgresp.getDate().get("uid").toString().equals(request.getUid())){
+						response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.SUCCESS_CODE, "您已经绑定此邮箱"+"", null);
+						return response;
+					}
+					response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "邮箱已被其他用户绑定"+"", null);
+					return response;
+				}
 			}
-			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, "邮箱已被其他用户绑定"+"", null);
-			return response;
 		}
 		
 		//验证码过期，修改/绑定失败	

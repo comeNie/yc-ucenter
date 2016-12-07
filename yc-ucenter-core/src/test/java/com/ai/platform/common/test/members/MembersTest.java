@@ -74,7 +74,7 @@ public class MembersTest {
     	UcMembersGetOperationcodeRequest request = new UcMembersGetOperationcodeRequest();
     	request.setOperationtype("5");
     	request.setUid(100058);
-    	request.setUserinfo("1820025657@qq.com");
+    	request.setUserinfo("3109128041@qq.com");
     	UcMembersGetOperationcodeResponse response = ucMembersOperationSVImpl.ucGetOperationcode(request);
   		System.out.println(response);
   		
@@ -85,6 +85,7 @@ public class MembersTest {
     	umeer.setEmail("3109128041@qq.com");
     	umeer.setOperationcode(response.getDate().get("operationcode").toString());
     	UcMembersResponse aa = ucMembersSVImpl.ucEditEmail(umeer);
+    	System.out.println(aa);
     }
     
 //   @Test
