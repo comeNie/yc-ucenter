@@ -256,8 +256,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			return response;
 		}
 	
-//		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(),"", "vali");
-		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(),"", "activ");
+		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(),"", "vali");
 		
 		 if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 				|| res==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
@@ -395,7 +394,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		 else if(("2").equals(checke_mode)){
 			 
 
-				Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getChecke_code(), "", "vali");
+				Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getChecke_code(), "", "activ");
 				
 
 				if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
