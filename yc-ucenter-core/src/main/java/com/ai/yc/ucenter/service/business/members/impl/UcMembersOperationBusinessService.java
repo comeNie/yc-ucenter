@@ -109,6 +109,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 				mobileUcmebers.setSystemsource("0");
 				mobileUcmebers.setLogincount(0);
 				mobileUcmebers.setLoginsystem("0");
+				mobileUcmebers.setLastlogintime(regdate);
 			    responseUid = iUcMembersAtomService.insertMemberPo(mobileUcmebers);
 			    if(StringUtils.isNotBlank(responseUid))
 			    	request.setUid(Integer.valueOf(responseUid));

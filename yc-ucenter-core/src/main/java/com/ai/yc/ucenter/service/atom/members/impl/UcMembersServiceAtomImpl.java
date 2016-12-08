@@ -6,6 +6,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,13 +28,14 @@ import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
 import com.ai.yc.ucenter.util.Global;
 import com.ai.yc.ucenter.util.PasswordMD5Util;
 import com.ai.yc.ucenter.util.UCDateUtils;
+import com.alibaba.fastjson.JSON;
 
 
 
 @Component
 public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 	
-	
+	private static final Log LOG = LogFactory.getLog(UcMembersServiceAtomImpl.class);
 
 	@Override
 	public List<UcMembers> loginMember(String username, String passMd5, String loginmode) {
@@ -111,7 +114,9 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		ucMembers.setSystemsource("0");
 		ucMembers.setLogincount(0);
 		ucMembers.setLoginsystem("0");
+		ucMembers.setLastlogintime(regdate);
 		
+		LOG.debug("insert ucMembers : " + JSON.toJSON(ucMembers));
 		int insertCount = MapperFactory.getUcMembersMapper().insert(ucMembers);
 		if(insertCount>0){
 			
@@ -322,6 +327,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 	@Override
 	public String insertMemberPo(UcMembers ucMembers) {
 		// TODO Auto-generated method stub
+		LOG.debug("insert ucMembers : " + JSON.toJSON(ucMembers));
 		int insertCount =  MapperFactory.getUcMembersMapper().insert(ucMembers);
 		if(insertCount>0){
 			Integer newId = MapperFactory.getUcMembersMapper().selectPrimaryKey(ucMembers).getUid();	
