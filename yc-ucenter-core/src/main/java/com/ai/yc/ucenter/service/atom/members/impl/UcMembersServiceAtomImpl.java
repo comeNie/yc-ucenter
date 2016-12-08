@@ -114,8 +114,14 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		ucMembers.setSystemsource("0");
 		ucMembers.setLogincount(0);
 		ucMembers.setLoginsystem("0");
+		// -------
 		ucMembers.setLastlogintime(regdate);
-		
+		ucMembers.setPassword("");
+		ucMembers.setEmail("");
+		ucMembers.setRegip("");
+		ucMembers.setSalt("");
+		ucMembers.setLoginmode("0");
+		ucMembers.setLoginway("");
 		LOG.debug("insert ucMembers : " + JSON.toJSON(ucMembers));
 		int insertCount = MapperFactory.getUcMembersMapper().insert(ucMembers);
 		if(insertCount>0){
