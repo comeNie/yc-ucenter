@@ -116,12 +116,13 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		ucMembers.setLoginsystem("0");
 		// -------
 		ucMembers.setLastlogintime(regdate);
-		ucMembers.setPassword("");
+//		ucMembers.setPassword("");
 		ucMembers.setEmail("");
 		ucMembers.setRegip("");
-		ucMembers.setSalt("");
+//		ucMembers.setSalt("");
 		ucMembers.setLoginmode("0");
 		ucMembers.setLoginway("");
+		
 		LOG.debug("insert ucMembers : " + JSON.toJSON(ucMembers));
 		int insertCount = MapperFactory.getUcMembersMapper().insert(ucMembers);
 		if(insertCount>0){
@@ -332,7 +333,6 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 
 	@Override
 	public String insertMemberPo(UcMembers ucMembers) {
-		// TODO Auto-generated method stub
 		LOG.debug("insert ucMembers : " + JSON.toJSON(ucMembers));
 		int insertCount =  MapperFactory.getUcMembersMapper().insert(ucMembers);
 		if(insertCount>0){

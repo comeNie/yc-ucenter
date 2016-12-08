@@ -112,8 +112,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 				
 				// --------
 				mobileUcmebers.setLastlogintime(regdate);
-				mobileUcmebers.setDomainName("CN");
-				mobileUcmebers.setMobilephone("");
+				// mobilephone null domain_name null
 				
 			    responseUid = iUcMembersAtomService.insertMemberPo(mobileUcmebers);
 			    if(StringUtils.isNotBlank(responseUid))
