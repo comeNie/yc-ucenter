@@ -1,6 +1,8 @@
 package com.ai.platform.common.test.members;
 
 
+import java.util.Locale;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +37,11 @@ public class MembersTest {
     	UcMembersLoginRequest request = new UcMembersLoginRequest();
 //    	String username = "mico2015121001@163.com";
 //    	String password = "111111";
-    	String username = "xyw10000@163.com";
-    	String password = Md5Utils.md5("111111q");
+//    	String username = "xyw10000@163.com";
+//    	String password = Md5Utils.md5("111111q");
+    	String username = "12341234999";
+    	String password = Md5Utils.md5("hbhb123");
+    	
     	String loginmode = "5";
     	request.setLoginmode(loginmode);
     	request.setPassword(password);
@@ -49,22 +54,21 @@ public class MembersTest {
     public void a(){
     	
     	UcMembersGetOperationcodeRequest request = new UcMembersGetOperationcodeRequest();
-    	request.setOperationtype("1");
-    	request.setUserinfo("13848832589");
+    	request.setOperationtype("6");
+    	request.setUserinfo("12341234999");
+    	request.setDomainname("");
+    	request.setLocale(Locale.CHINA);
+    	request.setTenantId("yeecloud");
     	UcMembersGetOperationcodeResponse response = ucMembersOperationSVImpl.ucGetOperationcode(request);
   		System.out.println(response);
     	
-    	UcMembersEditPassRequest a = new UcMembersEditPassRequest();
-    	a.setNewpw(Md5Utils.md5("123456789"));
-    	a.setChecke_mode("2");
-    	a.setChecke_code(response.getDate().get("operationcode").toString().substring(1) + "1");
-    	a.setUid(Integer.valueOf(response.getDate().get("uid").toString()));
     	UcMembersEditPassRequest b = new UcMembersEditPassRequest();
-    	b.setNewpw(Md5Utils.md5("123456789"));
+    	b.setNewpw(Md5Utils.md5("hbhb123"));
     	b.setChecke_mode("2");
     	b.setChecke_code(response.getDate().get("operationcode").toString());
     	b.setUid(Integer.valueOf(response.getDate().get("uid").toString()));
-    	UcMembersResponse c = ucMembersSVImpl.ucEditPassword(a);
+    	b.setLocale(Locale.CHINA);
+    	b.setTenantId("yeecloud");
     	UcMembersResponse d = ucMembersSVImpl.ucEditPassword(b);
     	System.out.println("end");
     }
@@ -72,9 +76,9 @@ public class MembersTest {
     @Test
     public void updateEmail(){
     	UcMembersGetOperationcodeRequest request = new UcMembersGetOperationcodeRequest();
-    	request.setOperationtype("5");
-    	request.setUid(100058);
-    	request.setUserinfo("3109128041@qq.com");
+    	request.setOperationtype("6");
+    	request.setUid(4444476);
+    	request.setUserinfo("12341234999");
     	UcMembersGetOperationcodeResponse response = ucMembersOperationSVImpl.ucGetOperationcode(request);
   		System.out.println(response);
   		

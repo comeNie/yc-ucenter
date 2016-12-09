@@ -178,9 +178,25 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
              } else { 
              	return RESULT_VALI_EXPIRED;
              }    
-         } else {  
-         	return RESULT_UCMEMBER_ACTIVED;//该账号已被激活
-         }    
+         } else if(("1").equals(ucMembers.getEnablestatus())){  
+        	///没激活  
+             long sysdate = UCDateUtils.getSystime();//当前时间
+ //当前时间小于验证码生成时间+时间限制，则在有效期内
+              if(sysdate<along.get()) {    
+                  //验证激活码是否正确    
+                  if(realOperation.getOperationcode().equals(validateCode)) {    
+                      //激活成功， //并更新用户的激活状态，为已激活   
+//                  	LOG.debug("验证码ID："+reqOperation.getOid()+"，验证码为："+reqOperation.getOperationcode()+" ，验证正确");
+                  	return RESULT_VALI_SUCCESS;
+                  } else {    
+                  	return RESULT_VALI_DIFFERENT;
+                  }    
+              } else { 
+              	return RESULT_VALI_EXPIRED;
+              }    
+         }    else{
+        	 return RESULT_UCMEMBER_ACTIVED;//该账号已被激活
+         }
      } else {  
      	return RESULT_UCMEMBER_NOTIN;//该账号不存在
      }    
