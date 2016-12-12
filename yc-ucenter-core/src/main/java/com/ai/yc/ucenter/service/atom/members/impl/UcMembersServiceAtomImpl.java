@@ -342,6 +342,24 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 
 	@Override
 	public Integer updateUserName(Integer uid, String username) {
+		// 如果数据库中的username、email、mobilephone有等于入参username的话
+		UcMembersCriteria exampleX = new UcMembersCriteria();
+		Criteria criteriaX = exampleX.createCriteria();
+		Criteria orUsernameX = exampleX.or();
+		orUsernameX.andUsernameEqualTo(username);
+		orUsernameX.andEnablestatusEqualTo("1");
+		Criteria orMobileX = exampleX.or();
+		orMobileX.andMobilephoneEqualTo(username);
+		orMobileX.andEnablestatusEqualTo("1");
+		Criteria orEmailX = exampleX.or();
+		orEmailX.andEmailEqualTo(username);
+		orEmailX.andEnablestatusEqualTo("1");
+		List<UcMembers> list = MapperFactory.getUcMembersMapper().selectByExample(exampleX);
+		if(list.size() > 0)
+		{
+			return 0;
+		}
+		
 		UcMembers record = new UcMembers();
 		record.setUsername(username);
 		UcMembersCriteria example = new UcMembersCriteria();
