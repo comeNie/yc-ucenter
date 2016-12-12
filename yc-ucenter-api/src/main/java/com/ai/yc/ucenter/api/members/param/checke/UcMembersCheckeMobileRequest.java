@@ -18,7 +18,7 @@ public class UcMembersCheckeMobileRequest extends BaseInfo{
      * 移动电话（必填）
      */
     @NotBlank
-    @MobilePhone
+//    @MobilePhone
     private String mobilephone;
 
 	public Integer getUid() {
