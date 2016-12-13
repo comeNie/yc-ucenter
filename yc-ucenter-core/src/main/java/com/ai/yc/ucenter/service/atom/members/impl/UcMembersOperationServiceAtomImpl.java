@@ -82,16 +82,16 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 	@Override
 	public int updateActiveMember(UcMembersActiveRequest request) {
 		Integer uid = request.getUid();
-		String operationcode = request.getOperationcode();
+		//String operationcode = request.getOperationcode();
+		String operationtype = request.getOperationtype();
 		UcMembers record = new UcMembers();
 		record.setEnablestatus("1");
-		if(operationcode.equals(OperationtypeConstants.EMAIL_ACTIV)){
+		if(OperationtypeConstants.EMAIL_ACTIV.equals(operationtype)){
 			record.setEmailcheck(1);
 		}
 		UcMembersCriteria example = new UcMembersCriteria();
 		com.ai.yc.ucenter.dao.mapper.bo.UcMembersCriteria.Criteria criteria = example.createCriteria();
 		criteria.andUidEqualTo(uid);
-		MapperFactory.getUcMembersMapper().updateByExampleSelective(record, example);
 		
 		
 		return MapperFactory.getUcMembersMapper().updateByExampleSelective(record, example);
