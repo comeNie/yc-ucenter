@@ -129,8 +129,8 @@ public class UcMembersOperationServiceAtomImpl implements IUcMembersOperationAto
 		return u;
 	}
 	   //激活码验证
-@Override
- public  Integer processActivate(Integer uid , String validateCode,String operationtype,String arg){     
+	@Override
+	public  Integer processActivate(Integer uid , String validateCode,String operationtype,String arg){     
 		//通过uid获取用户信息  
 		UcMembers ucMembers = getUcMembers(uid);
 		//获取最新的验证码

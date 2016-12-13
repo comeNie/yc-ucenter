@@ -393,8 +393,8 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		//3、验证方式为验证码 此处验证码都是操作码生
 		 else if(("2").equals(checke_mode)){
 			 
-			 // 这里的有可能是activ，也有可能是vali
-			 @SuppressWarnings(value = { "may activ ,may vali" })
+			 	// 这里的有可能是activ，也有可能是vali?
+				@SuppressWarnings(value = { "may activ ,may vali" })
 				Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getChecke_code(), "", "activ");
 				
 

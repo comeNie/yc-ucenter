@@ -12,8 +12,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.ai.yc.ucenter.api.members.impl.UcMembersOperationSVImpl;
 import com.ai.yc.ucenter.api.members.impl.UcMembersSVImpl;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
+import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
-import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
 import com.ai.yc.ucenter.api.members.param.editusername.UcMembersEditUserNameRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse;
@@ -41,7 +41,6 @@ public class MembersTest {
 //    	String password = Md5Utils.md5("111111q");
     	String username = "12341234999";
     	String password = Md5Utils.md5("hbhb123");
-    	
     	String loginmode = "5";
     	request.setLoginmode(loginmode);
     	request.setPassword(password);
@@ -54,23 +53,34 @@ public class MembersTest {
     public void a(){
     	
     	UcMembersGetOperationcodeRequest request = new UcMembersGetOperationcodeRequest();
-    	request.setOperationtype("6");
-    	request.setUserinfo("12341234999");
+    	request.setUid(4444476);
+    	request.setOperationtype("5");
+    	request.setUserinfo("178070754@qq.com");
     	request.setDomainname("");
     	request.setLocale(Locale.CHINA);
     	request.setTenantId("yeecloud");
     	UcMembersGetOperationcodeResponse response = ucMembersOperationSVImpl.ucGetOperationcode(request);
   		System.out.println(response);
     	
-    	UcMembersEditPassRequest b = new UcMembersEditPassRequest();
-    	b.setNewpw(Md5Utils.md5("hbhb123"));
-    	b.setChecke_mode("2");
-    	b.setChecke_code(response.getDate().get("operationcode").toString());
-    	b.setUid(Integer.valueOf(response.getDate().get("uid").toString()));
-    	b.setLocale(Locale.CHINA);
-    	b.setTenantId("yeecloud");
-    	UcMembersResponse d = ucMembersSVImpl.ucEditPassword(b);
-    	System.out.println("end");
+//    	UcMembersEditPassRequest b = new UcMembersEditPassRequest();
+//    	b.setNewpw(Md5Utils.md5("hbhb123"));
+//    	b.setChecke_mode("2");
+//    	b.setChecke_code(response.getDate().get("operationcode").toString());
+//    	b.setUid(Integer.valueOf(response.getDate().get("uid").toString()));
+//    	b.setLocale(Locale.CHINA);
+//    	b.setTenantId("yeecloud");
+//    	UcMembersResponse d = ucMembersSVImpl.ucEditPassword(b);
+//    	System.out.println("end");
+    }
+    @Test 
+    public void checkMobilephone(){
+    	UcMembersCheckeMobileRequest a = new UcMembersCheckeMobileRequest();
+    	a.setTenantId("yeecloud");
+    	a.setMobilephone("18456456456");
+//    	a.setMobilephone("13007420476");
+//    	a.setMobilephone("13848832588");
+    	UcMembersResponse b = ucMembersSVImpl.ucCheckeMobilephone(a);
+    	System.out.println(b);
     }
     
     @Test
