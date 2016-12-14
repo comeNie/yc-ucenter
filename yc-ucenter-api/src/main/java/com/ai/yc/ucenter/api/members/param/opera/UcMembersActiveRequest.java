@@ -14,6 +14,7 @@ public class UcMembersActiveRequest extends BaseInfo{
 
     private Integer uid;
 
+    
     /**
      * 操作码激活码或验证码(必填)
      */
@@ -31,6 +32,9 @@ public class UcMembersActiveRequest extends BaseInfo{
      */
 	@NotBlank
     private String operationtype;
+	
+	@NotBlank
+	private String userinfo;
 
 	public Integer getUid() {
 		return uid;
@@ -54,6 +58,14 @@ public class UcMembersActiveRequest extends BaseInfo{
 
 	public void setOperationtype(String operationtype) {
 		this.operationtype = operationtype;
+	}
+
+	public String getUserinfo() {
+		return userinfo;
+	}
+
+	public void setUserinfo(String userinfo) {
+		this.userinfo = userinfo;
 	}   
     
     

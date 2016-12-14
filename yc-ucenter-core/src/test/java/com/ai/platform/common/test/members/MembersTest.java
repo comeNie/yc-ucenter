@@ -14,12 +14,17 @@ import com.ai.yc.ucenter.api.members.impl.UcMembersSVImpl;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
+import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
+import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
 import com.ai.yc.ucenter.api.members.param.editusername.UcMembersEditUserNameRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeResponse;
+import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterRequest;
+import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterResponse;
 import com.ai.yc.ucenter.util.PasswordMD5Util.Md5Utils;
+import com.ai.yc.ucenter.util.UCDateUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "/context/core-context.xml"})
@@ -53,24 +58,24 @@ public class MembersTest {
     public void a(){
     	
     	UcMembersGetOperationcodeRequest request = new UcMembersGetOperationcodeRequest();
-    	request.setUid(4444476);
+    	request.setUid(4444515);
     	request.setOperationtype("5");
-    	request.setUserinfo("178070754@qq.com");
+    	request.setUserinfo("1031248999@123.com");
     	request.setDomainname("");
     	request.setLocale(Locale.CHINA);
     	request.setTenantId("yeecloud");
     	UcMembersGetOperationcodeResponse response = ucMembersOperationSVImpl.ucGetOperationcode(request);
   		System.out.println(response);
     	
-//    	UcMembersEditPassRequest b = new UcMembersEditPassRequest();
-//    	b.setNewpw(Md5Utils.md5("hbhb123"));
-//    	b.setChecke_mode("2");
-//    	b.setChecke_code(response.getDate().get("operationcode").toString());
-//    	b.setUid(Integer.valueOf(response.getDate().get("uid").toString()));
-//    	b.setLocale(Locale.CHINA);
-//    	b.setTenantId("yeecloud");
-//    	UcMembersResponse d = ucMembersSVImpl.ucEditPassword(b);
-//    	System.out.println("end");
+    	UcMembersEditPassRequest b = new UcMembersEditPassRequest();
+    	b.setNewpw(Md5Utils.md5("hbhb123"));
+    	b.setChecke_mode("2");
+    	b.setChecke_code(response.getDate().get("operationcode").toString());
+    	b.setUid(Integer.valueOf(response.getDate().get("uid").toString()));
+    	b.setLocale(Locale.CHINA);
+    	b.setTenantId("yeecloud");
+    	UcMembersResponse d = ucMembersSVImpl.ucEditPassword(b);
+    	System.out.println("end");
     }
     @Test 
     public void checkMobilephone(){
@@ -86,35 +91,52 @@ public class MembersTest {
     @Test
     public void updateEmail(){
     	UcMembersGetOperationcodeRequest request = new UcMembersGetOperationcodeRequest();
-    	request.setOperationtype("6");
-    	request.setUid(4444476);
-    	request.setUserinfo("12341234999");
+    	request.setOperationtype("5");
+    	request.setUid(4444515);
+    	request.setUserinfo("1031248877@123.com");
     	UcMembersGetOperationcodeResponse response = ucMembersOperationSVImpl.ucGetOperationcode(request);
   		System.out.println(response);
-  		
-  		
     	
     	UcMembersEditEmailRequest umeer = new UcMembersEditEmailRequest();
-    	umeer.setUid(100058);
-    	umeer.setEmail("3109128041@qq.com");
+    	umeer.setUid(4444515);
+    	umeer.setEmail("1031248877@123.com");
     	umeer.setOperationcode(response.getDate().get("operationcode").toString());
     	UcMembersResponse aa = ucMembersSVImpl.ucEditEmail(umeer);
     	System.out.println(aa);
     }
     
-//   @Test
-//    public void getReg() {
-//    	UcMembersRegisterRequest request = new UcMembersRegisterRequest();
-//    	request.setEmail("mengbo@asiainfo.com");
-//    	request.setPassword("111111");
-//    	request.setRegip("127.0.0.1");
-//    	request.setUsersource("gtcom");
-//    	request.setLoginmode("0");
-//    	request.setLoginway("1");
-//    	request.setCreatetime(String.valueOf(UCDateUtils.getSystime()));
-//    	UcMembersRegisterResponse response = ucMembersSVImpl.ucRegisterMember(request);
-//    	System.out.println(response.getMessage()+"::"+response.getMessage()+"::"+response.getCode());
-//    }
+    @Test
+    public void updatePhone(){
+    	UcMembersGetOperationcodeRequest request = new UcMembersGetOperationcodeRequest();
+    	request.setOperationtype("2");
+    	request.setUid(4444515);
+    	request.setUserinfo("13661151888");
+    	request.setDomainname("CN");
+    	UcMembersGetOperationcodeResponse response = ucMembersOperationSVImpl.ucGetOperationcode(request);
+  		System.out.println(response);
+    	
+  		UcMembersEditMobileRequest umemr = new UcMembersEditMobileRequest();
+  		umemr.setUid(4444515);
+  		umemr.setMobilephone("13661151866");
+  		umemr.setOperationcode(response.getDate().get("operationcode").toString());
+  		umemr.setDomainname("CN");
+    	UcMembersResponse aa = ucMembersSVImpl.ucEditMobilephone(umemr);
+    	System.out.println(aa);
+    }
+    
+   @Test
+    public void getReg() {
+    	UcMembersRegisterRequest request = new UcMembersRegisterRequest();
+    	request.setEmail("mengbo@asiainfo.com");
+    	request.setPassword("111111");
+    	request.setRegip("127.0.0.1");
+    	request.setUsersource("gtcom");
+    	request.setLoginmode("0");
+    	request.setLoginway("1");
+    	request.setCreatetime(String.valueOf(UCDateUtils.getSystime()));
+    	UcMembersRegisterResponse response = ucMembersSVImpl.ucRegisterMember(request);
+    	System.out.println(response.getMessage()+"::"+response.getMessage()+"::"+response.getCode());
+    }
 //	@Test
 //    public void getHB(){
 //		UcMembersEditMobileRequest request = new UcMembersEditMobileRequest();

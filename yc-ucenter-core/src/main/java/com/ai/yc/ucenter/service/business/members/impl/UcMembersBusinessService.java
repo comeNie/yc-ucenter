@@ -255,8 +255,8 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			response = (UcMembersResponse) addResponse(response,true,EditMobileResultCodeConstants.FAIL_CODE, listValidator+"", null);
 			return response;
 		}
-	
-		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(),"", "vali");
+		
+		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(),"", "vali",request.getMobilephone());
 		
 		 if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 				|| res==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
@@ -318,7 +318,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 		
 		//验证码过期，修改/绑定失败	
 		
-		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(), OperationtypeConstants.EMAIL_VALI, "vali");
+		Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getOperationcode(), OperationtypeConstants.EMAIL_VALI, "vali",request.getEmail());
 		
 		if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 
 				|| res==UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN){
@@ -395,7 +395,7 @@ public class UcMembersBusinessService  extends UcBaseService implements IUcMembe
 			 
 			 	// 这里的有可能是activ，也有可能是vali?
 				@SuppressWarnings(value = { "may activ ,may vali" })
-				Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getChecke_code(), "", "activ");
+				Integer res = iUcMembersOperationAtomService.processActivate(request.getUid(), request.getChecke_code(), "", "activ",null);
 				
 
 				if(res==UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT 

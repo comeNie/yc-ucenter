@@ -12,6 +12,6 @@ public interface IUcMembersOperationBusinessService {
 
 	UcMembersResponse checkActiveMembe(UcMembersActiveRequest request);
 
-	Integer processActivate(Integer uid, String validateCode, String operationtype, String string);
+	Integer processActivate(Integer uid, String validateCode, String operationtype, String string,String userinfo);
 	
 }

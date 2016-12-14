@@ -1,22 +1,5 @@
 package com.ai.yc.ucenter.util;
 
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.ai.yc.ucenter.constants.OperationtypeConstants;
-import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
-import com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperation;
-import com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperationCriteria;
-import com.ai.yc.ucenter.dao.mapper.bo.UcMembersOperationCriteria.Criteria;
-import com.ai.yc.ucenter.dao.mapper.factory.MapperFactory;
-import com.ai.yc.ucenter.dao.mapper.interfaces.UcMembersMapper;
-import com.ai.yc.ucenter.dao.mapper.interfaces.UcMembersOperationMapper;
-
 public class OperationValidateUtils {
 	
 	//private static final Logger LOG = LoggerFactory.getLogger(OperationValidateUtils.class);
