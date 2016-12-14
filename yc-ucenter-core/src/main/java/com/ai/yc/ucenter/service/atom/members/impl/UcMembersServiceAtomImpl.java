@@ -226,6 +226,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		criteria.andUidEqualTo(request.getUid());
 		UcMembers ucMembers = new UcMembers();
 		ucMembers.setEmail(request.getEmail());
+		ucMembers.setEmailcheck(1);
 		return MapperFactory.getUcMembersMapper().updateByExampleSelective(ucMembers, example);
 
 	}
