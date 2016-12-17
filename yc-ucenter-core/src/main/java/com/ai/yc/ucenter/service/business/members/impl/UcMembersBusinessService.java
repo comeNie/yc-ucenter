@@ -208,14 +208,17 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	}
 
 	private static Map<String, String> getUserinfoAndOper(UcMembersRegisterRequest request) {
+		/**
+		 * 
+		 */
 		Map<String, String> map = new HashMap<String, String>();
 		String loginway = request.getLoginway();
 		if (Constants.LoginWayConstant.EMAIL_PASS.equals(loginway)) {
-			map.put("userinfo", Constants.UserInfoConstant.EMAIL_INFO);
+			map.put("userinfo", request.getEmail());
 			map.put("operationtype", OperationtypeConstants.EMAIL_ACTIV);
 		} else if (Constants.LoginWayConstant.MOBILE_DYNA.equals(loginway)
 				|| Constants.LoginWayConstant.MOBILE_PASS.equals(loginway)) {
-			map.put("userinfo", Constants.UserInfoConstant.MOBILE_INFO);
+			map.put("userinfo", request.getMobilephone());
 			map.put("operationtype", OperationtypeConstants.MOBILE_ACTIV);
 		}
 
