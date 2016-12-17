@@ -208,9 +208,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	}
 
 	private static Map<String, String> getUserinfoAndOper(UcMembersRegisterRequest request) {
-		/**
-		 * 
-		 */
+		
 		Map<String, String> map = new HashMap<String, String>();
 		String loginway = request.getLoginway();
 		if (Constants.LoginWayConstant.EMAIL_PASS.equals(loginway)) {
