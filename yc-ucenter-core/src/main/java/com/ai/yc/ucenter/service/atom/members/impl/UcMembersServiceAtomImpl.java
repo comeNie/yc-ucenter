@@ -144,7 +144,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		ThreadLocalRandom tlr = ThreadLocalRandom.current();
 
 		StringBuffer username = new StringBuffer(Global.getUsernamPrefix());
-		Integer nameLength = (StringUtils.isBlank(Global.getUsernamLength()))?16:Integer.valueOf(Global.getUsernamLength());
+		Integer nameLength = (StringUtils.isBlank(Global.getUsernamLength()))?11:Integer.valueOf(Global.getUsernamLength());
 		
 		for(int i = 0; i < nameLength; i++){
 			username.append(tlr.nextInt(0,9));  
