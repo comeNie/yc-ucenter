@@ -188,8 +188,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 		// 生成验证码并发送
 		try {
 			UcMembersGetOperationcodeRequest getOperaRequest = new UcMembersGetOperationcodeRequest();
-//			getOperaRequest.setUserinfo(getUserinfoAndOper(request).get("userinfo") + "");
-			getOperaRequest.setUserinfo(request.getEmail());
+			getOperaRequest.setUserinfo(getUserinfoAndOper(request).get("userinfo") + "");
 			getOperaRequest.setOperationtype(getUserinfoAndOper(request).get("operationtype") + "");
 			getOperaRequest.setUid(Integer.valueOf(resultUid));
 			String code = iUcMembersOperationAtomService.saveOperationcode(getOperaRequest);

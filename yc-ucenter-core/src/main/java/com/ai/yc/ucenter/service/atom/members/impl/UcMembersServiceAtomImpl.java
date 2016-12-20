@@ -138,7 +138,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 	 * @param request
 	 * @return
 	 */
-	public String getUsername(){
+public String getUsername(){
 		
 		//String loginway = request.getLoginway();
 		ThreadLocalRandom tlr = ThreadLocalRandom.current();
