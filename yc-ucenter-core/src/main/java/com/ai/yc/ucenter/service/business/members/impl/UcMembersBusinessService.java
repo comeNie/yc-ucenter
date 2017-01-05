@@ -77,20 +77,20 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 
 		UcMembers ucMembers = getUcMembers(request);
 		if (ucMembers == null) {
-			response = (UcMembersLoginResponse) addResponse(response, true, ResultCodeConstants.ERROR_CODE, "用户不存在",
+			response = (UcMembersLoginResponse) addResponse(response, true, ResultCodeConstants.ERROR_USER_NOT_EXIST, "用户不存在",
 					null);
 			return response;
 		}
 
 		if (!LoginValidators.validateEnablestatus(ucMembers)) {
 
-			response = (UcMembersLoginResponse) addResponse(response, true, ResultCodeConstants.ERROR_CODE, "账户未激活",
+			response = (UcMembersLoginResponse) addResponse(response, true, ResultCodeConstants.ERROR_ACCOUNT_NOT_ACTIVITY, "账户未激活",
 					null);
 			return response;
 		}
 
 		if (StringUtils.isBlank(ucMembers.getSalt())) {
-			response = (UcMembersLoginResponse) addResponse(response, true, ResultCodeConstants.ERROR_CODE, "帐号或密码错误",
+			response = (UcMembersLoginResponse) addResponse(response, true, ResultCodeConstants.ERROR_ACCOUNT_OR_PASSWORD_NOT_MATCH, "帐号或密码错误",
 					null);
 			return response;
 		}
