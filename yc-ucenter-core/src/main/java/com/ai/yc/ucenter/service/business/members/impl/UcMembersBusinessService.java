@@ -112,7 +112,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 			response = (UcMembersLoginResponse) addResponse(response, true, ResultCodeConstants.SUCCESS_CODE, "认证成功",
 					responseDate);
 		} else {
-			response = (UcMembersLoginResponse) addResponse(response, true, ResultCodeConstants.ERROR_CODE, "帐号或密码错误",
+			response = (UcMembersLoginResponse) addResponse(response, true, ResultCodeConstants.ERROR_ACCOUNT_OR_PASSWORD_NOT_MATCH, "帐号或密码错误",
 					null);
 
 		}
