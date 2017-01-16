@@ -81,7 +81,10 @@ public class UcMembersGetResponse extends UcBaseResponse {
 	     */  
 	    private String thirduid;
 	    
-	
+	    /**
+	     * 所属国家代码
+	     */
+	    private String domainName;
 
 		public Integer getUid() {
 			return uid;
@@ -165,12 +168,14 @@ public class UcMembersGetResponse extends UcBaseResponse {
 			this.salt = salt;
 		}
 
-	
-	  
+		public String getDomainName() {
+			return domainName;
+		}
+
+		public void setDomainName(String domainName) {
+			this.domainName = domainName;
+		}
 	    
 	}
-	
-
-
 
 }
