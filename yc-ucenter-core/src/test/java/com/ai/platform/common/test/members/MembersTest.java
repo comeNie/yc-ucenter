@@ -19,8 +19,11 @@ import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
 import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
 import com.ai.yc.ucenter.api.members.param.editusername.UcMembersEditUserNameRequest;
+import com.ai.yc.ucenter.api.members.param.get.UcMembersGetRequest;
+import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse;
+import com.ai.yc.ucenter.api.members.param.opera.UcMembersActiveRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeResponse;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterRequest;
@@ -161,6 +164,17 @@ public class MembersTest {
 		UcMembersRegisterResponse response = ucMembersSVImpl.ucRegisterMember(request);
 		System.out.println(response.getMessage() + "::" + response.getMessage() + "::" + response.getCode());
 	}
+	
+	@Test
+	public void ucActiveMember() {
+		UcMembersActiveRequest request = new UcMembersActiveRequest();
+		request.setUid(4444574);
+		request.setOperationtype("4");
+		request.setUserinfo("178070754@qq.com");
+		request.setOperationcode("865948");
+		
+	}
+	
 	// @Test
 	// public void getHB(){
 	// UcMembersEditMobileRequest request = new UcMembersEditMobileRequest();
@@ -219,5 +233,14 @@ public class MembersTest {
 		request.setUsername("lsptest22");
 		UcMembersResponse response = ucMembersSVImpl.ucEditUserName(request);
 		System.out.println(response.getCode());
+	}
+	@Test
+	public void getUsernameTest() throws Exception {
+		UcMembersGetRequest request = new UcMembersGetRequest();
+		request.setUserId("271535");
+		request.setUsername("-1");
+		request.setGetmode("-1");
+		UcMembersGetResponse responsea = ucMembersSVImpl.ucGetMember(request);
+		System.out.println(responsea.getDate().get("username"));
 	}
 }
