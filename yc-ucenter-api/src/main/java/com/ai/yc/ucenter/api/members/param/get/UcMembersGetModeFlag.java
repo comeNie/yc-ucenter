@@ -30,5 +30,16 @@ public  class UcMembersGetModeFlag {
      * 用户名 或邮箱 或手机号
      */
 	public static String  UME_FLAG="5"; 
+	
+	/**  
+     * 用户ID
+     */
+	public static String  USER_ID_FLAG="-1"; 
+	/**  
+     * mode ID
+     */
+	public static String  MODE_ID_FLAG="-1"; 
+	
+	
 
 }

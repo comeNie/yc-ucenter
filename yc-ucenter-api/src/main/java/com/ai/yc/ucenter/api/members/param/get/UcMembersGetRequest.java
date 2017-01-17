@@ -23,6 +23,7 @@ public class UcMembersGetRequest extends BaseInfo implements Cloneable{
 	@NotBlank
     private String getmode;
     
+	private String userId;
     
 	public String getUsername() {
 		return username;
@@ -36,7 +37,11 @@ public class UcMembersGetRequest extends BaseInfo implements Cloneable{
 	public void setGetmode(String getmode) {
 		this.getmode = getmode;
 	}
-  
-    
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
     
 }
