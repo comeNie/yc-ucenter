@@ -169,8 +169,6 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		Criteria criteria = example.createCriteria();
 	
 		String reqUsername = request.getUsername();
-		
-	
 		//用户id获取
 		if(UcMembersGetModeFlag.USERID_FLAG.equals(request.getGetmode())){
 			criteria.andUidEqualTo(Integer.parseInt(reqUsername));
@@ -187,8 +185,8 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		else if(UcMembersGetModeFlag.USERNAME_FLAG.equals(request.getGetmode())){
 			criteria.andUsernameEqualTo(reqUsername);
 			criteria.andEnablestatusEqualTo("1");
-		}//用户名或邮箱或手机获取
-		else if(UcMembersGetModeFlag.UME_FLAG.equals(request.getGetmode())){
+			//用户名或邮箱或手机获取
+		}else if(UcMembersGetModeFlag.UME_FLAG.equals(request.getGetmode())){
 			Criteria orUsername = example.or();
 			orUsername.andUsernameEqualTo(request.getUsername());
 			orUsername.andEnablestatusEqualTo("1");
@@ -198,9 +196,9 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 			Criteria orEmail = example.or();
 			orEmail.andEmailEqualTo(request.getUsername());
 			orEmail.andEnablestatusEqualTo("1");
+		}else if(!StringUtils.isBlank(request.getUserId())){
+			criteria.andUidEqualTo(Integer.parseInt(request.getUserId()));
 		}
-	
-
 		List<UcMembers> list = MapperFactory.getUcMembersMapper().selectByExample(example);
 	
 		return list;
