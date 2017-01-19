@@ -438,11 +438,11 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 			if (res == UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT
 					|| res == UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN) {
 				response = (UcMembersResponse) addResponse(response, true, EditMobileResultCodeConstants.FAIL_CODE,
-						"验证码错误", null);
+						"手机动态码错误", null);
 				return response;
 			} else if (res == UcMembersOperationServiceAtomImpl.RESULT_VALI_EXPIRED) {
 				response = (UcMembersResponse) addResponse(response, true, EditMobileResultCodeConstants.OVERDUE_ERROR,
-						"验证码过期，修改/绑定失败", null);
+						"手机动态码过期，修改/绑定失败", null);
 				return response;
 			} else if (res == UcMembersOperationServiceAtomImpl.RESULT_VALI_SUCCESS) {
 				UcMembers ucMembers = iUcMembersAtomService.getUcMembersbyUid(request.getUid());
