@@ -15,4 +15,5 @@ gradle-app.setting
 .settings/
 bin/
 opt-sdk.iml
+.idea
 
