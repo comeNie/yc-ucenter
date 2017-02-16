@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ai.yc.ucenter.api.members.param.base.ResponseCode;
 import com.ai.yc.ucenter.api.members.param.base.ResponseMessage;
 import com.ai.yc.ucenter.api.members.param.base.UcBaseResponse;
+import com.ai.yc.ucenter.api.ucpubilc.param.PubResponse;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcLoginMemberResp;
 import com.ai.yc.ucenter.constants.MessageConstantsEnum;
 import com.ai.yc.ucenter.util.BeanValidators;
 
@@ -55,13 +57,7 @@ public abstract class UcBaseService {
 			return list;
 	}
 
-
-	
-
-
-
-
-	protected UcBaseResponse addResponse(UcBaseResponse response,boolean isSuccess,int code,String  message,Map date){
+	protected <T> PubResponse<T> addResponse(PubResponse<T> response,boolean isSuccess,int code,String  message,T data){
 		
 		
 		ResponseMessage responseMessage = new ResponseMessage(isSuccess,(isSuccess)?MessageConstantsEnum.MESSAGE_SUCCESS.getIndex():MessageConstantsEnum.MESSAGE_FAIL.getIndex(), (isSuccess)?MessageConstantsEnum.MESSAGE_SUCCESS.getValue():MessageConstantsEnum.MESSAGE_FAIL.getValue());
@@ -69,7 +65,7 @@ public abstract class UcBaseService {
 		
 		response.setCode(responseCode);
 		response.setMessage(responseMessage);
-		response.setDate(date);
+		response.setData(data);
 		return response;
 	}
 }

@@ -13,6 +13,9 @@ import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersActiveRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeResponse;
+import com.ai.yc.ucenter.api.ucpubilc.param.PubResponse;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcGetOperationcodeResp;
 import com.ai.yc.ucenter.constants.CheckMobilResultCodeConstants;
 import com.ai.yc.ucenter.constants.EditMobileResultCodeConstants;
 import com.ai.yc.ucenter.constants.OperationtypeConstants;
@@ -24,7 +27,7 @@ import com.ai.yc.ucenter.dao.mapper.factory.MapperFactory;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
 import com.ai.yc.ucenter.service.atom.members.impl.UcMembersOperationServiceAtomImpl;
-import com.ai.yc.ucenter.service.base.UcBaseService;
+import com.ai.yc.ucpublic.service.base.UcBaseService;
 import com.ai.yc.ucpublic.service.business.members.IUcMembersOperationBusinessService;
 import com.ai.yc.ucenter.util.UCDateUtils;
 import com.ai.yc.ucenter.util.UcmembersValidators;
@@ -39,7 +42,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 	private IUcMembersAtomService iUcMembersAtomService;
 
 	@Override
-	public UcMembersGetOperationcodeResponse saveOperationcode(UcMembersGetOperationcodeRequest request) {
+	public PubResponse<UcGetOperationcodeResp> saveOperationcode(UcMembersGetOperationcodeRequest request) {
 		UcMembersGetOperationcodeResponse response = new UcMembersGetOperationcodeResponse();
 
 		List<String> listValidator = beanValidator(request);
@@ -180,7 +183,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 
 	@Override
 	@Transactional
-	public UcMembersResponse checkActiveMembe(UcMembersActiveRequest request) {
+	public PubResponse<UcActiveMemberResp> checkActiveMembe(UcMembersActiveRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
 		String operationtype = request.getOperationtype();
 

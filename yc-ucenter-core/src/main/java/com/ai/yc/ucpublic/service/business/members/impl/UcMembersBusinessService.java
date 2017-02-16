@@ -29,6 +29,17 @@ import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginResponse;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterRequest;
 import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterResponse;
+import com.ai.yc.ucenter.api.ucpubilc.param.PubResponse;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcCheckeEmailResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcCheckeMobilephoneResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcDelMemberResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcEditEmailResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcEditMobilephoneResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcEditPasswordResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcEditUserNameResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcGetMemberResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcLoginMemberResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcRegisterResp;
 import com.ai.yc.ucenter.constants.CheckEmailResultCodeConstants;
 import com.ai.yc.ucenter.constants.CheckMobilResultCodeConstants;
 import com.ai.yc.ucenter.constants.Constants;
@@ -44,7 +55,7 @@ import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
 import com.ai.yc.ucenter.service.atom.members.impl.UcMembersOperationServiceAtomImpl;
-import com.ai.yc.ucenter.service.base.UcBaseService;
+import com.ai.yc.ucpublic.service.base.UcBaseService;
 import com.ai.yc.ucpublic.service.business.members.IUcMembersBusinessService;
 import com.ai.yc.ucenter.util.LoginValidators;
 import com.ai.yc.ucenter.util.PasswordMD5Util;
@@ -66,7 +77,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	}
 
 	@Override
-	public UcMembersLoginResponse loginMember(UcMembersLoginRequest request) {
+	public PubResponse<UcLoginMemberResp> loginMember(UcMembersLoginRequest request) {
 		UcMembersLoginResponse response = new UcMembersLoginResponse();
 		List<String> listValidator = beanValidator(request);
 		if (listValidator != null && !listValidator.isEmpty()) {
@@ -123,7 +134,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	 * 用户注册
 	 */
 	@Override
-	public UcMembersRegisterResponse insertMember(UcMembersRegisterRequest request) {
+	public PubResponse<UcRegisterResp> insertMember(UcMembersRegisterRequest request) {
 		UcMembersRegisterResponse response = new UcMembersRegisterResponse();
 		List<String> listValidator = beanValidator(request);
 		if (listValidator != null && !listValidator.isEmpty()) {
@@ -224,7 +235,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	}
 
 	@Override
-	public UcMembersGetResponse getMember(UcMembersGetRequest request) {
+	public PubResponse<UcGetMemberResp> getMember(UcMembersGetRequest request) {
 		UcMembersGetResponse response = new UcMembersGetResponse();
 		List<String> listValidator = beanValidator(request);
 		if (listValidator != null && !listValidator.isEmpty()) {
@@ -263,7 +274,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	}
 
 	@Override
-	public UcMembersResponse updateMobilephone(UcMembersEditMobileRequest request) {
+	public PubResponse<UcEditMobilephoneResp> updateMobilephone(UcMembersEditMobileRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
 
 		if (request.getUid() == null) {
@@ -312,7 +323,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	}
 
 	@Override
-	public UcMembersResponse updateEmail(UcMembersEditEmailRequest request) {
+	public PubResponse<UcEditEmailResp> updateEmail(UcMembersEditEmailRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
 		if (request.getUid() == null) {
 			response = (UcMembersResponse) addResponse(response, true, EditMobileResultCodeConstants.FAIL_CODE,
@@ -378,7 +389,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	 * 修改密码
 	 */
 	@Override
-	public UcMembersResponse updatePassword(UcMembersEditPassRequest request) {
+	public PubResponse<UcEditPasswordResp> updatePassword(UcMembersEditPassRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
 		// 1、校验入参必填
 		List<String> listValidator = beanValidator(request);
@@ -472,7 +483,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	}
 
 	@Override
-	public UcMembersResponse ucCheckeEmail(UcMembersCheckEmailRequest request) {
+	public PubResponse<UcCheckeEmailResp> ucCheckeEmail(UcMembersCheckEmailRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
 		List<String> listValidator = beanValidator(request);
 		if (listValidator != null && !listValidator.isEmpty()) {
@@ -493,7 +504,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	}
 
 	@Override
-	public UcMembersResponse ucCheckeMobilephone(UcMembersCheckeMobileRequest request) {
+	public PubResponse<UcCheckeMobilephoneResp> ucCheckeMobilephone(UcMembersCheckeMobileRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
 		List<String> listValidator = beanValidator(request);
 		if (listValidator != null && !listValidator.isEmpty()) {
@@ -513,7 +524,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	}
 
 	@Override
-	public UcMembersResponse ucEditUserName(UcMembersEditUserNameRequest request) {
+	public PubResponse<UcEditUserNameResp> ucEditUserName(UcMembersEditUserNameRequest request) {
 
 		UcMembersResponse response = new UcMembersResponse();
 
@@ -554,7 +565,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	}
 
 	@Override
-	public UcMembersResponse ucDelMember(UcMembersDelRequest request) {
+	public PubResponse<UcDelMemberResp> ucDelMember(UcMembersDelRequest request) {
 		UcMembersResponse response = new UcMembersResponse();
 		if (request.getUid() == null) {
 			response = (UcMembersResponse) addResponse(response, true,

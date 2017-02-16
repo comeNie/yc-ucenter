@@ -21,6 +21,7 @@ import com.ai.yc.ucenter.api.ucpubilc.param.UcEditUserNameResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcGetMemberResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcLoginMemberResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcRegisterResp;
+import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
 
 public interface IUcMembersBusinessService {
 
@@ -40,7 +41,7 @@ public interface IUcMembersBusinessService {
 
 	PubResponse<UcCheckeMobilephoneResp> ucCheckeMobilephone(UcMembersCheckeMobileRequest request);
 
-//	UcMembers getUcMembers(UcMembersLoginRequest request);
+	UcMembers getUcMembers(UcMembersLoginRequest request);
 
 	PubResponse<UcEditUserNameResp> ucEditUserName(UcMembersEditUserNameRequest request);
 
