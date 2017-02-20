@@ -14,27 +14,11 @@ import com.ai.yc.ucenter.api.members.param.base.ResponseMessage;
 public class PubResponse<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private ResponseMessage message;
+	private String message;
 
-	private ResponseCode code;
+	private int code;
 	
 	private T data;
-
-	public ResponseMessage getMessage() {
-		return message;
-	}
-
-	public void setMessage(ResponseMessage message) {
-		this.message = message;
-	}
-
-	public ResponseCode getCode() {
-		return code;
-	}
-
-	public void setCode(ResponseCode code) {
-		this.code = code;
-	}
 
 	public T getData() {
 		return data;
@@ -42,6 +26,22 @@ public class PubResponse<T> implements Serializable {
 
 	public void setData(T data) {
 		this.data = data;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
 	}
 	
 

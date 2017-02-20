@@ -58,13 +58,8 @@ public abstract class UcBaseService {
 	}
 
 	protected <T> PubResponse<T> addResponse(PubResponse<T> response,boolean isSuccess,int code,String  message,T data){
-		
-		
-		ResponseMessage responseMessage = new ResponseMessage(isSuccess,(isSuccess)?MessageConstantsEnum.MESSAGE_SUCCESS.getIndex():MessageConstantsEnum.MESSAGE_FAIL.getIndex(), (isSuccess)?MessageConstantsEnum.MESSAGE_SUCCESS.getValue():MessageConstantsEnum.MESSAGE_FAIL.getValue());
-		ResponseCode responseCode = new ResponseCode(code, message);	
-		
-		response.setCode(responseCode);
-		response.setMessage(responseMessage);
+		response.setCode(code);
+		response.setMessage(message);
 		response.setData(data);
 		return response;
 	}

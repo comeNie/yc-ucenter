@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
-import com.ai.yc.ucenter.api.members.param.opera.UcMembersActiveRequest;
-import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.ucpubilc.interfaces.IUcPublicOperationSV;
 import com.ai.yc.ucenter.api.ucpubilc.param.PubResponse;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcGetOperationcodeResp;
 import com.ai.yc.ucpublic.service.business.members.IUcMembersOperationBusinessService;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -27,7 +27,7 @@ public class UcMembersOperationSVImpl implements IUcPublicOperationSV {
 	 * 操作码生成
 	 */
 	@Override
-	public PubResponse<UcGetOperationcodeResp> ucGetOperationcode(UcMembersGetOperationcodeRequest request)
+	public PubResponse<UcGetOperationcodeResp> ucGetOperationcode(UcGetOperationcodeRequest request)
 			throws BusinessException, SystemException {
 		// TODO Auto-generated method stub
 		return iUcMembersOperationBusinessService.saveOperationcode(request);
@@ -36,11 +36,12 @@ public class UcMembersOperationSVImpl implements IUcPublicOperationSV {
 	 * 操作码验证
 	 */
 	@Override
-	public PubResponse<UcActiveMemberResp> ucActiveMember(UcMembersActiveRequest request)
+	public PubResponse<UcActiveMemberResp> ucActiveMember(UcActiveMemberRequest request)
 			throws BusinessException, SystemException {
 		// TODO Auto-generated method stub
 		return iUcMembersOperationBusinessService.checkActiveMembe(request);
 	}
+
 
 
 

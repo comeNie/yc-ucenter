@@ -11,7 +11,9 @@ import com.ai.opt.base.exception.SystemException;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersActiveRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.PubResponse;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcGetOperationcodeResp;
 
 /**
@@ -40,7 +42,7 @@ public interface IUcPublicOperationSV {
 	 */
 	@POST
 	@Path("/ucGetOperationcode")
-	PubResponse<UcGetOperationcodeResp> ucGetOperationcode(UcMembersGetOperationcodeRequest request) throws BusinessException,SystemException;
+	PubResponse<UcGetOperationcodeResp> ucGetOperationcode(UcGetOperationcodeRequest request) throws BusinessException,SystemException;
 	/**
      * 操作码验证/激活接口
      * <p/>
@@ -55,7 +57,7 @@ public interface IUcPublicOperationSV {
 	 */
 	@POST
 	@Path("/ucActiveMember")
-	PubResponse<UcActiveMemberResp> ucActiveMember(UcMembersActiveRequest request) throws BusinessException,SystemException;
+	PubResponse<UcActiveMemberResp> ucActiveMember(UcActiveMemberRequest request) throws BusinessException,SystemException;
     
    
 }

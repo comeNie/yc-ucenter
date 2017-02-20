@@ -8,26 +8,26 @@ import javax.ws.rs.core.MediaType;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
-import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
-import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
-import com.ai.yc.ucenter.api.members.param.del.UcMembersDelRequest;
-import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
-import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
-import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
-import com.ai.yc.ucenter.api.members.param.editusername.UcMembersEditUserNameRequest;
-import com.ai.yc.ucenter.api.members.param.get.UcMembersGetRequest;
-import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
-import com.ai.yc.ucenter.api.members.param.register.UcMembersRegisterRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.PubResponse;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcCheckEmailRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcCheckeEmailResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcCheckeMobileRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcCheckeMobilephoneResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcDelMemberResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcDelRequest;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcEditEmailRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcEditEmailResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcEditMobileRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcEditMobilephoneResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcEditPassRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcEditPasswordResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcEditUserNameRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcEditUserNameResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcGetMemberRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcGetMemberResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcLoginMemberRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcLoginMemberResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcRegisterRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcRegisterResp;
 
 /**
@@ -47,7 +47,7 @@ public interface IUcPublicSV {
      * <p/>
      *   
      *
-     * @param UcMembersLoginRequest
+     * @param UcLoginRequest
      * @return UcMembersLoginResponse
      * @throws BusinessException,SystemException
      * @author houbin
@@ -57,7 +57,7 @@ public interface IUcPublicSV {
 	 */
 	@POST
 	@Path("/ucLoginMember")
-	PubResponse<UcLoginMemberResp> ucLoginMember(UcMembersLoginRequest request) throws BusinessException,SystemException;
+	PubResponse<UcLoginMemberResp> ucLoginMember(UcLoginMemberRequest request) throws BusinessException,SystemException;
 
 
 	   /**
@@ -65,7 +65,7 @@ public interface IUcPublicSV {
   * <p/>
   *
   *
-  * @param UcMembersRegisterRequest
+  * @param UcRegisterRequest
   * @return UcMembersLoginResponse
   * @throws BusinessException,SystemException
   * @author houbin
@@ -75,7 +75,7 @@ public interface IUcPublicSV {
 	 */
 	@POST
 	@Path("/ucRegisterMember")
-	PubResponse<UcRegisterResp> ucRegisterMember(UcMembersRegisterRequest request) throws BusinessException,SystemException;
+	PubResponse<UcRegisterResp> ucRegisterMember(UcRegisterRequest request) throws BusinessException,SystemException;
 	   /**
   * 获取用户信息
   * <p/>
@@ -90,7 +90,7 @@ public interface IUcPublicSV {
 	 */
 	@POST
 	@Path("/ucGetMember")
-	PubResponse<UcGetMemberResp> ucGetMember(UcMembersGetRequest request) throws BusinessException,SystemException;
+	PubResponse<UcGetMemberResp> ucGetMember(UcGetMemberRequest request) throws BusinessException,SystemException;
 	   /**
   * 修改/绑定手机
   * <p/>
@@ -105,7 +105,7 @@ public interface IUcPublicSV {
 	 */
 	@POST
 	@Path("/ucEditMobilephone")
-	PubResponse<UcEditMobilephoneResp> ucEditMobilephone(UcMembersEditMobileRequest request) throws BusinessException,SystemException;
+	PubResponse<UcEditMobilephoneResp> ucEditMobilephone(UcEditMobileRequest request) throws BusinessException,SystemException;
 	   /**
   * 修改/绑定邮箱
   * <p/>
@@ -120,22 +120,22 @@ public interface IUcPublicSV {
 	 */
 	@POST
 	@Path("/ucEditEmail")
-	PubResponse<UcEditEmailResp> ucEditEmail(UcMembersEditEmailRequest request) throws BusinessException,SystemException;
+	PubResponse<UcEditEmailResp> ucEditEmail(UcEditEmailRequest request) throws BusinessException,SystemException;
 	
-	/**
-  * 修改用户名
-  * <p/>
-  * 
-  * @param UcMembersEditUserNameRequest 
-  * @return UcMembersResponse
-  * @throws BusinessException,SystemException
-  * @ApiDocMethod
-  * @ApiCode UCPUB_0011
-  * @RestRelativeURL ucpublic/ucEditUserName
-	 */
-	@POST
-	@Path("/ucEditUserName")
-	PubResponse<UcEditUserNameResp> ucEditUserName(UcMembersEditUserNameRequest request) throws BusinessException,SystemException;
+//	/**
+//  * 修改用户名
+//  * <p/>
+//  * 
+//  * @param UcEditUserNameRequest 
+//  * @return UcMembersResponse
+//  * @throws BusinessException,SystemException
+//  * @ApiDocMethod
+//  * @ApiCode UCPUB_0011
+//  * @RestRelativeURL ucpublic/ucEditUserName
+//	 */
+//	@POST
+//	@Path("/ucEditUserName")
+//	PubResponse<UcEditUserNameResp> ucEditUserName(UcEditUserNameRequest request) throws BusinessException,SystemException;
 	
 	
 	/**
@@ -153,7 +153,7 @@ public interface IUcPublicSV {
 	 */
 	@POST
 	@Path("/ucEditPassword")
-	PubResponse<UcEditPasswordResp> ucEditPassword(UcMembersEditPassRequest request) throws BusinessException,SystemException;
+	PubResponse<UcEditPasswordResp> ucEditPassword(UcEditPassRequest request) throws BusinessException,SystemException;
 	/**
   * 检查邮箱合法性
   * <p/>
@@ -168,7 +168,7 @@ public interface IUcPublicSV {
 	 */
 	@POST
 	@Path("/ucCheckeEmail")
-	PubResponse<UcCheckeEmailResp> ucCheckeEmail(UcMembersCheckEmailRequest request) throws BusinessException,SystemException;
+	PubResponse<UcCheckeEmailResp> ucCheckeEmail(UcCheckEmailRequest request) throws BusinessException,SystemException;
 	/**
   * 检查移动电话合法性接口
   * <p/>
@@ -183,20 +183,20 @@ public interface IUcPublicSV {
 	 */
 	@POST
 	@Path("/ucCheckeMobilephone")
-	PubResponse<UcCheckeMobilephoneResp> ucCheckeMobilephone(UcMembersCheckeMobileRequest request) throws BusinessException,SystemException;
-	/**
-  * 删除用户
-  * <p/>
-  * 
-  * @param UcMembersDelRequest 
-  * @return UcMembersResponse
-  * @throws BusinessException,SystemException
-  * @ApiDocMethod
-  * @ApiCode UCPUB_0012
-  * @RestRelativeURL ucpublic/ucDelMember
-	 */
-	@POST
-	@Path("/ucDelMember")
-	PubResponse<UcDelMemberResp> ucDelMember (UcMembersDelRequest request) throws BusinessException,SystemException;
-	
+	PubResponse<UcCheckeMobilephoneResp> ucCheckeMobilephone(UcCheckeMobileRequest request) throws BusinessException,SystemException;
+//	/**
+//  * 删除用户
+//  * <p/>
+//  * 
+//  * @param UcDelRequest 
+//  * @return UcMembersResponse
+//  * @throws BusinessException,SystemException
+//  * @ApiDocMethod
+//  * @ApiCode UCPUB_0012
+//  * @RestRelativeURL ucpublic/ucDelMember
+//	 */
+//	@POST
+//	@Path("/ucDelMember")
+//	PubResponse<UcDelMemberResp> ucDelMember (UcDelRequest request) throws BusinessException,SystemException;
+//	
 }

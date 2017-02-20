@@ -17,6 +17,7 @@ public class UcRegisterResp {
      * 邮箱激活码
      */
     private String operationcode;
+    private String username;
 
 	public String getUid() {
 		return uid;
@@ -32,5 +33,13 @@ public class UcRegisterResp {
 
 	public void setOperationcode(String operationcode) {
 		this.operationcode = operationcode;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }

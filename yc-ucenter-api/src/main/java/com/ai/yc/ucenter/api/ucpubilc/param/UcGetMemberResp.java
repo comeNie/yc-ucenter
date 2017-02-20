@@ -63,7 +63,47 @@ public class UcGetMemberResp {
     /**
      * 所属国家代码
      */
-    private String domainName;
+    private String domain_name;
+    
+    private String loginway;
+    
+    private String systemsource;
+    
+    private String regip;
+    
+    private String country_code;
+
+	public String getLoginway() {
+		return loginway;
+	}
+
+	public void setLoginway(String loginway) {
+		this.loginway = loginway;
+	}
+
+	public String getSystemsource() {
+		return systemsource;
+	}
+
+	public void setSystemsource(String systemsource) {
+		this.systemsource = systemsource;
+	}
+
+	public String getRegip() {
+		return regip;
+	}
+
+	public void setRegip(String regip) {
+		this.regip = regip;
+	}
+
+	public String getCountry_code() {
+		return country_code;
+	}
+
+	public void setCountry_code(String country_code) {
+		this.country_code = country_code;
+	}
 
 	public Integer getUid() {
 		return uid;
@@ -147,11 +187,11 @@ public class UcGetMemberResp {
 		this.salt = salt;
 	}
 
-	public String getDomainName() {
-		return domainName;
+	public String getDomain_name() {
+		return domain_name;
 	}
 
-	public void setDomainName(String domainName) {
-		this.domainName = domainName;
+	public void setDomain_name(String domain_name) {
+		this.domain_name = domain_name;
 	}
 }

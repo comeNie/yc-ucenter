@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,9 @@ import com.ai.yc.ucenter.api.members.param.opera.UcMembersActiveRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeResponse;
 import com.ai.yc.ucenter.api.ucpubilc.param.PubResponse;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberResp;
+import com.ai.yc.ucenter.api.ucpubilc.param.UcGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcGetOperationcodeResp;
 import com.ai.yc.ucenter.constants.CheckMobilResultCodeConstants;
 import com.ai.yc.ucenter.constants.EditMobileResultCodeConstants;
@@ -41,13 +44,17 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 	@Autowired
 	private IUcMembersAtomService iUcMembersAtomService;
 
+	/**
+	 * 修改纪录
+	 * 入参修改domain_name，添加systemsource
+	 */
 	@Override
-	public PubResponse<UcGetOperationcodeResp> saveOperationcode(UcMembersGetOperationcodeRequest request) {
-		UcMembersGetOperationcodeResponse response = new UcMembersGetOperationcodeResponse();
+	public PubResponse<UcGetOperationcodeResp> saveOperationcode(UcGetOperationcodeRequest request) {
+		PubResponse<UcGetOperationcodeResp> response = new PubResponse<UcGetOperationcodeResp>();
 
 		List<String> listValidator = beanValidator(request);
 		if (listValidator != null && !listValidator.isEmpty()) {
-			response = (UcMembersGetOperationcodeResponse) addResponse(response, true,
+			response = addResponse(response, true,
 					CheckMobilResultCodeConstants.EXIST_ERROR, listValidator + "", null);
 			return response;
 		}
@@ -75,7 +82,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 
 			if (request.getUid() == null) {
 
-				response = (UcMembersGetOperationcodeResponse) addResponse(response, true,
+				response = addResponse(response, true,
 						CheckMobilResultCodeConstants.EXIST_ERROR, "Uid不能为空", null);
 				return response;
 			}
@@ -85,7 +92,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 		if (OperationtypeConstants.MOBILE_ACTIV.equals(operationtype)) {
 			// 首先判断手机号是否被注册的合法性，如果注册过直接返回获取失败
 			if (!UcmembersValidators.validateMobilephone(request.getUserinfo())) {
-				response = (UcMembersGetOperationcodeResponse) addResponse(response, true,
+				response = addResponse(response, true,
 						CheckMobilResultCodeConstants.EXIST_ERROR, "该手机号已被注册", null);
 				return response;
 			}
@@ -105,7 +112,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 				mobileUcmebers.setLogincount(0);
 				mobileUcmebers.setModifydate(0);
 
-				mobileUcmebers.setDomainName(request.getDomainname());
+				mobileUcmebers.setDomainName(request.getDomain_name());
 				mobileUcmebers.setCreatetime(regdate + "");
 				mobileUcmebers.setThirduid("");
 				mobileUcmebers.setUsersource("");
@@ -134,7 +141,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 		else if (OperationtypeConstants.DYN_PASS.equals(operationtype)) {
 			// 首先判断手机号是否被注册的合法性，如果注册过直接返回获取失败
 			if (!UcmembersValidators.validateMobilephone(request.getUserinfo())) {
-				response = (UcMembersGetOperationcodeResponse) addResponse(response, true,
+				response = addResponse(response, true,
 						CheckMobilResultCodeConstants.EXIST_ERROR, "该帐号已被注册", null);
 				return response;
 			}
@@ -153,7 +160,7 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 				UcMembers ucmPV = (UcMembers) list.get(0);
 				request.setUid(ucmPV.getUid());
 			} else {
-				response = (UcMembersGetOperationcodeResponse) addResponse(response, true,
+				response = addResponse(response, true,
 						CheckMobilResultCodeConstants.EXIST_ERROR, "该手机号不存在", null);
 				return response;
 			}
@@ -168,28 +175,30 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 			// }
 
 		}
-
-		String operationcode = iUcMembersOperationAtomService.saveOperationcode(request);
+		UcMembersGetOperationcodeRequest ucMembersGetOperationcodeRequest = new UcMembersGetOperationcodeRequest();
+		BeanUtils.copyProperties(ucMembersGetOperationcodeRequest, request);
+		String operationcode = iUcMembersOperationAtomService.saveOperationcode(ucMembersGetOperationcodeRequest);
 		if (StringUtils.isNotBlank(operationcode)) {
 
-			Map<Object, Object> responseDate = new HashMap<Object, Object>();
-			responseDate.put("uid", (StringUtils.isNotBlank(responseUid)) ? responseUid : request.getUid());
-			responseDate.put("operationcode", operationcode);
-			response = (UcMembersGetOperationcodeResponse) addResponse(response, true,
-					CheckMobilResultCodeConstants.SUCCESS_CODE, "成功", responseDate);
+//			Map<Object, Object> responseDate = new HashMap<Object, Object>();
+//			responseDate.put("uid", (StringUtils.isNotBlank(responseUid)) ? responseUid : request.getUid());
+//			responseDate.put("operationcode", operationcode);
+			UcGetOperationcodeResp ucGetOperationcodeResp = new UcGetOperationcodeResp();
+			response = addResponse(response, true,
+					CheckMobilResultCodeConstants.SUCCESS_CODE, "成功", ucGetOperationcodeResp);
 		}
 		return response;
 	}
 
 	@Override
 	@Transactional
-	public PubResponse<UcActiveMemberResp> checkActiveMembe(UcMembersActiveRequest request) {
-		UcMembersResponse response = new UcMembersResponse();
+	public PubResponse<UcActiveMemberResp> checkActiveMembe(UcActiveMemberRequest request) {
+		PubResponse<UcActiveMemberResp> response = new PubResponse<UcActiveMemberResp>();
 		String operationtype = request.getOperationtype();
 
 		List<String> listValidator = beanValidator(request);
 		if (listValidator != null && !listValidator.isEmpty()) {
-			response = (UcMembersResponse) addResponse(response, true, ResultCodeConstants.ERROR_CODE,
+			response = addResponse(response, true, ResultCodeConstants.ERROR_CODE,
 					listValidator + "", null);
 			return response;
 		}
@@ -200,20 +209,22 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 					"activ", request.getUserinfo());
 
 			if (result == UcMembersOperationServiceAtomImpl.RESULT_VALI_SUCCESS) {
-				int resultActive = iUcMembersOperationAtomService.updateActiveMember(request);
+				UcMembersActiveRequest ucMembersActiveRequest = new UcMembersActiveRequest();
+				BeanUtils.copyProperties(ucMembersActiveRequest, request);
+				int resultActive = iUcMembersOperationAtomService.updateActiveMember(ucMembersActiveRequest);
 				if (resultActive > 0) {
 
-					response = (UcMembersResponse) addResponse(response, true,
+					response = addResponse(response, true,
 							EditMobileResultCodeConstants.SUCCESS_CODE, "成功", null);
 					return response;
 				}
 			} else if (result == UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT
 					|| result == UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN) {
-				response = (UcMembersResponse) addResponse(response, true, EditMobileResultCodeConstants.FAIL_CODE,
+				response = addResponse(response, true, EditMobileResultCodeConstants.FAIL_CODE,
 						"激活码错误", null);
 				return response;
 			} else if (result == UcMembersOperationServiceAtomImpl.RESULT_VALI_EXPIRED) {
-				response = (UcMembersResponse) addResponse(response, true, EditMobileResultCodeConstants.OVERDUE_ERROR,
+				response = addResponse(response, true, EditMobileResultCodeConstants.OVERDUE_ERROR,
 						"验证超时，请重新发送激活码", null);
 				return response;
 			}
@@ -223,15 +234,15 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 			Integer result = processActivate(request.getUid(), request.getOperationcode(), request.getOperationtype(),
 					"vali", request.getUserinfo());
 			if (result == UcMembersOperationServiceAtomImpl.RESULT_VALI_SUCCESS) {
-				response = (UcMembersResponse) addResponse(response, true, EditMobileResultCodeConstants.SUCCESS_CODE,
+				response = addResponse(response, true, EditMobileResultCodeConstants.SUCCESS_CODE,
 						"成功", null);
 			} else if (result == UcMembersOperationServiceAtomImpl.RESULT_VALI_DIFFERENT
 					|| result == UcMembersOperationServiceAtomImpl.RESULT_VALI_NOTIN) {
-				response = (UcMembersResponse) addResponse(response, true, EditMobileResultCodeConstants.FAIL_CODE,
+				response = addResponse(response, true, EditMobileResultCodeConstants.FAIL_CODE,
 						"验证码错误", null);
 				return response;
 			} else if (result == UcMembersOperationServiceAtomImpl.RESULT_VALI_EXPIRED) {
-				response = (UcMembersResponse) addResponse(response, true, EditMobileResultCodeConstants.OVERDUE_ERROR,
+				response = addResponse(response, true, EditMobileResultCodeConstants.OVERDUE_ERROR,
 						"验证超时，请重新发送验证码", null);
 				return response;
 			}

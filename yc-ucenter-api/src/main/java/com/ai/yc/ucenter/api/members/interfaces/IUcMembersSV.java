@@ -40,7 +40,7 @@ public interface IUcMembersSV {
      * <p/>
      *   
      *
-     * @param UcMembersLoginRequest
+     * @param UcLoginRequest
      * @return UcMembersLoginResponse
      * @throws BusinessException,SystemException
      * @author mengbo
@@ -57,7 +57,7 @@ public interface IUcMembersSV {
      * <p/>
      *
      *
-     * @param UcMembersRegisterRequest
+     * @param UcRegisterRequest
      * @return UcMembersLoginResponse
      * @throws BusinessException,SystemException
      * @author mengbo
@@ -118,7 +118,7 @@ public interface IUcMembersSV {
      * 修改用户名
      * <p/>
      * 
-     * @param UcMembersEditUserNameRequest 
+     * @param UcEditUserNameRequest 
      * @return UcMembersResponse
      * @throws BusinessException,SystemException
      * @ApiDocMethod
@@ -180,7 +180,7 @@ public interface IUcMembersSV {
      * 删除用户
      * <p/>
      * 
-     * @param UcMembersDelRequest 
+     * @param UcDelRequest 
      * @return UcMembersResponse
      * @throws BusinessException,SystemException
      * @ApiDocMethod
