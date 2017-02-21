@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.ai.opt.base.vo.BaseInfo;
-import com.ai.opt.validator.constraints.MobilePhone;
 
 public class UcMembersRegisterRequest extends BaseInfo implements Cloneable{
 	
@@ -90,7 +89,7 @@ public class UcMembersRegisterRequest extends BaseInfo implements Cloneable{
     */
    private String  domainname;
    
-   
+   private String systemsource;
    
    
     public String getDomainname() {
@@ -172,5 +171,11 @@ public void setDomainname(String domainname) {
 	public Object clone() throws CloneNotSupportedException {
 		
 		return super.clone();
+	}
+	public String getSystemsource() {
+		return systemsource;
+	}
+	public void setSystemsource(String systemsource) {
+		this.systemsource = systemsource;
 	}
 }

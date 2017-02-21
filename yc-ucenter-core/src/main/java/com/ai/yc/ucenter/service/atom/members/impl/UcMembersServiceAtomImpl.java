@@ -111,7 +111,7 @@ public class UcMembersServiceAtomImpl implements IUcMembersAtomService {
 		ucMembers.setSecques("");
 		ucMembers.setMyid("");
 		ucMembers.setMyidkey("");
-		ucMembers.setSystemsource("0");
+		ucMembers.setSystemsource(request.getSystemsource());
 		ucMembers.setLogincount(0);
 		ucMembers.setLoginsystem("0");
 		// -------

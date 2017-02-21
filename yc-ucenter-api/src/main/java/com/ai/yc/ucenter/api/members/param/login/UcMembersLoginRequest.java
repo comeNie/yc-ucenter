@@ -32,6 +32,8 @@ public class UcMembersLoginRequest extends BaseInfo{
      */
 	@NotBlank(message="登录方式不能为空")
     private String loginmode;
+	
+	private String systemsource;
 
 	public String getUsername() {
 		return username;
@@ -55,6 +57,14 @@ public class UcMembersLoginRequest extends BaseInfo{
 
 	public void setLoginmode(String loginmode) {
 		this.loginmode = loginmode;
+	}
+
+	public String getSystemsource() {
+		return systemsource;
+	}
+
+	public void setSystemsource(String systemsource) {
+		this.systemsource = systemsource;
 	}
     
     

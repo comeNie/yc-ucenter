@@ -36,7 +36,10 @@ public class UcMembersGetOperationcodeRequest extends BaseInfo{
      */
     private String  domainname;
     
-    
+    /**
+     * 快速登录时，如果是新用户，会用到此参数
+     */
+    private String systemsource;
 
 	public String getDomainname() {
 		return domainname;
@@ -68,6 +71,14 @@ public class UcMembersGetOperationcodeRequest extends BaseInfo{
 
 	public void setOperationtype(String operationtype) {
 		this.operationtype = operationtype;
+	}
+
+	public String getSystemsource() {
+		return systemsource;
+	}
+
+	public void setSystemsource(String systemsource) {
+		this.systemsource = systemsource;
 	}   
     
     
