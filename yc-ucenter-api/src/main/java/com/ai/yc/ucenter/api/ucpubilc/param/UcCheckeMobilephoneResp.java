@@ -6,5 +6,13 @@ package com.ai.yc.ucenter.api.ucpubilc.param;
  * @since  
  */
 public class UcCheckeMobilephoneResp {
+	private String checkMessage;
 
+	public String getCheckMessage() {
+		return checkMessage;
+	}
+
+	public void setCheckMessage(String checkMessage) {
+		this.checkMessage = checkMessage;
+	}
 }

@@ -10,18 +10,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ai.opt.sdk.util.BeanUtils;
-import com.ai.yc.ucenter.api.members.param.UcBeanUtils;
-import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
-import com.ai.yc.ucenter.api.members.param.del.UcMembersDelRequest;
 import com.ai.yc.ucenter.api.members.param.editemail.UcMembersEditEmailRequest;
 import com.ai.yc.ucenter.api.members.param.editmobile.UcMembersEditMobileRequest;
-import com.ai.yc.ucenter.api.members.param.editpass.UcMembersEditPassRequest;
-import com.ai.yc.ucenter.api.members.param.editusername.UcMembersEditUserNameRequest;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetModeFlag;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetRequest;
-import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse;
 import com.ai.yc.ucenter.api.members.param.get.UcMembersGetResponse.UcMembersGetDate;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginModeEnum;
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
@@ -32,14 +26,12 @@ import com.ai.yc.ucenter.api.ucpubilc.param.UcCheckEmailRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcCheckeEmailResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcCheckeMobileRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcCheckeMobilephoneResp;
-import com.ai.yc.ucenter.api.ucpubilc.param.UcDelMemberResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcEditEmailRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcEditEmailResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcEditMobileRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcEditMobilephoneResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcEditPassRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcEditPasswordResp;
-import com.ai.yc.ucenter.api.ucpubilc.param.UcEditUserNameResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcGetMemberRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcGetMemberResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcLoginMemberRequest;
@@ -54,9 +46,6 @@ import com.ai.yc.ucenter.constants.EditPassResultCodeConstants;
 import com.ai.yc.ucenter.constants.OperationtypeConstants;
 import com.ai.yc.ucenter.constants.RegResultCodeConstants;
 import com.ai.yc.ucenter.constants.ResultCodeConstants;
-import com.ai.yc.ucenter.constants.eunm.DelMemberResultCodeConstantsEnum;
-import com.ai.yc.ucenter.constants.eunm.EditUsernameResultCodeConstantsEnum;
-import com.ai.yc.ucenter.constants.eunm.MessageCodeConstantsEnum;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
@@ -64,12 +53,12 @@ import com.ai.yc.ucenter.service.atom.members.impl.UcMembersOperationServiceAtom
 import com.ai.yc.ucenter.util.LoginValidators;
 import com.ai.yc.ucenter.util.PasswordMD5Util;
 import com.ai.yc.ucenter.util.UcmembersValidators;
-import com.ai.yc.ucpublic.service.base.UcBaseService;
-import com.ai.yc.ucpublic.service.business.members.IUcMembersBusinessService;
+import com.ai.yc.ucpublic.service.base.UcPubBaseService;
+import com.ai.yc.ucpublic.service.business.members.IUcPublicBusinessService;
 
 @Component
 @Transactional
-public class UcMembersBusinessService extends UcBaseService implements IUcMembersBusinessService {
+public class UcPublicBusinessService extends UcPubBaseService implements IUcPublicBusinessService {
 
 	@Autowired
 	private IUcMembersAtomService iUcMembersAtomService;
@@ -524,10 +513,12 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	@Override
 	public PubResponse<UcCheckeEmailResp> ucCheckeEmail(UcCheckEmailRequest request) {
 		PubResponse<UcCheckeEmailResp> response = new PubResponse<UcCheckeEmailResp>();
+		UcCheckeEmailResp ucCheckeEmailResp = new UcCheckeEmailResp();
 		List<String> listValidator = beanValidator(request);
 		if (listValidator != null && !listValidator.isEmpty()) {
+			ucCheckeEmailResp.setCheckMessage(listValidator + "");
 			response = addResponse(response, true, CheckEmailResultCodeConstants.FORMAT_ERROR,
-					listValidator + "", null);
+					listValidator + "", ucCheckeEmailResp);
 			return response;
 		}
 
@@ -535,11 +526,13 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 		BeanUtils.copyProperties(UcMembersCheckEmailRequest, request);
 		int resultCount = iUcMembersAtomService.checkEmail(UcMembersCheckEmailRequest);
 		if (resultCount > 0) {
+			ucCheckeEmailResp.setCheckMessage("该邮箱已被注册");
 			response = addResponse(response, true, CheckEmailResultCodeConstants.EXIST_ERROR,
-					"该邮箱已被注册", null);
+					"该邮箱已被注册", ucCheckeEmailResp);
 		} else {
+			ucCheckeEmailResp.setCheckMessage("成功");
 			response = addResponse(response, true, CheckEmailResultCodeConstants.SUCCESS_CODE, "成功",
-					null);
+					ucCheckeEmailResp);
 		}
 		return response;
 	}
@@ -551,8 +544,10 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	@Override
 	public PubResponse<UcCheckeMobilephoneResp> ucCheckeMobilephone(UcCheckeMobileRequest request) {
 		PubResponse<UcCheckeMobilephoneResp> response = new PubResponse<UcCheckeMobilephoneResp>();
+		UcCheckeMobilephoneResp ucCheckeMobilephoneResp = new UcCheckeMobilephoneResp();
 		List<String> listValidator = beanValidator(request);
 		if (listValidator != null && !listValidator.isEmpty()) {
+			ucCheckeMobilephoneResp.setCheckMessage(listValidator + "");
 			response = addResponse(response, true, CheckMobilResultCodeConstants.FORMAT_ERROR,
 					listValidator + "", null);
 			return response;
@@ -561,9 +556,11 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 		BeanUtils.copyProperties(ucMembersCheckeMobileRequest, request);
 		int resultCount = iUcMembersAtomService.checkMobilephone(ucMembersCheckeMobileRequest);
 		if (resultCount > 0) {
+			ucCheckeMobilephoneResp.setCheckMessage("该手机号码已被注册");
 			response = addResponse(response, true, CheckMobilResultCodeConstants.EXIST_ERROR,
 					"该手机号码已被注册", null);
 		} else {
+			ucCheckeMobilephoneResp.setCheckMessage("成功");
 			response = addResponse(response, true, CheckMobilResultCodeConstants.SUCCESS_CODE, "成功",
 					null);
 		}

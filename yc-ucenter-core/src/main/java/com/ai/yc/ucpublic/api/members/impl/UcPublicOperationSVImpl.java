@@ -1,7 +1,5 @@
 package com.ai.yc.ucpublic.api.members.impl;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,14 +11,14 @@ import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcGetOperationcodeResp;
-import com.ai.yc.ucpublic.service.business.members.IUcMembersOperationBusinessService;
+import com.ai.yc.ucpublic.service.business.members.IUcPublicOperationBusinessService;
 import com.alibaba.dubbo.config.annotation.Service;
 
 @Service
 @Component
-public class UcMembersOperationSVImpl implements IUcPublicOperationSV {
+public class UcPublicOperationSVImpl implements IUcPublicOperationSV {
 	@Autowired
-	private IUcMembersOperationBusinessService iUcMembersOperationBusinessService;
+	private IUcPublicOperationBusinessService iUcMembersOperationBusinessService;
 
 
 	/**

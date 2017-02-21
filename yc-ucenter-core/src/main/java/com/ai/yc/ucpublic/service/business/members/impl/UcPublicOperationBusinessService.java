@@ -1,19 +1,15 @@
 package com.ai.yc.ucpublic.service.business.members.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
+import com.ai.opt.sdk.util.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersActiveRequest;
 import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeRequest;
-import com.ai.yc.ucenter.api.members.param.opera.UcMembersGetOperationcodeResponse;
 import com.ai.yc.ucenter.api.ucpubilc.param.PubResponse;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberResp;
@@ -30,14 +26,14 @@ import com.ai.yc.ucenter.dao.mapper.factory.MapperFactory;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
 import com.ai.yc.ucenter.service.atom.members.impl.UcMembersOperationServiceAtomImpl;
-import com.ai.yc.ucpublic.service.base.UcBaseService;
-import com.ai.yc.ucpublic.service.business.members.IUcMembersOperationBusinessService;
+import com.ai.yc.ucpublic.service.base.UcPubBaseService;
+import com.ai.yc.ucpublic.service.business.members.IUcPublicOperationBusinessService;
 import com.ai.yc.ucenter.util.UCDateUtils;
 import com.ai.yc.ucenter.util.UcmembersValidators;
 
 @Component
 @Transactional
-public class UcMembersOperationBusinessService extends UcBaseService implements IUcMembersOperationBusinessService {
+public class UcPublicOperationBusinessService extends UcPubBaseService implements IUcPublicOperationBusinessService {
 	@Autowired
 	private IUcMembersOperationAtomService iUcMembersOperationAtomService;
 
@@ -177,13 +173,12 @@ public class UcMembersOperationBusinessService extends UcBaseService implements 
 		}
 		UcMembersGetOperationcodeRequest ucMembersGetOperationcodeRequest = new UcMembersGetOperationcodeRequest();
 		BeanUtils.copyProperties(ucMembersGetOperationcodeRequest, request);
+		ucMembersGetOperationcodeRequest.setDomainname(request.getDomain_name());
 		String operationcode = iUcMembersOperationAtomService.saveOperationcode(ucMembersGetOperationcodeRequest);
 		if (StringUtils.isNotBlank(operationcode)) {
-
-//			Map<Object, Object> responseDate = new HashMap<Object, Object>();
-//			responseDate.put("uid", (StringUtils.isNotBlank(responseUid)) ? responseUid : request.getUid());
-//			responseDate.put("operationcode", operationcode);
 			UcGetOperationcodeResp ucGetOperationcodeResp = new UcGetOperationcodeResp();
+			ucGetOperationcodeResp.setOperationcode(operationcode);
+			ucGetOperationcodeResp.setUid(StringUtils.isNotBlank(responseUid) ? Integer.valueOf(responseUid) : request.getUid());
 			response = addResponse(response, true,
 					CheckMobilResultCodeConstants.SUCCESS_CODE, "成功", ucGetOperationcodeResp);
 		}

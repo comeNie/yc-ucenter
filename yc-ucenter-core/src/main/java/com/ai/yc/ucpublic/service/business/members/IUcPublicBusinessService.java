@@ -24,7 +24,7 @@ import com.ai.yc.ucenter.api.ucpubilc.param.UcRegisterRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcRegisterResp;
 import com.ai.yc.ucenter.dao.mapper.bo.UcMembers;
 
-public interface IUcMembersBusinessService {
+public interface IUcPublicBusinessService {
 
 	PubResponse<UcLoginMemberResp> loginMember(UcLoginMemberRequest request);
 

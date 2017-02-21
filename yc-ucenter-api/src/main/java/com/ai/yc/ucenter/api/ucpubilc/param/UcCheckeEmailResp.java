@@ -7,4 +7,13 @@ package com.ai.yc.ucenter.api.ucpubilc.param;
  */
 public class UcCheckeEmailResp {
 
+	private String checkMessage;
+
+	public String getCheckMessage() {
+		return checkMessage;
+	}
+
+	public void setCheckMessage(String checkMessage) {
+		this.checkMessage = checkMessage;
+	}
 }

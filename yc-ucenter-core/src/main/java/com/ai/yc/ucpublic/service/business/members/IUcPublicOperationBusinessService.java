@@ -6,7 +6,7 @@ import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcGetOperationcodeResp;
 
-public interface IUcMembersOperationBusinessService {
+public interface IUcPublicOperationBusinessService {
 	
 
 	PubResponse<UcGetOperationcodeResp> saveOperationcode(UcGetOperationcodeRequest request);

@@ -102,5 +102,5 @@
     </tx:advice>
 
     <context:component-scan base-package="com.ai.yc.ucenter"/>
-
+	<context:component-scan base-package="com.ai.yc.ucpublic"/>
 </beans>

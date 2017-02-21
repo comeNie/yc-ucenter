@@ -1,7 +1,6 @@
 package com.ai.yc.ucpublic.service.base;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
@@ -10,17 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ai.yc.ucenter.api.members.param.base.ResponseCode;
-import com.ai.yc.ucenter.api.members.param.base.ResponseMessage;
-import com.ai.yc.ucenter.api.members.param.base.UcBaseResponse;
 import com.ai.yc.ucenter.api.ucpubilc.param.PubResponse;
-import com.ai.yc.ucenter.api.ucpubilc.param.UcLoginMemberResp;
-import com.ai.yc.ucenter.constants.MessageConstantsEnum;
 import com.ai.yc.ucenter.util.BeanValidators;
 
 
 
-public abstract class UcBaseService {
+public abstract class UcPubBaseService {
 	
 	/**
 	 * 日志对象
