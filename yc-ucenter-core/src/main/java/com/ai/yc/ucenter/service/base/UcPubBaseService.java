@@ -1,4 +1,4 @@
-package com.ai.yc.ucpublic.service.base;
+package com.ai.yc.ucenter.service.base;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.ai.yc.ucpublic.api.members.impl;
+package com.ai.yc.ucenter.api.ucpublic.impl;
 
 
 
@@ -25,7 +25,7 @@ import com.ai.yc.ucenter.api.ucpubilc.param.UcLoginMemberRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcLoginMemberResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcRegisterRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcRegisterResp;
-import com.ai.yc.ucpublic.service.business.members.IUcPublicBusinessService;
+import com.ai.yc.ucenter.service.business.members.IUcPublicBusinessService;
 import com.alibaba.dubbo.config.annotation.Service;
 
 @Service

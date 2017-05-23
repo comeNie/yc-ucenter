@@ -68,6 +68,7 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 	@Override
 	public UcMembersLoginResponse loginMember(UcMembersLoginRequest request) {
 		UcMembersLoginResponse response = new UcMembersLoginResponse();
+		//验证入参
 		List<String> listValidator = beanValidator(request);
 		if (listValidator != null && !listValidator.isEmpty()) {
 			response = (UcMembersLoginResponse) addResponse(response, true, ResultCodeConstants.ERROR_CODE,
@@ -77,21 +78,21 @@ public class UcMembersBusinessService extends UcBaseService implements IUcMember
 
 		UcMembers ucMembers = getUcMembers(request);
 		if (ucMembers == null) {
-			response = (UcMembersLoginResponse) addResponse(response, true, ResultCodeConstants.ERROR_USER_NOT_EXIST, "用户不存在",
-					null);
+			response = (UcMembersLoginResponse) addResponse(response, true,
+					ResultCodeConstants.USER_NON_EXIST, "用户不存在",null);
 			return response;
 		}
 
 		if (!LoginValidators.validateEnablestatus(ucMembers)) {
 
-			response = (UcMembersLoginResponse) addResponse(response, true, ResultCodeConstants.ERROR_ACCOUNT_NOT_ACTIVITY, "账户未激活",
-					null);
+			response = (UcMembersLoginResponse) addResponse(response, true,
+					ResultCodeConstants.ERROR_ACCOUNT_NOT_ACTIVITY, "账户未激活",null);
 			return response;
 		}
 
 		if (StringUtils.isBlank(ucMembers.getSalt())) {
-			response = (UcMembersLoginResponse) addResponse(response, true, ResultCodeConstants.ERROR_ACCOUNT_OR_PASSWORD_NOT_MATCH, "帐号或密码错误",
-					null);
+			response = (UcMembersLoginResponse) addResponse(response, true,
+					ResultCodeConstants.ACCOUNT_OR_PASSWD_ERROR, "帐号或密码错误",null);
 			return response;
 		}
 

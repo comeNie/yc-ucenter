@@ -1,4 +1,4 @@
-package com.ai.yc.ucpublic.service.business.members.impl;
+package com.ai.yc.ucenter.service.business.members.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,8 +53,8 @@ import com.ai.yc.ucenter.service.atom.members.impl.UcMembersOperationServiceAtom
 import com.ai.yc.ucenter.util.LoginValidators;
 import com.ai.yc.ucenter.util.PasswordMD5Util;
 import com.ai.yc.ucenter.util.UcmembersValidators;
-import com.ai.yc.ucpublic.service.base.UcPubBaseService;
-import com.ai.yc.ucpublic.service.business.members.IUcPublicBusinessService;
+import com.ai.yc.ucenter.service.base.UcPubBaseService;
+import com.ai.yc.ucenter.service.business.members.IUcPublicBusinessService;
 
 @Component
 @Transactional
