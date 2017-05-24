@@ -29,8 +29,8 @@ import com.ai.yc.ucenter.api.ucpubilc.param.UcRegisterRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcRegisterResp;
 import com.ai.yc.ucenter.util.PasswordMD5Util.Md5Utils;
 import com.ai.yc.ucenter.util.UCDateUtils;
-import com.ai.yc.ucpublic.api.members.impl.UcPublicOperationSVImpl;
-import com.ai.yc.ucpublic.api.members.impl.UcPublicSVImpl;
+import com.ai.yc.ucenter.api.ucpublic.impl.UcPublicOperationSVImpl;
+import com.ai.yc.ucenter.api.ucpublic.impl.UcPublicSVImpl;
 import com.alibaba.fastjson.JSON;
 
 @RunWith(SpringJUnit4ClassRunner.class)

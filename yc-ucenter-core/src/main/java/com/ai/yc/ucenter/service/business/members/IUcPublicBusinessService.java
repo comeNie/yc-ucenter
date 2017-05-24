@@ -1,4 +1,4 @@
-package com.ai.yc.ucpublic.service.business.members;
+package com.ai.yc.ucenter.service.business.members;
 
 import com.ai.yc.ucenter.api.members.param.login.UcMembersLoginRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.PubResponse;

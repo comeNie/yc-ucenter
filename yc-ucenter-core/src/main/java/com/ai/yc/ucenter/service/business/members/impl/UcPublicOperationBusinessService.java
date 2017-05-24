@@ -1,4 +1,4 @@
-package com.ai.yc.ucpublic.service.business.members.impl;
+package com.ai.yc.ucenter.service.business.members.impl;
 
 import java.util.List;
 
@@ -26,8 +26,8 @@ import com.ai.yc.ucenter.dao.mapper.factory.MapperFactory;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersAtomService;
 import com.ai.yc.ucenter.service.atom.members.IUcMembersOperationAtomService;
 import com.ai.yc.ucenter.service.atom.members.impl.UcMembersOperationServiceAtomImpl;
-import com.ai.yc.ucpublic.service.base.UcPubBaseService;
-import com.ai.yc.ucpublic.service.business.members.IUcPublicOperationBusinessService;
+import com.ai.yc.ucenter.service.base.UcPubBaseService;
+import com.ai.yc.ucenter.service.business.members.IUcPublicOperationBusinessService;
 import com.ai.yc.ucenter.util.UCDateUtils;
 import com.ai.yc.ucenter.util.UcmembersValidators;
 

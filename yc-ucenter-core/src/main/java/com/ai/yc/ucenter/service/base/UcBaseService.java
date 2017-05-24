@@ -23,7 +23,7 @@ public abstract class UcBaseService {
 	/**
 	 * 日志对象
 	 */
-	protected Logger logger = LoggerFactory.getLogger(getClass());
+	protected static final Logger LOGGER = LoggerFactory.getLogger(UcBaseService.class);
 	
 	/**
 	 * 验证Bean实例对象
@@ -40,33 +40,22 @@ public abstract class UcBaseService {
 	protected List<String> beanValidator(Object object, Class<?>... groups) {
 		List<String> list = null;
 		try{
-			
 			BeanValidators.validateWithException(validator, object, groups);
 		}catch(ConstraintViolationException ex){
+			LOGGER.error("有效性验证出现异常",ex);
 			list = BeanValidators.extractPropertyAndMessageAsList(ex, ": ");
-			if(list.size()>1){
+			if(list != null && list.size()>1){
 				list.remove(1);
 			}
-				
 			list.add(0, "数据验证失败：");
-		
-			return list;
 		}
-			return list;
+		return list;
 	}
 
 
-	
-
-
-
-
 	protected UcBaseResponse addResponse(UcBaseResponse response,boolean isSuccess,int code,String  message,Map date){
-		
-		
 		ResponseMessage responseMessage = new ResponseMessage(isSuccess,(isSuccess)?MessageConstantsEnum.MESSAGE_SUCCESS.getIndex():MessageConstantsEnum.MESSAGE_FAIL.getIndex(), (isSuccess)?MessageConstantsEnum.MESSAGE_SUCCESS.getValue():MessageConstantsEnum.MESSAGE_FAIL.getValue());
 		ResponseCode responseCode = new ResponseCode(code, message);	
-		
 		response.setCode(responseCode);
 		response.setMessage(responseMessage);
 		response.setDate(date);

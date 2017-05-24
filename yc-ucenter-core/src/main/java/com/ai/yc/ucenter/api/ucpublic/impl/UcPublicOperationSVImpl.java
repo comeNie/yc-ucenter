@@ -1,4 +1,4 @@
-package com.ai.yc.ucpublic.api.members.impl;
+package com.ai.yc.ucenter.api.ucpublic.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcActiveMemberResp;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcGetOperationcodeRequest;
 import com.ai.yc.ucenter.api.ucpubilc.param.UcGetOperationcodeResp;
-import com.ai.yc.ucpublic.service.business.members.IUcPublicOperationBusinessService;
+import com.ai.yc.ucenter.service.business.members.IUcPublicOperationBusinessService;
 import com.alibaba.dubbo.config.annotation.Service;
 
 @Service
