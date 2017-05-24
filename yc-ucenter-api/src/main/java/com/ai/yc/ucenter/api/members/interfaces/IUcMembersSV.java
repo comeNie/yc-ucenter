@@ -8,6 +8,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
+import com.ai.opt.base.vo.BaseListResponse;
+import com.ai.yc.ucenter.api.members.param.UcDataResponseInfo;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
@@ -191,6 +193,19 @@ public interface IUcMembersSV {
 	@Path("/ucDelMember")
 	UcMembersResponse ucDelMember (UcMembersDelRequest request) throws BusinessException,SystemException;
 	
+	/**
+     * 查询所有用户
+     * <p/>
+     * 
+     * @return UcMembersResponse
+     * @throws BusinessException,SystemException
+     * @ApiDocMethod
+     * @ApiCode UC_0012
+     * @RestRelativeURL ucmembers/queryAllUserName
+	 */
+	@POST
+	@Path("/queryAllUserName")
+	public BaseListResponse<UcDataResponseInfo> queryAllUserName () throws BusinessException,SystemException;
 	
    
 }

@@ -2,12 +2,17 @@ package com.ai.yc.ucenter.api.members.impl;
 
 
 
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.exception.SystemException;
+import com.ai.opt.base.vo.BaseListResponse;
 import com.ai.yc.ucenter.api.members.interfaces.IUcMembersSV;
+import com.ai.yc.ucenter.api.members.param.UcDataResponseInfo;
 import com.ai.yc.ucenter.api.members.param.UcMembersResponse;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckEmailRequest;
 import com.ai.yc.ucenter.api.members.param.checke.UcMembersCheckeMobileRequest;
@@ -95,6 +100,14 @@ public class UcMembersSVImpl implements IUcMembersSV {
 	public UcMembersResponse ucDelMember(UcMembersDelRequest request) throws BusinessException, SystemException {
 		// TODO Auto-generated method stub
 		return iUcMembersBusinessService.ucDelMember(request);
+	}
+
+	@Override
+	@POST
+	@Path("/queryAllUserName")
+	public BaseListResponse<UcDataResponseInfo> queryAllUserName()	throws BusinessException, SystemException {
+		
+		return null;
 	}
 
 
