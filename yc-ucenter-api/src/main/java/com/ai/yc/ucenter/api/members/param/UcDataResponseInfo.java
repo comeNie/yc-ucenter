@@ -1,13 +1,21 @@
 package com.ai.yc.ucenter.api.members.param;
 
 public class UcDataResponseInfo {
-
+	/**
+	 * 用户Id
+	 */
 	private String uid;
-	
+	/**
+	 * 用户名
+	 */
 	private String username;
-	
+	/**
+	 * 手机号
+	 */
 	private String mobilephone;
-	
+	/**
+	 * 邮箱
+	 */
 	private String email;
 
 	public String getUid() {

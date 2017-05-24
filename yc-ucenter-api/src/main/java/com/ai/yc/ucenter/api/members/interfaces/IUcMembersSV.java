@@ -207,5 +207,4 @@ public interface IUcMembersSV {
 	@Path("/queryAllUserName")
 	public BaseListResponse<UcDataResponseInfo> queryAllUserName () throws BusinessException,SystemException;
 	
-   
 }

@@ -106,7 +106,6 @@ public class UcMembersSVImpl implements IUcMembersSV {
 	@POST
 	@Path("/queryAllUserName")
 	public BaseListResponse<UcDataResponseInfo> queryAllUserName()	throws BusinessException, SystemException {
-		
 		return null;
 	}
 
